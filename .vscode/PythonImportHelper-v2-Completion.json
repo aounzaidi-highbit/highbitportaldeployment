@@ -1,0 +1,907 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "get_asgi_application",
+        "importPath": "django.core.asgi",
+        "description": "django.core.asgi",
+        "isExtraImport": true,
+        "detail": "django.core.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "include",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "get_wsgi_application",
+        "importPath": "django.core.wsgi",
+        "description": "django.core.wsgi",
+        "isExtraImport": true,
+        "detail": "django.core.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "django.db.models.deletion",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "gettext_lazy",
+        "importPath": "django.utils.translation",
+        "description": "django.utils.translation",
+        "isExtraImport": true,
+        "detail": "django.utils.translation",
+        "documentation": {}
+    },
+    {
+        "label": "gettext_lazy",
+        "importPath": "django.utils.translation",
+        "description": "django.utils.translation",
+        "isExtraImport": true,
+        "detail": "django.utils.translation",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_AUTO_FIELD",
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "isExtraImport": true,
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "django.contrib.auth.models",
+        "description": "django.contrib.auth.models",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "django.contrib.auth.models",
+        "description": "django.contrib.auth.models",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.models",
+        "documentation": {}
+    },
+    {
+        "label": "post_save",
+        "importPath": "django.db.models.signals",
+        "description": "django.db.models.signals",
+        "isExtraImport": true,
+        "detail": "django.db.models.signals",
+        "documentation": {}
+    },
+    {
+        "label": "post_delete",
+        "importPath": "django.db.models.signals",
+        "description": "django.db.models.signals",
+        "isExtraImport": true,
+        "detail": "django.db.models.signals",
+        "documentation": {}
+    },
+    {
+        "label": "receiver",
+        "importPath": "django.dispatch",
+        "description": "django.dispatch",
+        "isExtraImport": true,
+        "detail": "django.dispatch",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "authenticate",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "Employee",
+        "importPath": "website.models",
+        "description": "website.models",
+        "isExtraImport": true,
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "Teams",
+        "importPath": "website.models",
+        "description": "website.models",
+        "isExtraImport": true,
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "csv",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "csv",
+        "description": "csv",
+        "detail": "csv",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "django.contrib.auth.decorators",
+        "description": "django.contrib.auth.decorators",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "mysql.connector",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "mysql.connector",
+        "description": "mysql.connector",
+        "detail": "mysql.connector",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "core.asgi",
+        "description": "core.asgi",
+        "peekOfCode": "application = get_asgi_application()",
+        "detail": "core.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_DIR",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\nimport os\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = \"django-insecure-&fq5c$jrr466qq)r7xg@*s3%mabq4%q%_0e*$wrdxd-fw852t#\"\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "SECRET_KEY = \"django-insecure-&fq5c$jrr466qq)r7xg@*s3%mabq4%q%_0e*$wrdxd-fw852t#\"\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ALLOWED_HOSTS",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",\n    \"website\",",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "INSTALLED_APPS",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "INSTALLED_APPS = [\n    \"django.contrib.admin\",\n    \"django.contrib.auth\",\n    \"django.contrib.contenttypes\",\n    \"django.contrib.sessions\",\n    \"django.contrib.messages\",\n    \"django.contrib.staticfiles\",\n    \"website\",\n]\nMIDDLEWARE = [",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MIDDLEWARE",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "MIDDLEWARE = [\n    \"django.middleware.security.SecurityMiddleware\",\n    \"django.contrib.sessions.middleware.SessionMiddleware\",\n    \"django.middleware.common.CommonMiddleware\",\n    \"django.middleware.csrf.CsrfViewMiddleware\",\n    \"django.contrib.auth.middleware.AuthenticationMiddleware\",\n    \"django.contrib.messages.middleware.MessageMiddleware\",\n    \"django.middleware.clickjacking.XFrameOptionsMiddleware\",\n]\nROOT_URLCONF = \"core.urls\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ROOT_URLCONF",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "ROOT_URLCONF = \"core.urls\"\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Adjust this path as needed\n        'APP_DIRS': True,\n        \"OPTIONS\": {\n            \"context_processors\": [\n                \"django.template.context_processors.debug\",\n                \"django.template.context_processors.request\",",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TEMPLATES",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Adjust this path as needed\n        'APP_DIRS': True,\n        \"OPTIONS\": {\n            \"context_processors\": [\n                \"django.template.context_processors.debug\",\n                \"django.template.context_processors.request\",\n                \"django.contrib.auth.context_processors.auth\",",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "WSGI_APPLICATION",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "WSGI_APPLICATION = \"core.wsgi.application\"\n# Database\n# https://docs.djangoproject.com/en/5.0/ref/settings/#databases\nDATABASES = {\n    \"default\": {\n        \"ENGINE\": \"django.db.backends.mysql\",\n        \"NAME\": 'highbitreviewportal',\n        \"USER\": 'root',\n        \"PASSWORD\":'123456789',\n        \"HOST\":'localhost',",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASES",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "DATABASES = {\n    \"default\": {\n        \"ENGINE\": \"django.db.backends.mysql\",\n        \"NAME\": 'highbitreviewportal',\n        \"USER\": 'root',\n        \"PASSWORD\":'123456789',\n        \"HOST\":'localhost',\n        'PORT':'3306',\n    }\n}",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH_PASSWORD_VALIDATORS",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "AUTH_PASSWORD_VALIDATORS = [\n    {\n        \"NAME\": \"django.contrib.auth.password_validation.UserAttributeSimilarityValidator\",\n    },\n    {\n        \"NAME\": \"django.contrib.auth.password_validation.MinimumLengthValidator\",\n    },\n    {\n        \"NAME\": \"django.contrib.auth.password_validation.CommonPasswordValidator\",\n    },",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "LANGUAGE_CODE",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "LANGUAGE_CODE = \"en-us\"\nTIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TIME_ZONE",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "TIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_I18N",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_TZ",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_URL",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "STATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_AUTO_FIELD",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "core.urls",
+        "description": "core.urls",
+        "peekOfCode": "urlpatterns = [\n    path(\"admin/\", admin.site.urls),\n    path(\"\",include('website.urls'))\n]",
+        "detail": "core.urls",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "core.wsgi",
+        "description": "core.wsgi",
+        "peekOfCode": "application = get_wsgi_application()",
+        "detail": "core.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0001_initial",
+        "description": "website.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = []\n    operations = [\n        migrations.CreateModel(\n            name=\"EvaluationFormModel\",\n            fields=[\n                (\n                    \"id\",\n                    models.BigAutoField(",
+        "detail": "website.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0002_evaluationformmodel_employee",
+        "description": "website.migrations.0002_evaluationformmodel_employee",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0001_initial\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"evaluationformmodel\",\n            name=\"employee\",\n            field=models.ForeignKey(\n                default=5,",
+        "detail": "website.migrations.0002_evaluationformmodel_employee",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0003_evaluationformmodel_evaluated_by",
+        "description": "website.migrations.0003_evaluationformmodel_evaluated_by",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0002_evaluationformmodel_employee\"),\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"evaluationformmodel\",\n            name=\"evaluated_by\",\n            field=models.ForeignKey(",
+        "detail": "website.migrations.0003_evaluationformmodel_evaluated_by",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0004_alter_employee_options_and_more",
+        "description": "website.migrations.0004_alter_employee_options_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0003_evaluationformmodel_evaluated_by\"),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name=\"employee\",\n            options={\"verbose_name\": \"Employee\", \"verbose_name_plural\": \"Employees\"},\n        ),\n        migrations.AlterModelOptions(",
+        "detail": "website.migrations.0004_alter_employee_options_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0005_employee_highbit_experience_and_more",
+        "description": "website.migrations.0005_employee_highbit_experience_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0004_alter_employee_options_and_more\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"employee\",\n            name=\"highbit_experience\",\n            field=models.CharField(blank=True, max_length=255),\n        ),",
+        "detail": "website.migrations.0005_employee_highbit_experience_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0006_evaluationformmodel__weighted_average",
+        "description": "website.migrations.0006_evaluationformmodel__weighted_average",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0005_employee_highbit_experience_and_more\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"evaluationformmodel\",\n            name=\"_weighted_average\",\n            field=models.FloatField(blank=True, null=True),\n        ),",
+        "detail": "website.migrations.0006_evaluationformmodel__weighted_average",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0007_evaluationformmodel_evaluation_for_and_more",
+        "description": "website.migrations.0007_evaluationformmodel_evaluation_for_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0006_evaluationformmodel__weighted_average\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"evaluationformmodel\",\n            name=\"evaluation_for\",\n            field=models.CharField(\n                choices=[",
+        "detail": "website.migrations.0007_evaluationformmodel_evaluation_for_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0008_alter_evaluationformmodel_evaluation_date",
+        "description": "website.migrations.0008_alter_evaluationformmodel_evaluation_date",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0007_evaluationformmodel_evaluation_for_and_more\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"evaluationformmodel\",\n            name=\"evaluation_date\",\n            field=models.DateField(default=datetime.date.today, editable=False),\n        ),",
+        "detail": "website.migrations.0008_alter_evaluationformmodel_evaluation_date",
+        "documentation": {}
+    },
+    {
+        "label": "EmployeeAdminForm",
+        "kind": 6,
+        "importPath": "website.admin",
+        "description": "website.admin",
+        "peekOfCode": "class EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    form = EmployeeAdminForm\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\"]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):",
+        "detail": "website.admin",
+        "documentation": {}
+    },
+    {
+        "label": "EmployeeInformation",
+        "kind": 6,
+        "importPath": "website.admin",
+        "description": "website.admin",
+        "peekOfCode": "class EmployeeInformation(admin.ModelAdmin):\n    form = EmployeeAdminForm\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\"]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):\n        if db_field.name == \"team_lead\":\n            kwargs[\"queryset\"] = Employee.objects.filter(is_team_lead=True)\n        return super().formfield_for_foreignkey(db_field, request, **kwargs)\nclass EvaluationFormModelAdmin(admin.ModelAdmin):",
+        "detail": "website.admin",
+        "documentation": {}
+    },
+    {
+        "label": "EvaluationFormModelAdmin",
+        "kind": 6,
+        "importPath": "website.admin",
+        "description": "website.admin",
+        "peekOfCode": "class EvaluationFormModelAdmin(admin.ModelAdmin):\n    list_display = [\n        \"employee_id\",\n        \"employee\",\n        \"employee_email\",\n        \"evaluated_by\",\n        \"evaluation_for\",\n        \"evaluation_date\",\n        \"get_weighted_average\",\n    ]",
+        "detail": "website.admin",
+        "documentation": {}
+    },
+    {
+        "label": "admin.site.site_title",
+        "kind": 5,
+        "importPath": "website.admin",
+        "description": "website.admin",
+        "peekOfCode": "admin.site.site_title = \"Highbit HR Admin Panel\"\nadmin.site.site_header = \"HR Admin Panel\"\nclass EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    form = EmployeeAdminForm\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]",
+        "detail": "website.admin",
+        "documentation": {}
+    },
+    {
+        "label": "admin.site.site_header",
+        "kind": 5,
+        "importPath": "website.admin",
+        "description": "website.admin",
+        "peekOfCode": "admin.site.site_header = \"HR Admin Panel\"\nclass EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    form = EmployeeAdminForm\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\"]",
+        "detail": "website.admin",
+        "documentation": {}
+    },
+    {
+        "label": "WebsiteConfig",
+        "kind": 6,
+        "importPath": "website.apps",
+        "description": "website.apps",
+        "peekOfCode": "class WebsiteConfig(AppConfig):\n    default_auto_field = \"django.db.models.BigAutoField\"\n    name = \"website\"",
+        "detail": "website.apps",
+        "documentation": {}
+    },
+    {
+        "label": "EvaluationForm",
+        "kind": 6,
+        "importPath": "website.forms",
+        "description": "website.forms",
+        "peekOfCode": "class EvaluationForm(forms.ModelForm):\n    tl_marks = forms.FloatField(min_value=0, max_value=10, label=\"Team Lead Marks out of 10\")\n    hr_marks = forms.FloatField(\n        max_value=10, min_value=0, required=False, label=\"HR Marks out of 10\"\n    )\n    evaluation_for = forms.ChoiceField(choices=MONTH_CHOICES, label=\"Evaluation For\")\n    class Meta:\n        model = EvaluationFormModel\n        fields = [\"tl_marks\", \"hr_marks\", \"evaluation_for\", \"feedback\"]\nclass FileUploadForm(forms.Form):",
+        "detail": "website.forms",
+        "documentation": {}
+    },
+    {
+        "label": "FileUploadForm",
+        "kind": 6,
+        "importPath": "website.forms",
+        "description": "website.forms",
+        "peekOfCode": "class FileUploadForm(forms.Form):\n    file = forms.FileField(label=\"Select a CSV file\")",
+        "detail": "website.forms",
+        "documentation": {}
+    },
+    {
+        "label": "MONTH_CHOICES",
+        "kind": 5,
+        "importPath": "website.forms",
+        "description": "website.forms",
+        "peekOfCode": "MONTH_CHOICES = (\n    (\"January\", _(\"January\")),\n    (\"February\", _(\"February\")),\n    (\"March\", _(\"March\")),\n    (\"April\", _(\"April\")),\n    (\"May\", _(\"May\")),\n    (\"June\", _(\"June\")),\n    (\"July\", _(\"July\")),\n    (\"August\", _(\"August\")),\n    (\"September\", _(\"September\")),",
+        "detail": "website.forms",
+        "documentation": {}
+    },
+    {
+        "label": "Teams",
+        "kind": 6,
+        "importPath": "website.models",
+        "description": "website.models",
+        "peekOfCode": "class Teams(models.Model):\n    team_name = models.CharField(max_length=255)\n    def __str__(self):\n        return self.team_name\n    class Meta:\n        verbose_name = \"Team\"\n        verbose_name_plural = \"Teams\"\nclass Employee(models.Model):\n    username = models.CharField(max_length=40, blank=True)\n    password = models.CharField(max_length=40, blank=True)",
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "Employee",
+        "kind": 6,
+        "importPath": "website.models",
+        "description": "website.models",
+        "peekOfCode": "class Employee(models.Model):\n    username = models.CharField(max_length=40, blank=True)\n    password = models.CharField(max_length=40, blank=True)\n    employee_id = models.CharField(primary_key=True, max_length=20, default=\"HB-\")\n    employee_name = models.CharField(max_length=255)\n    employee_email = models.EmailField()\n    previous_experience = models.CharField(max_length=255, blank=True)\n    highbit_experience = models.CharField(max_length=255, blank=True)\n    team = models.ForeignKey(\n        Teams, on_delete=models.CASCADE, related_name=\"members\", blank=True, null=True",
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "EvaluationFormModel",
+        "kind": 6,
+        "importPath": "website.models",
+        "description": "website.models",
+        "peekOfCode": "class EvaluationFormModel(models.Model):\n    tl_marks = models.FloatField()\n    hr_marks = models.FloatField(null=True)\n    feedback = models.TextField()\n    evaluation_date = models.DateField(default=date.today,editable=False)\n    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)\n    evaluated_by = models.ForeignKey(\n        User, on_delete=models.SET_NULL, null=True, blank=True\n    )\n    _weighted_average = models.FloatField(null=True, blank=True)",
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_weighted_average",
+        "kind": 2,
+        "importPath": "website.models",
+        "description": "website.models",
+        "peekOfCode": "def calculate_weighted_average(sender, instance, created, **kwargs):\n    if not created:\n        tl_weight = 0.85\n        hr_weight = 0.15\n        old_weighted_avg = (\n            instance._weighted_average\n            if instance._weighted_average is not None\n            else 0.0\n        )\n        new_tl_marks = instance.tl_marks * 20 / 10",
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "MONTH_CHOICES",
+        "kind": 5,
+        "importPath": "website.models",
+        "description": "website.models",
+        "peekOfCode": "MONTH_CHOICES = (\n    (\"January\", _(\"January\")),\n    (\"February\", _(\"February\")),\n    (\"March\", _(\"March\")),\n    (\"April\", _(\"April\")),\n    (\"May\", _(\"May\")),\n    (\"June\", _(\"June\")),\n    (\"July\", _(\"July\")),\n    (\"August\", _(\"August\")),\n    (\"September\", _(\"September\")),",
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "website.urls",
+        "description": "website.urls",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home, name=\"home\"),\n    path(\"dashboard\", views.dashboard, name=\"dashboard\"),\n    path(\"/logout\", views.logout_user, name=\"logout\"),\n    path(\"evaluation\", views.evaluation_view, name=\"evaluation\"),\n    path('upload/', views.upload_file, name='upload_file'),\n]",
+        "detail": "website.urls",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def home(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = authenticate(request, username=email, password=password)\n        if user is not None:\n            login(request, user)\n            messages.success(request, \"You have been logged in\")\n            return redirect(\"dashboard\")\n        else:",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def dashboard(request):\n    try:\n        logged_in_user = request.user\n        emp = Employee.objects.get(employee_email=logged_in_user)\n        emps = Employee.objects.filter(team_lead=emp).all()\n        return render(\n            request, \"team_lead_dashboard.html\", {\"team_lead\": emp, \"employees\": emps}\n        )\n    except:\n        return HttpResponse(\"You are not authenticated to view this page.\")",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "logout_user",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def logout_user(request):\n    logout(request)\n    messages.success(request, \"You have beeen logged out\")\n    return redirect(\"home\")\n@login_required\ndef evaluation_view(request):\n    employee_id = request.GET.get(\"employee_id\")\n    form_submitted = False\n    if request.method == \"POST\" and employee_id:\n        form = EvaluationForm(request.POST)",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "evaluation_view",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def evaluation_view(request):\n    employee_id = request.GET.get(\"employee_id\")\n    form_submitted = False\n    if request.method == \"POST\" and employee_id:\n        form = EvaluationForm(request.POST)\n        if form.is_valid():\n            employee = get_object_or_404(Employee, employee_id=employee_id)\n            evaluation = form.save(commit=False)\n            evaluation.employee = employee\n            evaluation.evaluated_by = request.user",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "upload_file",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def upload_file(request):\n    if request.method == \"POST\":\n        form = FileUploadForm(request.POST, request.FILES)\n        if form.is_valid():\n            csv_file = request.FILES[\"file\"]\n            handle_uploaded_file(csv_file)\n            return render(request, \"upload_success.html\")\n    else:\n        form = FileUploadForm()\n    context = {\"form\": form}",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "handle_uploaded_file",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def handle_uploaded_file(csv_file):\n    reader = csv.DictReader(csv_file.read().decode(\"utf-8\").splitlines())\n    for row in reader:\n        team_name = row[\"team\"]\n        team_lead_name = row[\"team_lead\"]\n        team_instance, _ = Teams.objects.get_or_create(team_name=team_name)\n        is_team_lead = row.get(\"is_team_lead\", \"\").lower() == \"true\"\n        team_lead_instance = None\n        if team_lead_name:\n            team_lead_instance, _ = Employee.objects.get_or_create(",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "manage",
+        "description": "manage",
+        "peekOfCode": "def main():\n    \"\"\"Run administrative tasks.\"\"\"\n    os.environ.setdefault(\"DJANGO_SETTINGS_MODULE\", \"core.settings\")\n    try:\n        from django.core.management import execute_from_command_line\n    except ImportError as exc:\n        raise ImportError(\n            \"Couldn't import Django. Are you sure it's installed and \"\n            \"available on your PYTHONPATH environment variable? Did you \"\n            \"forget to activate a virtual environment?\"",
+        "detail": "manage",
+        "documentation": {}
+    }
+]

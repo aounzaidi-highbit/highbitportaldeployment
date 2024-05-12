@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload CSV File</title>
+</head>
+<body>
+    <h2>Upload CSV File</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="file" name="csv_file" accept=".csv">
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

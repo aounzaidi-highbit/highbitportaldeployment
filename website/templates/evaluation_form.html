@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post">
+    {% if user.is_authenticated %}
+        <h3 style="margin-bottom: 20px;">
+            Evaluation form for {{ employee.employee_name }} ({{ employee.employee_id }}) 
+        </h3>
+        <h3 style="margin-bottom: 20px;">Previous Experience: {{ employee.previous_experience }}</h3>
+        <h3 style="margin-bottom: 20px;">Highbit Experience: {{ employee.highbit_experience }}</h3>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
+        {% comment %} {% if form_submitted %}
+            <input class="btn btn-primary" type="submit" value="Edit">
+        {% else %} {% endcomment %}
+            <input class="btn btn-primary" type="submit" value="Submit">
+        {% comment %} {% endif %} {% endcomment %}
+    {% endif %}
+</form>
+{% endblock %}
