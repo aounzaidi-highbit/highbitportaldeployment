@@ -7,29 +7,28 @@
       align-items: center;
     }
 
-    .employee-item:nth-child(even) {
-      background-color: rgba(128, 128, 128, 0.1); /* Greyish transparent background */
-    }
-
-    .employee-details {
-      flex: 1;
-    }
 
     .submit-button {
-      margin-left: 10px; /* Add space between employee details and button */
+      margin-left: 10px; /
     }
   </style>
+  <head>
+    <link rel="stylesheet" href="static/css/dashboard.css">
+  </head>
+  
+  <title>{% block title %}Dashboard | {% endblock title %}</title>
   <body>
     {% if user.is_authenticated %}
-      <h1>Welcome, {{ team_lead.employee_name }}</h1>
-      <h2 style="margin-bottom: 20px;">Your Team</h2>
+    
+      <h1 class="welcome_text">Welcome, <span class="team_lead_name">{{ team_lead.employee_name }}</span> </h1>
+      <h2 style="margin-bottom: 20px;" class="font your_team_text">The team that is working under your direct supervision and guidance.</h2>
       <ul>
         {% for employee in employees %}
           <div class="employee-item">
-            <div class="employee-details">
-              <li style="margin-bottom: 10px; font-size: 20px;">{{ employee.employee_name }} ({{ employee.employee_id }})</li>
-              <li style="list-style: none;">Role: {{employee.role}}</li>
-              <li style="margin-bottom: 10px; list-style: none;">Team: {{employee.team}}</li>
+            <div class="employee-details ">
+              <li style="margin-bottom: 10px; font-size: 20px;" class="font employee_name">{{ employee.employee_name }} <span class="employee_id">({{ employee.employee_id }})</span> </li>
+              <li style="margin-bottom: 10px; list-style: none;" class="font team_name_and_role"> Team: {{employee.team}} <span class="role">Role: {{employee.role}}</span></li>
+        
             </div>
             <div class="submit-button">
               <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
@@ -37,7 +36,7 @@
                 <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
                 <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
 
-                <input class="btn btn-primary" type="submit" value="Submit Evaluation" />
+                <input class="btn submit" type="submit" value="Submit Evaluation" />
               </form>
             </div>
           </div>
