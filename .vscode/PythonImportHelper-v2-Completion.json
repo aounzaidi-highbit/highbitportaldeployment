@@ -210,126 +210,6 @@
         "documentation": {}
     },
     {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -356,46 +236,6 @@
     },
     {
         "label": "date",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "date",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
@@ -571,22 +411,6 @@
         "documentation": {}
     },
     {
-        "label": "EvaluationFormModel",
-        "importPath": "website.models",
-        "description": "website.models",
-        "isExtraImport": true,
-        "detail": "website.models",
-        "documentation": {}
-    },
-    {
-        "label": "AdminFeautures",
-        "importPath": "website.models",
-        "description": "website.models",
-        "isExtraImport": true,
-        "detail": "website.models",
-        "documentation": {}
-    },
-    {
         "label": "csv",
         "kind": 6,
         "isExtraImport": true,
@@ -752,7 +576,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "TIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATIC_DIRS=[",
+        "peekOfCode": "TIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -761,7 +585,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATIC_DIRS=[\n    BASE_DIR,\"static\"",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -770,7 +594,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATIC_DIRS=[\n    BASE_DIR,\"static\"\n]",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -779,7 +603,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "STATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATIC_DIRS=[\n    BASE_DIR,\"static\"\n]",
+        "peekOfCode": "STATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -788,7 +612,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATIC_DIRS=[\n    BASE_DIR,\"static\"\n]",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -883,92 +707,11 @@
         "documentation": {}
     },
     {
-        "label": "Migration",
-        "kind": 6,
-        "importPath": "website.migrations.0009_employee_joining_date",
-        "description": "website.migrations.0009_employee_joining_date",
-        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0008_alter_evaluationformmodel_evaluation_date\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"employee\",\n            name=\"joining_date\",\n            field=models.DateField(null=True),\n        ),",
-        "detail": "website.migrations.0009_employee_joining_date",
-        "documentation": {}
-    },
-    {
-        "label": "Migration",
-        "kind": 6,
-        "importPath": "website.migrations.0010_alter_evaluationformmodel_evaluation_for_and_more",
-        "description": "website.migrations.0010_alter_evaluationformmodel_evaluation_for_and_more",
-        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0009_employee_joining_date\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"evaluationformmodel\",\n            name=\"evaluation_for\",\n            field=models.CharField(max_length=255),\n        ),",
-        "detail": "website.migrations.0010_alter_evaluationformmodel_evaluation_for_and_more",
-        "documentation": {}
-    },
-    {
-        "label": "Migration",
-        "kind": 6,
-        "importPath": "website.migrations.0011_adminfeautures_alter_evaluationformmodel_hr_marks",
-        "description": "website.migrations.0011_adminfeautures_alter_evaluationformmodel_hr_marks",
-        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0010_alter_evaluationformmodel_evaluation_for_and_more\"),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name=\"AdminFeautures\",\n            fields=[\n                (\n                    \"id\",",
-        "detail": "website.migrations.0011_adminfeautures_alter_evaluationformmodel_hr_marks",
-        "documentation": {}
-    },
-    {
-        "label": "Migration",
-        "kind": 6,
-        "importPath": "website.migrations.0012_alter_adminfeautures_form_enabling_date",
-        "description": "website.migrations.0012_alter_adminfeautures_form_enabling_date",
-        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0011_adminfeautures_alter_evaluationformmodel_hr_marks\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"adminfeautures\",\n            name=\"form_enabling_date\",\n            field=models.IntegerField(),\n        ),",
-        "detail": "website.migrations.0012_alter_adminfeautures_form_enabling_date",
-        "documentation": {}
-    },
-    {
-        "label": "Migration",
-        "kind": 6,
-        "importPath": "website.migrations.0013_evaluationformmodel_time_stamp",
-        "description": "website.migrations.0013_evaluationformmodel_time_stamp",
-        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0012_alter_adminfeautures_form_enabling_date\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"evaluationformmodel\",\n            name=\"time_stamp\",\n            field=models.TimeField(auto_now=True),\n        ),",
-        "detail": "website.migrations.0013_evaluationformmodel_time_stamp",
-        "documentation": {}
-    },
-    {
-        "label": "Migration",
-        "kind": 6,
-        "importPath": "website.migrations.0014_alter_evaluationformmodel_evaluation_for",
-        "description": "website.migrations.0014_alter_evaluationformmodel_evaluation_for",
-        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0013_evaluationformmodel_time_stamp\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"evaluationformmodel\",\n            name=\"evaluation_for\",\n            field=models.CharField(blank=True, max_length=255, null=True),\n        ),",
-        "detail": "website.migrations.0014_alter_evaluationformmodel_evaluation_for",
-        "documentation": {}
-    },
-    {
-        "label": "Migration",
-        "kind": 6,
-        "importPath": "website.migrations.0015_evaluationformmodel_previous_month_and_more",
-        "description": "website.migrations.0015_evaluationformmodel_previous_month_and_more",
-        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0014_alter_evaluationformmodel_evaluation_for\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"evaluationformmodel\",\n            name=\"previous_month\",\n            field=models.CharField(blank=True, editable=False, max_length=20),\n        ),",
-        "detail": "website.migrations.0015_evaluationformmodel_previous_month_and_more",
-        "documentation": {}
-    },
-    {
-        "label": "Migration",
-        "kind": 6,
-        "importPath": "website.migrations.0016_remove_employee_highbit_experience",
-        "description": "website.migrations.0016_remove_employee_highbit_experience",
-        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0015_evaluationformmodel_previous_month_and_more\"),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name=\"employee\",\n            name=\"highbit_experience\",\n        ),\n    ]",
-        "detail": "website.migrations.0016_remove_employee_highbit_experience",
-        "documentation": {}
-    },
-    {
-        "label": "IsTeamLeadFilter",
-        "kind": 6,
-        "importPath": "website.admin",
-        "description": "website.admin",
-        "peekOfCode": "class IsTeamLeadFilter(admin.SimpleListFilter):\n    title = \"Team Lead\"\n    parameter_name = \"team_lead\"\n    def lookups(self, request, model_admin):\n        team_lead_names = Employee.objects.filter(is_team_lead=True).values_list(\n            \"employee_name\", flat=True\n        )\n        return [(name, name) for name in team_lead_names]\n    def queryset(self, request, queryset1):\n        if self.value():",
-        "detail": "website.admin",
-        "documentation": {}
-    },
-    {
         "label": "EmployeeAdminForm",
         "kind": 6,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "class EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):\n        if db_field.name == \"team_lead\":",
+        "peekOfCode": "class EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    form = EmployeeAdminForm\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\"]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -977,7 +720,7 @@
         "kind": 6,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "class EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):\n        if db_field.name == \"team_lead\":\n            kwargs[\"queryset\"] = Employee.objects.filter(is_team_lead=True)\n        return super().formfield_for_foreignkey(db_field, request, **kwargs)\nclass EvaluationFormModelAdmin(admin.ModelAdmin):\n    list_display = [",
+        "peekOfCode": "class EmployeeInformation(admin.ModelAdmin):\n    form = EmployeeAdminForm\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\"]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):\n        if db_field.name == \"team_lead\":\n            kwargs[\"queryset\"] = Employee.objects.filter(is_team_lead=True)\n        return super().formfield_for_foreignkey(db_field, request, **kwargs)\nclass EvaluationFormModelAdmin(admin.ModelAdmin):",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -995,7 +738,7 @@
         "kind": 5,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "admin.site.site_title = \"Highbit HR Admin Panel\"\nadmin.site.site_header = \"HR Admin Panel\"\nclass IsTeamLeadFilter(admin.SimpleListFilter):\n    title = \"Team Lead\"\n    parameter_name = \"team_lead\"\n    def lookups(self, request, model_admin):\n        team_lead_names = Employee.objects.filter(is_team_lead=True).values_list(\n            \"employee_name\", flat=True\n        )\n        return [(name, name) for name in team_lead_names]",
+        "peekOfCode": "admin.site.site_title = \"Highbit HR Admin Panel\"\nadmin.site.site_header = \"HR Admin Panel\"\nclass EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    form = EmployeeAdminForm\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1004,7 +747,7 @@
         "kind": 5,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "admin.site.site_header = \"HR Admin Panel\"\nclass IsTeamLeadFilter(admin.SimpleListFilter):\n    title = \"Team Lead\"\n    parameter_name = \"team_lead\"\n    def lookups(self, request, model_admin):\n        team_lead_names = Employee.objects.filter(is_team_lead=True).values_list(\n            \"employee_name\", flat=True\n        )\n        return [(name, name) for name in team_lead_names]\n    def queryset(self, request, queryset1):",
+        "peekOfCode": "admin.site.site_header = \"HR Admin Panel\"\nclass EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    form = EmployeeAdminForm\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\"]",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1022,7 +765,7 @@
         "kind": 6,
         "importPath": "website.forms",
         "description": "website.forms",
-        "peekOfCode": "class EvaluationForm(forms.ModelForm):\n    tl_marks = forms.FloatField(min_value=0, max_value=10, label=\"Team Lead Marks out of 10\")\n    class Meta:\n        model = EvaluationFormModel\n        fields = [\"tl_marks\", \"feedback\"]\n        exclude = ['hr_marks',\"time_stamp\",\"evaluation_for\"]\nclass FileUploadForm(forms.Form):\n    file = forms.FileField(label=\"Select a CSV file\")",
+        "peekOfCode": "class EvaluationForm(forms.ModelForm):\n    tl_marks = forms.FloatField(min_value=0, max_value=10, label=\"Team Lead Marks out of 10\")\n    hr_marks = forms.FloatField(\n        max_value=10, min_value=0, required=False, label=\"HR Marks out of 10\"\n    )\n    evaluation_for = forms.ChoiceField(choices=MONTH_CHOICES, label=\"Evaluation For\")\n    class Meta:\n        model = EvaluationFormModel\n        fields = [\"tl_marks\", \"hr_marks\", \"evaluation_for\", \"feedback\"]\nclass FileUploadForm(forms.Form):",
         "detail": "website.forms",
         "documentation": {}
     },
@@ -1032,6 +775,15 @@
         "importPath": "website.forms",
         "description": "website.forms",
         "peekOfCode": "class FileUploadForm(forms.Form):\n    file = forms.FileField(label=\"Select a CSV file\")",
+        "detail": "website.forms",
+        "documentation": {}
+    },
+    {
+        "label": "MONTH_CHOICES",
+        "kind": 5,
+        "importPath": "website.forms",
+        "description": "website.forms",
+        "peekOfCode": "MONTH_CHOICES = (\n    (\"January\", _(\"January\")),\n    (\"February\", _(\"February\")),\n    (\"March\", _(\"March\")),\n    (\"April\", _(\"April\")),\n    (\"May\", _(\"May\")),\n    (\"June\", _(\"June\")),\n    (\"July\", _(\"July\")),\n    (\"August\", _(\"August\")),\n    (\"September\", _(\"September\")),",
         "detail": "website.forms",
         "documentation": {}
     },
@@ -1049,7 +801,7 @@
         "kind": 6,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "class Employee(models.Model):\n    username = models.CharField(max_length=40, blank=True)\n    password = models.CharField(max_length=40, blank=True)\n    employee_id = models.CharField(primary_key=True, max_length=20, default=\"HB-\")\n    employee_name = models.CharField(max_length=255)\n    employee_email = models.EmailField()\n    previous_experience = models.CharField(max_length=255, blank=True)\n    joining_date = models.DateField(null=True, editable=True)\n    team = models.ForeignKey(\n        Teams, on_delete=models.CASCADE, related_name=\"members\", blank=True, null=True",
+        "peekOfCode": "class Employee(models.Model):\n    username = models.CharField(max_length=40, blank=True)\n    password = models.CharField(max_length=40, blank=True)\n    employee_id = models.CharField(primary_key=True, max_length=20, default=\"HB-\")\n    employee_name = models.CharField(max_length=255)\n    employee_email = models.EmailField()\n    previous_experience = models.CharField(max_length=255, blank=True)\n    highbit_experience = models.CharField(max_length=255, blank=True)\n    team = models.ForeignKey(\n        Teams, on_delete=models.CASCADE, related_name=\"members\", blank=True, null=True",
         "detail": "website.models",
         "documentation": {}
     },
@@ -1058,16 +810,7 @@
         "kind": 6,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "class EvaluationFormModel(models.Model):\n    tl_marks = models.FloatField()\n    hr_marks = models.FloatField(\n        null=True,\n    )\n    feedback = models.TextField()\n    evaluation_date = models.DateField(default=date.today, editable=False)\n    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)\n    evaluated_by = models.ForeignKey(\n        User, on_delete=models.SET_NULL, null=True, blank=True",
-        "detail": "website.models",
-        "documentation": {}
-    },
-    {
-        "label": "AdminFeautures",
-        "kind": 6,
-        "importPath": "website.models",
-        "description": "website.models",
-        "peekOfCode": "class AdminFeautures(models.Model):\n    form_enabling_date = models.IntegerField()\n    def __str__(self):\n        return \"Form Disabling Date\"",
+        "peekOfCode": "class EvaluationFormModel(models.Model):\n    tl_marks = models.FloatField()\n    hr_marks = models.FloatField(null=True)\n    feedback = models.TextField()\n    evaluation_date = models.DateField(default=date.today,editable=False)\n    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)\n    evaluated_by = models.ForeignKey(\n        User, on_delete=models.SET_NULL, null=True, blank=True\n    )\n    _weighted_average = models.FloatField(null=True, blank=True)",
         "detail": "website.models",
         "documentation": {}
     },
@@ -1076,7 +819,16 @@
         "kind": 2,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "def calculate_weighted_average(sender, instance, created, **kwargs):\n    if not created:\n        tl_weight = 0.85\n        hr_weight = 0.15\n        old_weighted_avg = (\n            instance._weighted_average\n            if instance._weighted_average is not None\n            else 0.0\n        )\n        if instance.tl_marks is not None:",
+        "peekOfCode": "def calculate_weighted_average(sender, instance, created, **kwargs):\n    if not created:\n        tl_weight = 0.85\n        hr_weight = 0.15\n        old_weighted_avg = (\n            instance._weighted_average\n            if instance._weighted_average is not None\n            else 0.0\n        )\n        new_tl_marks = instance.tl_marks * 20 / 10",
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "MONTH_CHOICES",
+        "kind": 5,
+        "importPath": "website.models",
+        "description": "website.models",
+        "peekOfCode": "MONTH_CHOICES = (\n    (\"January\", _(\"January\")),\n    (\"February\", _(\"February\")),\n    (\"March\", _(\"March\")),\n    (\"April\", _(\"April\")),\n    (\"May\", _(\"May\")),\n    (\"June\", _(\"June\")),\n    (\"July\", _(\"July\")),\n    (\"August\", _(\"August\")),\n    (\"September\", _(\"September\")),",
         "detail": "website.models",
         "documentation": {}
     },
@@ -1085,7 +837,7 @@
         "kind": 5,
         "importPath": "website.urls",
         "description": "website.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home, name=\"home\"),\n    path(\"dashboard\", views.dashboard, name=\"dashboard\"),\n    path(\"logout\", views.logout_user, name=\"logout\"),\n    path(\"evaluation\", views.evaluation_view, name=\"evaluation\"),\n    path('upload/', views.upload_file, name='upload_file'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home, name=\"home\"),\n    path(\"dashboard\", views.dashboard, name=\"dashboard\"),\n    path(\"/logout\", views.logout_user, name=\"logout\"),\n    path(\"evaluation\", views.evaluation_view, name=\"evaluation\"),\n    path('upload/', views.upload_file, name='upload_file'),\n]",
         "detail": "website.urls",
         "documentation": {}
     },
@@ -1112,7 +864,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def logout_user(request):\n    logout(request)\n    return redirect(\"home\")\n@login_required\ndef evaluation_view(request):\n    employee_id = request.GET.get(\"employee_id\")\n    form_submitted = False\n    disable_form = False\n    is_editing = False\n    form_enabling_date = AdminFeautures.objects.first()",
+        "peekOfCode": "def logout_user(request):\n    logout(request)\n    messages.success(request, \"You have beeen logged out\")\n    return redirect(\"home\")\n@login_required\ndef evaluation_view(request):\n    employee_id = request.GET.get(\"employee_id\")\n    form_submitted = False\n    if request.method == \"POST\" and employee_id:\n        form = EvaluationForm(request.POST)",
         "detail": "website.views",
         "documentation": {}
     },
@@ -1121,7 +873,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def evaluation_view(request):\n    employee_id = request.GET.get(\"employee_id\")\n    form_submitted = False\n    disable_form = False\n    is_editing = False\n    form_enabling_date = AdminFeautures.objects.first()\n    print(\"Received employee_id:\", employee_id)  \n    if request.method == \"POST\" and employee_id:\n        employee = get_object_or_404(Employee, employee_id=employee_id)\n        evaluation_instances = EvaluationFormModel.objects.filter(",
+        "peekOfCode": "def evaluation_view(request):\n    employee_id = request.GET.get(\"employee_id\")\n    form_submitted = False\n    if request.method == \"POST\" and employee_id:\n        form = EvaluationForm(request.POST)\n        if form.is_valid():\n            employee = get_object_or_404(Employee, employee_id=employee_id)\n            evaluation = form.save(commit=False)\n            evaluation.employee = employee\n            evaluation.evaluated_by = request.user",
         "detail": "website.views",
         "documentation": {}
     },

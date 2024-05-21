@@ -1,42 +1,20 @@
 {% extends "base.html" %}
-
 {% block content %}
-<head>
-    <link rel="stylesheet" href="static/css/evaluation.css">
-</head>
-<title>{% block title %}Evaluation Form | {% endblock title %}</title>
-    {% if disable_form %}
-        <div class="alert alert-danger" role="alert">
-            The form is no longer availabe for evaluation. If you have not evaluated contact HR.
-        </div>
-    {% else %}
-        <form method="post">
-            {% if user.is_authenticated %}
-            <h4 class="font evaluation_form_details" style="margin-bottom: 20px;">
-                <span class="evaluation_form">Evaluation Form</span> for {{ employee.employee_name }} ({{ employee.employee_id }}) 
-            </h4>
-            <h4 class="font evaluation_for ">For Month: <span class="evaluation_for_month">{{evaluation_for}}</span></h4>
-            <div class="experience-container">
-                <div class="experience-item">
-                    <h3 class="font">Previous Experience</h3>
-                    <span class="font experience-count">{{ employee.previous_experience }}</span>
-                </div>
-                <div class="experience-item">
-                    <h3 class="font">Highbit Experience</h3>
-                    <span class="font experience-count">{{ hb_exp }} </span>
-                </div>
-            </div>
-
-            {% csrf_token %}
-            <h4 class="font form-feilds">Team Lead Marks out of 10:</h4>
-                {{ form.tl_marks }}
-                <h4 class="font form-feilds">Feedback:</h4>
-                {{ form.feedback }}
-                <br>
-                <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
-                <input class="btn submit" type="submit" value="Submit"> 
-          
-        {% endif %}
-        </form>
+<form method="post">
+    {% if user.is_authenticated %}
+        <h3 style="margin-bottom: 20px;">
+            Evaluation form for {{ employee.employee_name }} ({{ employee.employee_id }}) 
+        </h3>
+        <h3 style="margin-bottom: 20px;">Previous Experience: {{ employee.previous_experience }}</h3>
+        <h3 style="margin-bottom: 20px;">Highbit Experience: {{ employee.highbit_experience }}</h3>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
+        {% comment %} {% if form_submitted %}
+            <input class="btn btn-primary" type="submit" value="Edit">
+        {% else %} {% endcomment %}
+            <input class="btn btn-primary" type="submit" value="Submit">
+        {% comment %} {% endif %} {% endcomment %}
     {% endif %}
+</form>
 {% endblock %}

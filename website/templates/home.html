@@ -1,29 +1,28 @@
 {% extends "base.html" %}
-{% block content %}
-<head>
-  <link rel="stylesheet" href="static/css/login.css">
-</head>
-<div class="d-flex justify-content-center align-items-center padding ">
-    <div class="col-md-6">
-        {% if user.is_authenticated %}
-        {% else %}
-        <div class="logo_div">
-        <img class="logo" src="static/images/logo.png" alt="">
+{% block content  %}
+<div class="col-md-6 offset-md-3">
+{% if user.is_authenticated %}
+  
+{% else %}
+
+<h1>Login</h1>
+<br>
+<form method="POST" action='{% url "home" %}'>
+    {% csrf_token %}
+    <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" class="form-control" name="email" placeholder="Email" required>
+        <br>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Password" required >
         </div>
-        <h1 class="text-center login"><span style="color: #24A9E1; font-weight: 900;">Login</span> Your Account</h1>
-        <form method="POST" action='{% url "home" %}'>
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label email_pass">Email address</label>
-                <input type="email" class="form-control" name="email" placeholder="Email" required>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label email_pass">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" required>
-            </div>
-            <button type="submit" class="btn w-100 login_button" >Login</button>
-        </form>
-        {% endif %}
-    </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+
+</form>
 </div>
-{% endblock %}
+{% endif %}
+{% endblock  %}
