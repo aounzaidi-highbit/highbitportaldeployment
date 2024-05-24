@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Review for Month {{evaluation_for}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .highlight {
+            color: #24A9E1;
+            font-weight: bold;
+        }
+        .note {
+            font-style: italic;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p>Hi <span class="highlight">{{ employee_name }}</span>,</p>
+    <p>Your performance review was conducted by your line manager <span class="highlight">{{ team_lead_name }}</span> and details mentioned below:</p>
+    <p><span class="highlight">{{ evaluation_for }} Ratings:</span></p>
+    <p>HR Marks: <span class="highlight">{{ hr_marks }}/10</span></p>
+    <p>Team Lead Marks: <span class="highlight">{{ tl_marks }}/10</span></p>
+    <p>Performance Rating: <span class="highlight">{{ weightage }}/10</span></p>
+    <p><span class="highlight">Feedback:</span></p>
+    <p>{{ feedback }}</p>
+    <br>
+    <p class="note">This is an automated email. Please do not reply.</p>
+    <p>Thanks</p>
+</body>
+</html>
