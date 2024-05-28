@@ -23,10 +23,9 @@ import os
 SECRET_KEY = "django-insecure-&fq5c$jrr466qq)r7xg@*s3%mabq4%q%_0e*$wrdxd-fw852t#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['highbitportal.pythonanywhere.com']
 
 
 # Application definition
@@ -79,12 +78,11 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": 'highbitreviewportal',
-        "USER": 'root',
-        "PASSWORD":'123456789',
-        "HOST":'localhost',
-        'PORT':'3306',
-        
+        "NAME": 'highbitportal$default',
+        "USER": 'highbitportal',
+        "PASSWORD":'v@nperse123',
+        "HOST":'highbitportal.mysql.pythonanywhere-services.com',
+
     }
 }
 
@@ -122,10 +120,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
+STATIC_ROOT='/home/highbitportal/highbitportaldeployment/static'
 STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'nimra@highbitsol.com'
+EMAIL_HOST_PASSWORD = 'icws kmmm qwlt tgva'

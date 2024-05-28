@@ -119,8 +119,8 @@ def calculate_weighted_average(sender, instance, created, **kwargs):
             if instance._weighted_average is not None
             else 0.0
         )
-        new_tl_marks = instance.tl_marks * 20 / 10
-        new_hr_marks = instance.hr_marks * 20 / 10
+        new_tl_marks = instance.tl_marks * 10 / 10
+        new_hr_marks = instance.hr_marks * 10 / 10
         new_weighted_avg = (new_tl_marks * tl_weight) + (new_hr_marks * hr_weight)
 
         if new_weighted_avg != old_weighted_avg:
