@@ -354,6 +354,14 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -617,6 +625,31 @@
         "description": "django.contrib.auth.decorators",
         "isExtraImport": true,
         "detail": "django.contrib.auth.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "never_cache",
+        "importPath": "django.views.decorators.cache",
+        "description": "django.views.decorators.cache",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.cache",
+        "documentation": {}
+    },
+    {
+        "label": "require_http_methods",
+        "importPath": "django.views.decorators.http",
+        "description": "django.views.decorators.http",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.http",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
         "documentation": {}
     },
     {
@@ -1025,11 +1058,20 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0018_alter_adminfeautures_options_and_more",
+        "description": "website.migrations.0018_alter_adminfeautures_options_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0017_adminfeautures_enable_weightage_calculation\"),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name=\"adminfeautures\",\n            options={\n                \"verbose_name\": \"Admin Feature\",\n                \"verbose_name_plural\": \"Admin Features\",",
+        "detail": "website.migrations.0018_alter_adminfeautures_options_and_more",
+        "documentation": {}
+    },
+    {
         "label": "TeamFilter",
         "kind": 6,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "class TeamFilter(admin.SimpleListFilter):\n    title = 'Team'\n    parameter_name = 'team'\n    def lookups(self, request, model_admin):\n        teams = Teams.objects.all()\n        return [(team.id, team.team_name) for team in teams]\n    def queryset(self, request, queryset):\n        if self.value():\n            return queryset.filter(employee__team_id=self.value())\n        return queryset",
+        "peekOfCode": "class TeamFilter(admin.SimpleListFilter):\n    title = \"Team\"\n    parameter_name = \"team\"\n    def lookups(self, request, model_admin):\n        teams = Teams.objects.all()\n        return [(team.id, team.team_name) for team in teams]\n    def queryset(self, request, queryset):\n        if self.value():\n            return queryset.filter(employee__team_id=self.value())\n        return queryset",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1047,7 +1089,7 @@
         "kind": 6,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "class EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    actions = [send_evaluation_email]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):",
+        "peekOfCode": "class EmployeeAdminForm(forms.ModelForm):\n    class Meta:\n        model = Employee\n        exclude = [\"username\"]\nclass EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    actions = []\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1056,7 +1098,16 @@
         "kind": 6,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "class EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    actions = [send_evaluation_email]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):\n        if db_field.name == \"team_lead\":\n            kwargs[\"queryset\"] = Employee.objects.filter(is_team_lead=True)\n        return super().formfield_for_foreignkey(db_field, request, **kwargs)\nclass EvaluationFormModelAdmin(admin.ModelAdmin):",
+        "peekOfCode": "class EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\", \"team\", \"team_lead\")\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    actions = []\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):\n        if db_field.name == \"team_lead\":\n            kwargs[\"queryset\"] = Employee.objects.filter(is_team_lead=True)\n        return super().formfield_for_foreignkey(db_field, request, **kwargs)\nclass WeightedAverageFilter(admin.SimpleListFilter):",
+        "detail": "website.admin",
+        "documentation": {}
+    },
+    {
+        "label": "WeightedAverageFilter",
+        "kind": 6,
+        "importPath": "website.admin",
+        "description": "website.admin",
+        "peekOfCode": "class WeightedAverageFilter(admin.SimpleListFilter):\n    title = \"Weighted Average Calculated\"\n    parameter_name = \"_weighted_average\"\n    def lookups(self, request, model_admin):\n        return (\n            (\"yes\", \"Yes\"),\n            (\"no\", \"No\"),\n        )\n    def queryset(self, request, queryset):\n        if self.value() == \"yes\":",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1074,7 +1125,7 @@
         "kind": 6,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "class TeamsAdmin(admin.ModelAdmin):\n    list_display = ('team_name', 'evaluations_submitted_status')\n    list_filter = ('team_name',)\n    def evaluations_submitted_status(self, obj):\n        return obj.evaluations_submitted\n    evaluations_submitted_status.boolean = True\n    evaluations_submitted_status.short_description = 'Evaluations Submitted'\nadmin.site.register(Teams, TeamsAdmin)\nadmin.site.register(Employee, EmployeeInformation)\nadmin.site.register(EvaluationFormModel, EvaluationFormModelAdmin)",
+        "peekOfCode": "class TeamsAdmin(admin.ModelAdmin):\n    list_display = (\"team_name\", \"evaluations_submitted_status\")\n    list_filter = (\"team_name\",)\n    def evaluations_submitted_status(self, obj):\n        return obj.evaluations_submitted\n    evaluations_submitted_status.boolean = True\n    evaluations_submitted_status.short_description = \"Evaluations Submitted\"\nadmin.site.register(Teams, TeamsAdmin)\nadmin.site.register(Employee, EmployeeInformation)\nadmin.site.register(EvaluationFormModel, EvaluationFormModelAdmin)",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1083,7 +1134,7 @@
         "kind": 2,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "def send_evaluation_email(modeladmin, request, queryset):\n    for employee in queryset:\n        evaluation = (\n            EvaluationFormModel.objects.filter(employee=employee)\n            .order_by(\"-id\")\n            .first()\n        )\n        if evaluation:\n            team_lead_name = (\n                employee.team_lead.employee_name if employee.team_lead else \"N/A\"",
+        "peekOfCode": "def send_evaluation_email(modeladmin, request, queryset):\n    for evaluation in queryset:\n        employee = evaluation.employee\n        team_lead_name = (\n            employee.team_lead.employee_name if employee.team_lead else \"N/A\"\n        )\n        email_template = \"evaluation_email.html\"\n        context = {\n            \"employee_name\": employee.employee_name,\n            \"team_lead_name\": team_lead_name,",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1092,7 +1143,7 @@
         "kind": 5,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "admin.site.site_title = \"Highbit HR Admin Panel\"\nadmin.site.site_header = \"HR Admin Panel\"\nclass TeamFilter(admin.SimpleListFilter):\n    title = 'Team'\n    parameter_name = 'team'\n    def lookups(self, request, model_admin):\n        teams = Teams.objects.all()\n        return [(team.id, team.team_name) for team in teams]\n    def queryset(self, request, queryset):\n        if self.value():",
+        "peekOfCode": "admin.site.site_title = \"Highbit HR Admin Panel\"\nadmin.site.site_header = \"HR Admin Panel\"\nclass TeamFilter(admin.SimpleListFilter):\n    title = \"Team\"\n    parameter_name = \"team\"\n    def lookups(self, request, model_admin):\n        teams = Teams.objects.all()\n        return [(team.id, team.team_name) for team in teams]\n    def queryset(self, request, queryset):\n        if self.value():",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1101,7 +1152,7 @@
         "kind": 5,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "admin.site.site_header = \"HR Admin Panel\"\nclass TeamFilter(admin.SimpleListFilter):\n    title = 'Team'\n    parameter_name = 'team'\n    def lookups(self, request, model_admin):\n        teams = Teams.objects.all()\n        return [(team.id, team.team_name) for team in teams]\n    def queryset(self, request, queryset):\n        if self.value():\n            return queryset.filter(employee__team_id=self.value())",
+        "peekOfCode": "admin.site.site_header = \"HR Admin Panel\"\nclass TeamFilter(admin.SimpleListFilter):\n    title = \"Team\"\n    parameter_name = \"team\"\n    def lookups(self, request, model_admin):\n        teams = Teams.objects.all()\n        return [(team.id, team.team_name) for team in teams]\n    def queryset(self, request, queryset):\n        if self.value():\n            return queryset.filter(employee__team_id=self.value())",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1110,7 +1161,7 @@
         "kind": 5,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "send_evaluation_email.short_description = \"Send evaluation email to selected employees\"\nclass IsTeamLeadFilter(admin.SimpleListFilter):\n    title = \"Team Lead\"\n    parameter_name = \"team_lead\"\n    def lookups(self, request, model_admin):\n        team_lead_names = Employee.objects.filter(is_team_lead=True).values_list(\n            \"employee_name\", flat=True\n        )\n        return [(name, name) for name in team_lead_names]\n    def queryset(self, request, queryset1):",
+        "peekOfCode": "send_evaluation_email.short_description = \"Send monthly evaluation email to selected employees\"\nclass IsTeamLeadFilter(admin.SimpleListFilter):\n    title = \"Team Lead\"\n    parameter_name = \"team_lead\"\n    def lookups(self, request, model_admin):\n        team_lead_names = Employee.objects.filter(is_team_lead=True).values_list(\n            \"employee_name\", flat=True\n        )\n        return [(name, name) for name in team_lead_names]\n    def queryset(self, request, queryset1):",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -1173,7 +1224,7 @@
         "kind": 6,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "class AdminFeautures(models.Model):\n    form_enabling_date = models.IntegerField()\n    enable_weightage_calculation = models.BooleanField(default=False)\n    def __str__(self):\n        return \"Admin Features\"",
+        "peekOfCode": "class AdminFeautures(models.Model):\n    form_disabling_date = models.IntegerField()\n    enable_weightage_calculation = models.BooleanField(default=False)\n    def __str__(self):\n        return \"Admin Features\"\n    class Meta:\n        verbose_name = \"Admin Feature\"\n        verbose_name_plural = \"Admin Features\"",
         "detail": "website.models",
         "documentation": {}
     },
@@ -1182,7 +1233,7 @@
         "kind": 2,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "def calculate_weighted_average(sender, instance, created, **kwargs):\n    if not created and AdminFeautures.objects.first().enable_weightage_calculation:\n        tl_weight = 0.85\n        hr_weight = 0.15\n        old_weighted_avg = (\n            instance._weighted_average\n            if instance._weighted_average is not None\n            else 0.0\n        )\n        if instance.tl_marks is not None:",
+        "peekOfCode": "def calculate_weighted_average(sender, instance, created, **kwargs):\n    if not created:\n        if instance.tl_marks is not None and instance.hr_marks is not None:\n            tl_weight = 0.85\n            hr_weight = 0.15\n            old_weighted_avg = instance._weighted_average if instance._weighted_average is not None else 0.0\n            new_tl_marks = float(instance.tl_marks)\n            new_hr_marks = float(instance.hr_marks)\n            new_weighted_avg = (new_tl_marks * tl_weight) + (new_hr_marks * hr_weight)\n            if new_weighted_avg != old_weighted_avg:",
         "detail": "website.models",
         "documentation": {}
     },
@@ -1209,7 +1260,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def home(request):\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = authenticate(request, username=email, password=password)\n        if user is not None:\n            login(request, user)\n            messages.success(request, \"You have been logged in\")\n            return redirect(\"dashboard\")\n        else:",
+        "peekOfCode": "def home(request):\n    if request.user.is_authenticated:\n        return redirect(\"dashboard\")\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = authenticate(request, username=email, password=password)\n        if user is not None:\n            login(request, user)\n            messages.success(request, \"You have been logged in\")",
         "detail": "website.views",
         "documentation": {}
     },
@@ -1227,7 +1278,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def dashboard(request):\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)\n    emps = Employee.objects.filter(team_lead=emp).all()\n    current_month = now().month\n    current_year = now().year\n    submitted_employees = []\n    for employee in emps:\n        last_evaluation = EvaluationFormModel.objects.filter(\n            employee=employee,",
+        "peekOfCode": "def dashboard(request):\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)\n    emps = Employee.objects.filter(team_lead=emp).all()\n    current_month = now().month\n    current_year = now().year\n    form_disabling_date = AdminFeautures.objects.first()\n    show_evaluation = False\n    submitted_employees = []\n    for employee in emps:",
         "detail": "website.views",
         "documentation": {}
     },
@@ -1236,7 +1287,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def evaluation_view(request):\n    employee_id = request.GET.get(\"employee_id\")\n    form_submitted = False\n    disable_form = False\n    is_editing = False\n    form_enabling_date = AdminFeautures.objects.first()\n    selected_month = request.GET.get(\"selected_month\")\n    today = date.today()\n    first_day_of_current_month = today.replace(day=1)\n    last_month_date = first_day_of_current_month - timedelta(days=1)",
+        "peekOfCode": "def evaluation_view(request):\n    employee_id = request.GET.get(\"employee_id\")\n    form_submitted = False\n    disable_form = False\n    is_editing = False\n    form_disabling_date = AdminFeautures.objects.first()\n    selected_month = request.GET.get(\"selected_month\")\n    today = date.today()\n    first_day_of_current_month = today.replace(day=1)\n    last_month_date = first_day_of_current_month - timedelta(days=1)",
         "detail": "website.views",
         "documentation": {}
     },
@@ -1254,7 +1305,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def handle_uploaded_file(csv_file):\n    reader = csv.DictReader(csv_file.read().decode(\"utf-8\").splitlines())\n    for row in reader:\n        employee_id = row[\"employee_id\"]\n        joining_date_str = row.get(\"DOJ\", \"\")\n        if joining_date_str:\n            try:\n                joining_date = datetime.strptime(joining_date_str, '%d-%b-%y').date()\n            except ValueError:\n                print(f\"Invalid date format for employee {employee_id}: {joining_date_str}\")",
+        "peekOfCode": "def handle_uploaded_file(csv_file):\n    reader = csv.DictReader(csv_file.read().decode(\"utf-8\").splitlines())\n    for row in reader:\n        employee_id = row[\"employee_id\"]\n        joining_date_str = row.get(\"DOJ\", \"\")\n        if joining_date_str:\n            try:\n                joining_date = datetime.strptime(joining_date_str, \"%d-%b-%y\").date()\n            except ValueError:\n                print(",
         "detail": "website.views",
         "documentation": {}
     },

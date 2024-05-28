@@ -27,6 +27,14 @@
               <li style="margin-bottom: 10px; font-size: 20px;" class="font employee_name">{{ employee.employee_name }} <span class="employee_id">({{ employee.employee_id }})</span></li>
               <li style="margin-bottom: 10px; list-style: none;" class="font team_name_and_role"> Team: {{ employee.team }} <span class="role">Role: {{ employee.role }}</span></li>
             </div>
+            {% if show_evaluation %}
+            <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
+              {% csrf_token %}
+              <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
+              <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
+              <input class="btn submit" type="submit" value="View Evaluation" />
+            </form>
+            {% else %}
             <div class="submit-button">
               {% if employee.employee_id in submitted_employees %}
                 <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
@@ -44,6 +52,7 @@
                 </form>
               {% endif %}
             </div>
+            {% endif %}
           </div>
         {% endfor %}
       </ul>

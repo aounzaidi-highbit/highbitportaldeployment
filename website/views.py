@@ -9,11 +9,19 @@ from django.contrib.auth.decorators import login_required
 from datetime import date, datetime, timedelta
 from django.urls import reverse
 from django.utils.timezone import now
+from django.views.decorators.cache import never_cache
+from django.views.decorators.http import require_http_methods
+import re
 
 # Create your views here.
 
 
+@never_cache
+@require_http_methods(["GET", "POST"])
 def home(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
@@ -43,21 +51,31 @@ def dashboard(request):
     emps = Employee.objects.filter(team_lead=emp).all()
     current_month = now().month
     current_year = now().year
-
+    form_disabling_date = AdminFeautures.objects.first()
+    show_evaluation = False
     submitted_employees = []
 
     for employee in emps:
         last_evaluation = EvaluationFormModel.objects.filter(
             employee=employee,
             evaluation_date__month=current_month,
-            evaluation_date__year=current_year
+            evaluation_date__year=current_year,
         ).first()
         if last_evaluation:
             submitted_employees.append(employee.employee_id)
-
+        if datetime.now().day >= form_disabling_date.form_disabling_date:
+            show_evaluation = True
     return render(
-        request, "team_lead_dashboard.html", {"team_lead": emp, "employees": emps, "submitted_employees": submitted_employees}
+        request,
+        "team_lead_dashboard.html",
+        {
+            "team_lead": emp,
+            "employees": emps,
+            "submitted_employees": submitted_employees,
+            "show_evaluation": show_evaluation,
+        },
     )
+
 
 @login_required
 def evaluation_view(request):
@@ -65,7 +83,7 @@ def evaluation_view(request):
     form_submitted = False
     disable_form = False
     is_editing = False
-    form_enabling_date = AdminFeautures.objects.first()
+    form_disabling_date = AdminFeautures.objects.first()
     selected_month = request.GET.get("selected_month")
 
     today = date.today()
@@ -78,15 +96,16 @@ def evaluation_view(request):
     last_month = last_month_date.strftime("%B")
     second_last_month = second_last_month_date.strftime("%B")
     third_last_month = third_last_month_date.strftime("%B")
+
     if request.method == "POST" and employee_id:
         employee = get_object_or_404(Employee, employee_id=employee_id)
 
         evaluation_instances = EvaluationFormModel.objects.filter(
             employee=employee
         ).order_by("-id")
-            
+
         form_instance = evaluation_instances.first()
-        
+
         if (
             form_instance
             and form_instance.evaluation_date.month != datetime.today().month
@@ -107,14 +126,14 @@ def evaluation_view(request):
             is_editing = True
             return redirect(reverse("dashboard"))
         else:
-            if datetime.now().day >= form_enabling_date.form_enabling_date:
+            if datetime.now().day >= form_disabling_date.form_disabling_date:
                 form_submitted = False
             else:
                 messages.error(request, "Please fill the form with relevant data.")
     else:
         form = EvaluationForm()
 
-    if datetime.now().day >= form_enabling_date.form_enabling_date:
+    if datetime.now().day >= form_disabling_date.form_disabling_date:
         disable_form = True
 
     if employee_id:
@@ -123,18 +142,44 @@ def evaluation_view(request):
         hb_exp_months = (today.year - employee.joining_date.year) * 12 + (
             today.month - employee.joining_date.month
         )
-        
-        if hb_exp_months <= 11:
+
+        if hb_exp_months < 12:
             hb_exp = f"{hb_exp_months} months"
         else:
             hb_exp_years = hb_exp_months // 12
             hb_exp_remaining_months = hb_exp_months % 12
-            decimal_months = hb_exp_remaining_months / 12
-            experience = hb_exp_years + decimal_months
-            hb_exp = f"{experience:.1f} years"
+            hb_exp = f"{hb_exp_years} years"
+            if hb_exp_remaining_months > 0:
+                hb_exp += f" {hb_exp_remaining_months} months"
+
+        previous_exp_months = 0
+        if employee.previous_experience:
+            match = re.match(
+                r"(\d+)(?:\.(\d+))? (months?|years?)",
+                employee.previous_experience.lower(),
+            )
+            if match:
+                value = int(match.group(1))
+                if match.group(3).startswith("year"):
+                    previous_exp_months = value * 12
+                    if match.group(2):
+                        previous_exp_months += int(match.group(2))
+                else:
+                    previous_exp_months = value
+
+        total_exp_months = hb_exp_months + previous_exp_months
+
+        if total_exp_months >= 12:
+            total_exp_years = total_exp_months // 12
+            total_exp_remaining_months = total_exp_months % 12
+            total_exp = f"{total_exp_years} years"
+            if total_exp_remaining_months > 0:
+                total_exp += f" {total_exp_remaining_months} months"
+        else:
+            total_exp = f"{total_exp_months} months"
     else:
         hb_exp = None
-
+        total_exp = None
 
     evaluations = []
     if selected_month and employee_id:
@@ -143,11 +188,11 @@ def evaluation_view(request):
             previous_month=selected_month,
         ).order_by("-id")
 
-    today = date.today()
     previous_month_date = today - timedelta(days=today.day)
     previous_month = previous_month_date.strftime("%B")
     previous_year = previous_month_date.strftime("%Y")
     evaluation_for = f"{previous_month} {previous_year}"
+
     return render(
         request,
         "evaluation_form.html",
@@ -155,6 +200,7 @@ def evaluation_view(request):
             "form": form,
             "employee": employee if employee_id else None,
             "hb_exp": hb_exp,
+            "total_exp": total_exp,
             "form_submitted": form_submitted,
             "disable_form": disable_form,
             "is_editing": is_editing,
@@ -179,6 +225,7 @@ def upload_file(request):
     context = {"form": form}
     return render(request, "upload_form.html", context)
 
+
 def handle_uploaded_file(csv_file):
     reader = csv.DictReader(csv_file.read().decode("utf-8").splitlines())
 
@@ -187,20 +234,21 @@ def handle_uploaded_file(csv_file):
         joining_date_str = row.get("DOJ", "")
         if joining_date_str:
             try:
-                joining_date = datetime.strptime(joining_date_str, '%d-%b-%y').date()
+                joining_date = datetime.strptime(joining_date_str, "%d-%b-%y").date()
             except ValueError:
-                print(f"Invalid date format for employee {employee_id}: {joining_date_str}")
+                print(
+                    f"Invalid date format for employee {employee_id}: {joining_date_str}"
+                )
                 continue
 
             try:
-                
+
                 employee = Employee.objects.get(employee_id=employee_id)
                 employee.joining_date = joining_date
                 employee.save()
             except Employee.DoesNotExist:
                 print(f"Employee with ID {employee_id} does not exist.")
-                
-                
+
 
 # def handle_uploaded_file(csv_file):
 #     reader = csv.DictReader(csv_file.read().decode("utf-8").splitlines())

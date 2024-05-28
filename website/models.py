@@ -110,10 +110,6 @@ class EvaluationFormModel(models.Model):
     def __str__(self):
         return f"Evaluation form submitted by {self.evaluated_by} for {self.employee.employee_name} {self.employee.employee_id}."
 
-    def calculate_weighted_average(self):
-        tl_weight = 0.85
-        hr_weight = 0.15
-        return (self.tl_marks * tl_weight) + (self.hr_marks * hr_weight)
 
     def save(self, *args, **kwargs):
         today = date.today()
@@ -122,39 +118,32 @@ class EvaluationFormModel(models.Model):
         self.previous_year = previous_month_date.strftime("%Y")
         self.evaluation_for = f"{self.previous_month} {self.previous_year}"
         super().save(*args, **kwargs)
-        if AdminFeautures.objects.first().enable_weightage_calculation:
-            self._weighted_average = self.calculate_weighted_average()
 
 
 @receiver(post_save, sender=EvaluationFormModel)
 def calculate_weighted_average(sender, instance, created, **kwargs):
-    if not created and AdminFeautures.objects.first().enable_weightage_calculation:
-        tl_weight = 0.85
-        hr_weight = 0.15
-        old_weighted_avg = (
-            instance._weighted_average
-            if instance._weighted_average is not None
-            else 0.0
-        )
+    if not created:
+        if instance.tl_marks is not None and instance.hr_marks is not None:
+            tl_weight = 0.85
+            hr_weight = 0.15
+            old_weighted_avg = instance._weighted_average if instance._weighted_average is not None else 0.0
 
-        if instance.tl_marks is not None:
-            new_tl_marks = float(instance.tl_marks) * 10 / 10
-        else:
-            new_tl_marks = 0.0
-        if instance.hr_marks is not None:
-            new_hr_marks = float(instance.hr_marks) * 10 / 10
-        else:
-            new_hr_marks = 0.0
-        new_weighted_avg = (new_tl_marks * tl_weight) + (new_hr_marks * hr_weight)
-
-        if new_weighted_avg != old_weighted_avg:
-            instance._weighted_average = new_weighted_avg
-            instance.save(update_fields=["_weighted_average"])
+            new_tl_marks = float(instance.tl_marks)
+            new_hr_marks = float(instance.hr_marks)
+            
+            new_weighted_avg = (new_tl_marks * tl_weight) + (new_hr_marks * hr_weight)
+            
+            if new_weighted_avg != old_weighted_avg:
+                instance._weighted_average = new_weighted_avg
+                instance.save(update_fields=["_weighted_average"])
 
 
 class AdminFeautures(models.Model):
-    form_enabling_date = models.IntegerField()
+    form_disabling_date = models.IntegerField()
     enable_weightage_calculation = models.BooleanField(default=False)
 
     def __str__(self):
         return "Admin Features"
+    class Meta:
+        verbose_name = "Admin Feature"
+        verbose_name_plural = "Admin Features"

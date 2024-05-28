@@ -9,12 +9,15 @@
     font-weight: 700;
     font-size: 35px;
 }
+
 .evaluation_form_details{
     font-size: 35px;
     font-weight: 200;
 }
+
 .experience-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 50px; 
     margin-top: 30px;
@@ -24,6 +27,7 @@
     flex: 1;
     text-align: center;
     padding: 10px; 
+    min-width: 250px;
 }
 
 .experience-item h3 {
@@ -40,28 +44,34 @@
 }
 
 .month-dropdown{
-    width: 300px; 
+    width: 100%;
+    max-width: 300px;
     padding: 5px;
     margin-bottom: 10px;
     margin-top: 10px;
     border: 1px solid #dcdcdc;
 }
+
 .month{
     margin-top: 30px;
     font-size: 35px;
     font-weight: 600;
 }
+
 .previous_month{
     font-size: 35px;
     color: #24A9E1;
     font-weight: 600;
 }
+
 .previous-months{
     font-size: 15px;
 }
+
 .previous_evaluation_text{
     font-size: 25px;
 }
+
 .previous-evaluations-container {
     margin-bottom: 50px;
     margin-top: 30px;
@@ -117,6 +127,7 @@
 .form-container{
     margin-top: 50px;
 }
+
 .form-feilds{
     font-weight: 500;
     font-size: 25px;
@@ -125,32 +136,28 @@
     margin-top: 20px;
 }
 
-    input#id_tl_marks {
-        width: 300px; 
-        padding: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #dcdcdc;
-    }
-
-    select#id_evaluation_for {
-        width: 200px; 
-        padding: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #dcdcdc;
-    }
-
-    textarea#id_feedback {
-        width: 40%; 
-        height: 100px; 
-        padding: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #dcdcdc;
-        
-    }
-.evaluation_for{
-    font-size: 25px;;
-    
+input#id_tl_marks,
+select#id_evaluation_for {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #dcdcdc;
 }
+
+textarea#id_feedback {
+    width: 100%; 
+    max-width: 600px;
+    height: 100px; 
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #dcdcdc;
+}
+
+.evaluation_for{
+    font-size: 25px;
+}
+
 .evaluation_for_month{
     color: #24A9E1;
     font-weight: 800;
@@ -164,7 +171,79 @@
     font-family: "Poppins", sans-serif;
     padding: 10px 50px;
 }
+
 .submit:hover{
     background-color: #2098CA;
     color: white;
+}
+
+@media (max-width: 768px) {
+    .evaluation_form {
+        font-size: 28px;
+    }
+
+    .evaluation_form_details {
+        font-size: 28px;
+    }
+
+    .experience-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .experience-item {
+        margin-bottom: 20px;
+        min-width: auto;
+    }
+
+    .month {
+        font-size: 28px;
+    }
+
+    .previous_month {
+        font-size: 28px;
+    }
+
+    .previous_evaluation_text {
+        font-size: 20px;
+    }
+
+    .evaluation-label, .evaluation-content {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .evaluation_form {
+        font-size: 24px;
+    }
+
+    .evaluation_form_details {
+        font-size: 24px;
+    }
+
+    .month {
+        font-size: 24px;
+    }
+
+    .previous_month {
+        font-size: 24px;
+    }
+
+    .previous_evaluation_text {
+        font-size: 18px;
+    }
+
+    .evaluation-label, .evaluation-content {
+        font-size: 14px;
+    }
+
+    .submit {
+        padding: 10px 30px;
+    }
+
+    .evaluation-button {
+        padding: 8px 15px;
+        margin-left: 10px;
+    }
 }
