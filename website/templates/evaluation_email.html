@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,3 +20,26 @@
     <p>This is an automated email. Please do not reply.</p>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Review for Month {{evaluation_for}}</title>
+</head>
+<body>
+    <p>Hi {{ employee_name }},</p>
+    <p>Your performance Evaluation was conducted by your line manager <b>{{ team_lead_name }}</b> and details mentioned below:</p>
+    <p>{{ evaluation_for }} Ratings:</p>
+    <p>Team Lead Marks: {{ tl_marks }}/10</p>
+    <p>HR Marks: {{ hr_marks }}/10</p>
+    <p>Average Performance Rating: {{ weightage }}/10</p>
+    <p>Feedback From Line Manager:</p>
+    <p>{{ feedback }}</p>
+    <br>
+    <p>Thanks</p>
+    <p>This is an automated email. Please do not reply.</p>
+</body>
+</html>
+
