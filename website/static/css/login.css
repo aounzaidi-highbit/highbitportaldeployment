@@ -25,20 +25,18 @@
 
 .logo_div {
     margin-bottom: -40px; 
-  }
+}
 
-.login_button{
+.login_button {
   font-family: "Poppins", sans-serif;
-  background-color: #24A9E1;
-  color: white;
-  
-  
-}
-.login_button:hover{
-  background-color: #2098CA;
-  color: white;
+  background-color: #24A9E1 !important;
+  color: white !important;
 }
 
+.login_button:hover {
+  background-color: #2098CA !important;
+  color: white !important;
+}
 
 @media (max-width: 1200px) {
   .login {
@@ -51,6 +49,10 @@
 
   .logo {
     transform: scale(0.3);
+  }
+
+  .logo_div {
+    margin-bottom: 20px; 
   }
 }
 
@@ -66,6 +68,10 @@
   .logo {
     transform: scale(0.35);
   }
+
+  .logo_div {
+    margin-bottom: 20px; 
+  }
 }
 
 @media (max-width: 768px) {
@@ -79,6 +85,10 @@
 
   .logo {
     transform: scale(0.4);
+  }
+
+  .logo_div {
+    margin-bottom: 20px; 
   }
 }
 
@@ -94,6 +104,10 @@
   .logo {
     transform: scale(0.45);
   }
+
+  .logo_div {
+    margin-bottom: 20px; 
+  }
 }
 
 @media (max-width: 400px) {
@@ -107,5 +121,9 @@
 
   .logo {
     transform: scale(0.5);
+  }
+
+  .logo_div {
+    margin-bottom: 20px; 
   }
 }

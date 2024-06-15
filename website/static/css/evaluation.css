@@ -1,16 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-.font{
+.body {
+    background: linear-gradient(135deg, #feffff 0%, #feffff 70%, #d2ebf9 100%);
+    min-height: 100vh;
+    margin: 0;
+    
+
+}
+
+
+.font {
     font-family: "Poppins", sans-serif;
 }
 
-.evaluation_form{
+.evaluation_form {
     color: #24A9E1;
     font-weight: 700;
     font-size: 35px;
 }
 
-.evaluation_form_details{
+.evaluation_form_details {
     font-size: 35px;
     font-weight: 200;
 }
@@ -19,15 +28,24 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: 50px; 
+    margin-bottom: 50px;
     margin-top: 30px;
+    gap: 20px;
+    width: 100%;
+    /* Adjust the width as needed */
+    max-width: 1000px;
 }
 
 .experience-item {
     flex: 1;
     text-align: center;
-    padding: 10px; 
+    padding: 10px;
     min-width: 250px;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .experience-item h3 {
@@ -36,14 +54,14 @@
     margin-bottom: 5px;
 }
 
-.experience-count{
+.experience-count {
     color: #24A9E1;
     font-weight: 800;
     font-size: 25px;
     line-height: 37.5px;
 }
 
-.month-dropdown{
+.month-dropdown {
     width: 100%;
     max-width: 300px;
     padding: 5px;
@@ -52,23 +70,23 @@
     border: 1px solid #dcdcdc;
 }
 
-.month{
+.month {
     margin-top: 30px;
     font-size: 35px;
     font-weight: 600;
 }
 
-.previous_month{
+.previous_month {
     font-size: 35px;
     color: #24A9E1;
     font-weight: 600;
 }
 
-.previous-months{
+.previous-months {
     font-size: 15px;
 }
 
-.previous_evaluation_text{
+.previous_evaluation_text {
     font-size: 25px;
 }
 
@@ -81,7 +99,8 @@
     display: table;
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #ccc; /* Light border */
+    border: 1px solid #ccc;
+    /* Light border */
 }
 
 .previous-evaluations-row {
@@ -92,7 +111,8 @@
 .evaluation-content {
     display: table-cell;
     padding: 10px;
-    border-bottom: 1px solid #ccc; /* Light border for rows */
+    border-bottom: 1px solid #ccc;
+    /* Light border for rows */
     vertical-align: middle;
 }
 
@@ -124,11 +144,11 @@
     color: white;
 }
 
-.form-container{
+.form-container {
     margin-top: 50px;
 }
 
-.form-feilds{
+.form-feilds {
     font-weight: 500;
     font-size: 25px;
     line-height: 37.5px;
@@ -146,33 +166,33 @@ select#id_evaluation_for {
 }
 
 textarea#id_feedback {
-    width: 100%; 
+    width: 100%;
     max-width: 600px;
-    height: 100px; 
+    height: 100px;
     padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #dcdcdc;
 }
 
-.evaluation_for{
+.evaluation_for {
     font-size: 25px;
 }
 
-.evaluation_for_month{
+.evaluation_for_month {
     color: #24A9E1;
     font-weight: 800;
     font-size: 25px;
     line-height: 37.5px;
 }
 
-.submit{
+.submit {
     background-color: #24A9E1;
     color: white;
     font-family: "Poppins", sans-serif;
     padding: 10px 50px;
 }
 
-.submit:hover{
+.submit:hover {
     background-color: #2098CA;
     color: white;
 }
@@ -208,7 +228,8 @@ textarea#id_feedback {
         font-size: 20px;
     }
 
-    .evaluation-label, .evaluation-content {
+    .evaluation-label,
+    .evaluation-content {
         font-size: 16px;
     }
 }
@@ -234,7 +255,8 @@ textarea#id_feedback {
         font-size: 18px;
     }
 
-    .evaluation-label, .evaluation-content {
+    .evaluation-label,
+    .evaluation-content {
         font-size: 14px;
     }
 

@@ -1,145 +1,150 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <head>
-    <link rel="stylesheet" href="static/css/evaluation.css">
+    <link rel="stylesheet" href={% static 'css/evaluation.css' %}>
 </head>
 <title>{% block title %}Evaluation Form | {% endblock title %}</title>
-    {% if disable_form %}
-        <h4 class="font evaluation_form_details" style="margin-bottom: 20px;">
-            <span class="evaluation_form">Evaluation Form</span> for {{ employee.employee_name }} ({{ employee.employee_id }})
-        </h4>
-        <h4 class="font evaluation_for ">For Month: <span class="evaluation_for_month">{{ evaluation_for }}</span></h4>
-        <div class="experience-container">
-            <div class="experience-item">
-                <h3 class="font">Previous Experience</h3>
-                <span class="font experience-count">{{ employee.previous_experience }}</span>
+<body class="body">
+    <div class="content">
+        {% if disable_form %}
+            <h4 class="font evaluation_form_details" style="margin-bottom: 20px;">
+                <span class="evaluation_form">Evaluation Form</span> for {{ employee.employee_name }} ({{ employee.employee_id }})
+            </h4>
+            <h4 class="font evaluation_for ">For Month: <span class="evaluation_for_month">{{ evaluation_for }}</span></h4>
+            <div class="experience-container">
+                <div class="experience-item">
+                    <h3 class="font">Previous Experience</h3>
+                    <span class="font experience-count">{{ employee.previous_experience }}</span>
+                </div>
+                <div class="experience-item">
+                    <h3 class="font">Highbit Experience</h3>
+                    <span class="font experience-count">{{ hb_exp }} </span>
+                </div>
+                <div class="experience-item">
+                    <h3 class="font">Total Experience</h3>
+                    <span class="font experience-count">{{ total_exp }} </span>
+                </div>
             </div>
-            <div class="experience-item">
-                <h3 class="font">Highbit Experience</h3>
-                <span class="font experience-count">{{ hb_exp }} </span>
-            </div>
-            <div class="experience-item">
-                <h3 class="font">Total Experience</h3>
-                <span class="font experience-count">{{ total_exp }} </span>
-            </div>
-        </div>
-        
-        <form method="get">
-            <h3 class="font previous_evaluation_text">Previous Evaluations:</h3>
-            <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
-            <label class="font" for="selected_month">Select Month:</label>
-            <select class="font month-dropdown" name="selected_month" id="selected_month">
-                <option class="font previous-months" value="{{ last_month }}">Recently submitted evaluation.</option>
-                <option class="font previous-months" value="{{ second_last_month }}">{{ second_last_month }}</option>
-                <option class="font previous-months" value="{{ third_last_month }}">{{ third_last_month }}</option>
-            </select>
-            <input class="btn evaluation-button" type="submit" value="View Evaluations">
-        </form>
-        
-        {% if evaluations %}
-            <div class="review-container">
-                {% with evaluations.0 as latest_eval %}
-                    <div class="review-item">
-                        <h3 class="font month">Month: <span class="font previous_month">{{ latest_eval.previous_month }}</span></h3>
-                        <div class="previous-evaluations-container">
-                            <div class="previous-evaluations-item">
-                                <div class="evaluation-label">Team Lead Marks</div>
-                                <div class="evaluation-content">{{ latest_eval.tl_marks }}</div>
-                            </div>
-                            <div class="previous-evaluations-item">
-                                <div class="evaluation-label">HR Marks</div>
-                                <div class="evaluation-content">{{ latest_eval.hr_marks }}</div>
-                            </div>
-                            <div class="previous-evaluations-item">
-                                <div class="evaluation-label">Feedback</div>
-                                <div class="evaluation-content">{{ latest_eval.feedback }}</div>
+            
+            <form method="get">
+                <h3 class="font previous_evaluation_text">Previous Evaluations:</h3>
+                <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
+                <label class="font" for="selected_month">Select Month:</label>
+                <select class="font month-dropdown" name="selected_month" id="selected_month">
+                    <option class="font previous-months" value="{{ last_month }}">Recently submitted evaluation.</option>
+                    <option class="font previous-months" value="{{ second_last_month }}">{{ second_last_month }}</option>
+                    <option class="font previous-months" value="{{ third_last_month }}">{{ third_last_month }}</option>
+                </select>
+                <input class="btn evaluation-button" type="submit" value="View Evaluations">
+            </form>
+            
+            {% if evaluations %}
+                <div class="review-container">
+                    {% with evaluations.0 as latest_eval %}
+                        <div class="review-item">
+                            <h3 class="font month">Month: <span class="font previous_month">{{ latest_eval.previous_month }}</span></h3>
+                            <div class="previous-evaluations-container">
+                                <div class="previous-evaluations-item">
+                                    <div class="evaluation-label">Team Lead Marks</div>
+                                    <div class="evaluation-content">{{ latest_eval.tl_marks }}</div>
+                                </div>
+                                <div class="previous-evaluations-item">
+                                    <div class="evaluation-label">HR Marks</div>
+                                    <div class="evaluation-content">{{ latest_eval.hr_marks }}</div>
+                                </div>
+                                <div class="previous-evaluations-item">
+                                    <div class="evaluation-label">Feedback</div>
+                                    <div class="evaluation-content">{{ latest_eval.feedback }}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endwith %}
+                    {% endwith %}
+                </div>
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-container">
+                    <h4 class="font form-fields">Team Lead Marks out of 10:</h4>
+                    {{ form.tl_marks }}
+                    <h4 class="font form-fields">Feedback:</h4>
+                    {{ form.feedback }}
+                    <br>
+                    <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
+                    <input class="btn submit" type="submit" value="Submit" disabled>
+                </div>
+            </form>
+        {% else %}
+            <h4 class="font evaluation_form_details" style="margin-bottom: 20px;">
+                <span class="evaluation_form">Evaluation Form</span> for {{ employee.employee_name }} ({{ employee.employee_id }})
+            </h4>
+            <h4 class="font evaluation_for ">For Month: <span class="evaluation_for_month">{{ evaluation_for }}</span></h4>
+            <div class="experience-container">
+                <div class="experience-item">
+                    <h3 class="font">Previous Experience</h3>
+                    <span class="font experience-count">{{ employee.previous_experience }}</span>
+                </div>
+                <div class="experience-item">
+                    <h3 class="font">Highbit Experience</h3>
+                    <span class="font experience-count">{{ hb_exp }} </span>
+                </div>
+                <div class="experience-item">
+                    <h3 class="font">Total Experience</h3>
+                    <span class="font experience-count">{{ total_exp }} </span>
+                </div>
             </div>
-        {% endif %}
-        
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-container">
-                <h4 class="font form-fields">Team Lead Marks out of 10:</h4>
-                {{ form.tl_marks }}
-                <h4 class="font form-fields">Feedback:</h4>
-                {{ form.feedback }}
-                <br>
+            
+            <form method="get">
+                <h3 class="font previous_evaluation_text">Previous Evaluations:</h3>
                 <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
-                <input class="btn submit" type="submit" value="Submit" disabled>
-            </div>
-        </form>
-    {% else %}
-        <h4 class="font evaluation_form_details" style="margin-bottom: 20px;">
-            <span class="evaluation_form">Evaluation Form</span> for {{ employee.employee_name }} ({{ employee.employee_id }})
-        </h4>
-        <h4 class="font evaluation_for ">For Month: <span class="evaluation_for_month">{{ evaluation_for }}</span></h4>
-        <div class="experience-container">
-            <div class="experience-item">
-                <h3 class="font">Previous Experience</h3>
-                <span class="font experience-count">{{ employee.previous_experience }}</span>
-            </div>
-            <div class="experience-item">
-                <h3 class="font">Highbit Experience</h3>
-                <span class="font experience-count">{{ hb_exp }} </span>
-            </div>
-            <div class="experience-item">
-                <h3 class="font">Total Experience</h3>
-                <span class="font experience-count">{{ total_exp }} </span>
-            </div>
-        </div>
-        
-        <form method="get">
-            <h3 class="font previous_evaluation_text">Previous Evaluations:</h3>
-            <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
-            <label class="font" for="selected_month">Select Month:</label>
-            <select class="font month-dropdown" name="selected_month" id="selected_month">
-                <option class="font previous-months" value="{{ last_month }}">Recently submitted evaluation.</option>
-                <option class="font previous-months" value="{{ second_last_month }}">{{ second_last_month }}</option>
-                <option class="font previous-months" value="{{ third_last_month }}">{{ third_last_month }}</option>
-            </select>
-            <input class="btn evaluation-button" type="submit" value="View Evaluations">
-        </form>
-        
-        {% if evaluations %}
-            <div class="review-container">
-                {% with evaluations.0 as latest_eval %}
-                    <div class="review-item">
-                        <h3 class="font month">Month: <span class="font previous_month">{{ latest_eval.previous_month }}</span></h3>
-                        <div class="previous-evaluations-container">
-                            <div class="previous-evaluations-item">
-                                <div class="evaluation-label">Team Lead Marks</div>
-                                <div class="evaluation-content">{{ latest_eval.tl_marks }}</div>
-                            </div>
-                            <div class="previous-evaluations-item">
-                                <div class="evaluation-label">HR Marks</div>
-                                <div class="evaluation-content">{{ latest_eval.hr_marks }}</div>
-                            </div>
-                            <div class="previous-evaluations-item">
-                                <div class="evaluation-label">Feedback</div>
-                                <div class="evaluation-content">{{ latest_eval.feedback }}</div>
+                <label class="font" for="selected_month">Select Month:</label>
+                <select class="font month-dropdown" name="selected_month" id="selected_month">
+                    <option class="font previous-months" value="{{ last_month }}">Recently submitted evaluation.</option>
+                    <option class="font previous-months" value="{{ second_last_month }}">{{ second_last_month }}</option>
+                    <option class="font previous-months" value="{{ third_last_month }}">{{ third_last_month }}</option>
+                </select>
+                <input class="btn evaluation-button" type="submit" value="View Evaluations">
+            </form>
+            
+            {% if evaluations %}
+                <div class="review-container">
+                    {% with evaluations.0 as latest_eval %}
+                        <div class="review-item">
+                            <h3 class="font month">Month: <span class="font previous_month">{{ latest_eval.previous_month }}</span></h3>
+                            <div class="previous-evaluations-container">
+                                <div class="previous-evaluations-item">
+                                    <div class="evaluation-label">Team Lead Marks</div>
+                                    <div class="evaluation-content">{{ latest_eval.tl_marks }}</div>
+                                </div>
+                                <div class="previous-evaluations-item">
+                                    <div class="evaluation-label">HR Marks</div>
+                                    <div class="evaluation-content">{{ latest_eval.hr_marks }}</div>
+                                </div>
+                                <div class="previous-evaluations-item">
+                                    <div class="evaluation-label">Feedback</div>
+                                    <div class="evaluation-content">{{ latest_eval.feedback }}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endwith %}
-            </div>
+                    {% endwith %}
+                </div>
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-container">
+                    <h4 class="font form-fields">Team Lead Marks out of 10:</h4>
+                    {{ form.tl_marks }}
+                    <h4 class="font form-fields">Feedback:</h4>
+                    {{ form.feedback }}
+                    <br>
+                    <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
+                    <input class="btn submit" type="submit" value="Submit">
+                </div>
+            </form>
         {% endif %}
-        
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-container">
-                <h4 class="font form-fields">Team Lead Marks out of 10:</h4>
-                {{ form.tl_marks }}
-                <h4 class="font form-fields">Feedback:</h4>
-                {{ form.feedback }}
-                <br>
-                <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
-                <input class="btn submit" type="submit" value="Submit">
-            </div>
-        </form>
-    {% endif %}
+    </div>
+</body>
+    
 {% endblock %}

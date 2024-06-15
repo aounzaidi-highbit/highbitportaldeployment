@@ -1,0 +1,26 @@
+.mvp-list-text{
+    color: #24A9E1;
+    font-weight: 700;
+}
+.mvp-list-text-mvp{
+    font-weight: 200;
+}
+.add-mvp{
+    background-color: #24A9E1;
+    font-weight: 700;
+    color: white;
+ 
+}
+.add-mvp:hover{
+    background-color: #2098CA;
+    font-weight: 700;
+    color: white;
+ 
+}
+body {
+    background: linear-gradient(135deg, #feffff 0%, #feffff 70%, #d2ebf9 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}

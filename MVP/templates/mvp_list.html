@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}MVP List | {% endblock title %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/mvp_list.css' %}">
+<style>
+    .table-scroll {
+        overflow-x: auto;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="font mvp-list-text-mvp">MVP <span class="mvp-list-text">List</span></h1>
+        {% if employee.mvp_role %}
+        {% else %}
+        <a href="{% url 'mvp_form' %}" class="btn font add-mvp">ADD MVP</a>
+        {% endif %}
+        
+    </div>
+    <div class="row">
+        <form method="get" class="w-100">
+            <div class="form-row d-flex justify-content-between align-items-end">
+                <div class="form-group">
+                    <label class="font" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    {{ form.name }}
+                </div>
+                {% if employee.mvp_role == "Super" %}
+                <div class="form-group">
+                    <label class="font" for="{{ form.team_name.id_for_label }}">{{ form.team_name.label }}</label>
+                    {{ form.team_name }}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label class="font" for="{{ form.start_date.id_for_label }}">{{ form.start_date.label }}</label>
+                    {{ form.start_date }}
+                </div>
+                <div class="form-group">
+                    <label class="font" for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
+                    {{ form.is_active }}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn add-mvp font">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div style="margin-top: 30px;" class="table-scroll">
+        <table class="table table-bordered table-hover">
+            <thead class="thread-style">
+                <tr>
+                    <th class="font">Name</th>
+                    <th class="font">Team Name</th>
+                    <th class="font">
+                        <a style="color:#24A9E1 ;" href="?{% if request.GET.sort == 'start_date' %}sort=-start_date{% else %}sort=start_date{% endif %}" class="font">Start Date</a>
+                    </th>
+                    <th class="font">End Date</th>
+                    <th class="font">Is Active</th>
+                    <th class="font">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mvp in mvps %}
+                <tr>
+                    <td class="font">{{ mvp.name|truncatewords:3 }}</td>
+                    <td class="font">{{ mvp.team_name|truncatewords:3 }}</td>
+                    <td class="font">{{ mvp.start_date }}</td>
+                    <td class="font">{{ mvp.end_date }}</td>
+                    <td class="font">{{ mvp.is_active|truncatewords:3 }}</td>
+                    <td>
+                        {% if employee.mvp_role == 'Super' %}
+                        <button type="button" class="btn add-mvp font view-mvp" data-toggle="modal" data-target="#viewModal{{ mvp.pk }}">View</button>
+                        {% else %}
+                        <a href="{% url 'edit_mvp' mvp.pk %}" class="btn add-mvp font">Edit</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if mvps.has_other_pages %}
+    <ul class="pagination">
+        {% if mvps.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ mvps.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        {% for num in mvps.paginator.page_range %}
+        {% if num == mvps.number %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if mvps.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ mvps.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ mvps.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+{% for mvp_detail in mvp_details %}
+<div class="modal fade" id="viewModal{{ mvp_detail.mvp.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModal{{ mvp_detail.mvp.pk }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font" id="viewModal{{ mvp_detail.mvp.pk }}Label">MVP Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font"><b>Name:</b> {{ mvp_detail.mvp.name }}</p>
+                <p class="font"><b>Team Name:</b> {{ mvp_detail.mvp.team_name }}</p>
+                <p class="font"><b>Start Date:</b> {{ mvp_detail.mvp.start_date }}</p>
+                <p class="font"><b>End Date:</b> {{ mvp_detail.mvp.end_date }}</p>
+                <p class="font"><b>Is Active:</b> {{ mvp_detail.mvp.is_active }}</p>
+                <p class="font"><b>Developers:</b>
+                    {% for developer in mvp_detail.developers %}
+                        {{ developer }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="font"><b>Planners:</b>
+                    {% for planner in mvp_detail.planners %}
+                        {{ planner }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}

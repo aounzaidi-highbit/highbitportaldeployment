@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "website",
+    "MVP",
 ]
 
 
@@ -57,7 +58,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Adjust this path as needed
+        'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         "OPTIONS": {
             "context_processors": [
@@ -65,6 +66,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'context_processors.mvp_role_permission',
+                
             ],
         },
     },
@@ -125,12 +128,13 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_DIRS=[
+STATICFILES_DIRS=[
     BASE_DIR,"static"
 ]
 
