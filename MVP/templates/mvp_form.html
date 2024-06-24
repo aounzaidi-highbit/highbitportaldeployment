@@ -3,53 +3,102 @@
 {% block title %}MVP Form |{% endblock title %}
 {% block content %}
 <link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
-<h1 class="font text mvp-edit">Add <span class="mvp">MVP</span></h1>
+<h1 class="font mvp-edit">Add <span class="mvp">MVP</span></h1>
 <div class="form-edit">
-<form method="POST" action="{% url 'mvp_form' %}">
-    {% csrf_token %}
-    <div class="form-row">
-        <div class="form-group">
-            <h3 class="font text">MVP Name:</h3>
-            <div class="font text">{{ form.name }}</div>
-        </div>
-        <div class="form-group">
-            <h3 class="font text">Start Date:</h3>
-            <div class="font text">{{ form.start_date }}</div>
-        </div>
-    </div>
-    <div class="form-row">
-        
-        <div class="form-group">
-            <h3 class="font text">Status:</h3>
-            <div class="d-flex align-items-center font text">
-                <p class="mb-0">Active:</p>
-                <div>{{ form.is_active }}</div>
+    <form method="POST" action="{% url 'mvp_form' %}">
+        {% csrf_token %}
+        <div class="form-columns">
+            <div class="column">
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">Status:</h3>
+                        <p class="mb-0 font">Active:</p>
+                        <div>{{ form.is_active }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">MVP Name:</h3>
+                        <div class="font text field-text">{{ form.name }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">MVP Plan:</h3>
+                        <div class="font text field-text">{{ form.plan }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">Current Phase:</h3>
+                        <div class="font text field-text">{{ form.current_phase }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">Start Date:</h3>
+                        <div class="font text field-text">{{ form.start_date }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">End Date:</h3>
+                        <div class="font text field-text">{{ form.end_date }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">Developers:</h3>
+                        <div class="font text field-text">{{ form.developers }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">Planners:</h3>
+                        <div class="font text field-text">{{ form.planners }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">UI Artists:</h3>
+                        <div class="font text field-text">{{ form.ui }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">Video Editor:</h3>
+                        <div class="font text field-text">{{ form.video_editor }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">Sound Artist:</h3>
+                        <div class="font text field-text">{{ form.sound_artist }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">Modeller:</h3>
+                        <div class="font text field-text">{{ form.modler }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">CG Artists:</h3>
+                        <div class="font text field-text">{{ form.cg_artist }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <h3 class="font text">QA's:</h3>
+                        <div class="font text field-text">{{ form.qa }}</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <h3 class="font text">Current Phase:</h3>
-            <div class="font text">{{ form.current_phase }}</div>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group">
-            <h3 class="font text">End Date:</h3>
-            <div class="font text">{{ form.end_date }}</div>
-        </div>
-        <div class="form-group">
-            <h3 class="font text">Developers:</h3>
-            <div class="font text">{{ form.developers }}</div>
-        </div>
-
-    </div>
-    <div class="form-row">
-        <div class="form-group">
-            <h3 class="font text">Planners:</h3>
-            <div class="font text">{{ form.planners }}</div>
-        </div>
-    </div>
-
-    <button type="submit" class="btn font save_changes_button ">Submit</button>
-</form>
+        <button type="submit" class="btn font save_changes_button">Submit</button>
+    </form>
 </div>
 {% endblock content %}

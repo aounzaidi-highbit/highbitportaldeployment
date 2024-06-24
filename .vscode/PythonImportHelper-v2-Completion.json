@@ -210,6 +210,62 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -475,6 +531,22 @@
     },
     {
         "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
@@ -1265,7 +1337,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "LANGUAGE_CODE = \"en-us\"\nTIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"",
+        "peekOfCode": "LANGUAGE_CODE = \"en-us\"\nTIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# STATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1274,7 +1346,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "TIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATICFILES_DIRS=[",
+        "peekOfCode": "TIME_ZONE = \"UTC\"\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# STATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1283,7 +1355,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATICFILES_DIRS=[\n    BASE_DIR,\"static\"",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# STATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1292,7 +1364,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATICFILES_DIRS=[\n    BASE_DIR,\"static\"\n]",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = \"static/\"\n# STATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1301,7 +1373,16 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "STATIC_URL = \"static/\"\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATICFILES_DIRS=[\n    BASE_DIR,\"static\"\n]\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_PORT = 587",
+        "peekOfCode": "STATIC_URL = \"static/\"\n# STATIC_ROOT = BASE_DIR / \"static\"\nSTATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATICFILES_DIRS",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "STATICFILES_DIRS = [\n    BASE_DIR / \"static\",\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1310,7 +1391,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nSTATICFILES_DIRS=[\n    BASE_DIR,\"static\"\n]\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True\nEMAIL_HOST_USER = 'evaluationportal@highbitsol.com'\nEMAIL_HOST_PASSWORD = 'leug ghsz xtxs mywt'",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = \"django.db.models.BigAutoField\"\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True\nEMAIL_HOST_USER = 'evaluationportal@highbitsol.com'\nEMAIL_HOST_PASSWORD = 'leug ghsz xtxs mywt'",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1441,6 +1522,42 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0007_mvp_game_plan_alter_mvp_name",
+        "description": "MVP.migrations.0007_mvp_game_plan_alter_mvp_name",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0006_alter_activity_options_alter_activitytype_options_and_more\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"game_plan\",\n            field=models.TextField(blank=True, null=True),\n        ),",
+        "detail": "MVP.migrations.0007_mvp_game_plan_alter_mvp_name",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0008_remove_mvp_game_plan",
+        "description": "MVP.migrations.0008_remove_mvp_game_plan",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0007_mvp_game_plan_alter_mvp_name\"),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name=\"mvp\",\n            name=\"game_plan\",\n        ),\n    ]",
+        "detail": "MVP.migrations.0008_remove_mvp_game_plan",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0009_mvp_plan",
+        "description": "MVP.migrations.0009_mvp_plan",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0008_remove_mvp_game_plan\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"plan\",\n            field=models.TextField(blank=True, null=True),\n        ),",
+        "detail": "MVP.migrations.0009_mvp_plan",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0010_mvp_cg_artist_mvp_modler_mvp_qa_mvp_sound_artist_and_more",
+        "description": "MVP.migrations.0010_mvp_cg_artist_mvp_modler_mvp_qa_mvp_sound_artist_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0009_mvp_plan\"),\n        (\"website\", \"0024_alter_employee_mvp_role\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"cg_artist\",\n            field=models.ManyToManyField(",
+        "detail": "MVP.migrations.0010_mvp_cg_artist_mvp_modler_mvp_qa_mvp_sound_artist_and_more",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -1481,7 +1598,7 @@
         "kind": 6,
         "importPath": "MVP.models",
         "description": "MVP.models",
-        "peekOfCode": "class MVP(models.Model):\n    name = models.TextField()\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)\n    start_date = models.DateField()\n    is_active = models.BooleanField(default=True)\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product')])\n    developers = models.ManyToManyField(Employee, related_name='developers')\n    planners = models.ManyToManyField(Employee, related_name='planners')\n    created_at = models.DateField(auto_now_add=True,null=True)",
+        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)\n    start_date = models.DateField()\n    is_active = models.BooleanField(default=True)\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product')])\n    developers = models.ManyToManyField(Employee, related_name='developers')\n    planners = models.ManyToManyField(Employee, related_name='planners')",
         "detail": "MVP.models",
         "documentation": {}
     },
@@ -1490,7 +1607,7 @@
         "kind": 6,
         "importPath": "MVP.models",
         "description": "MVP.models",
-        "peekOfCode": "class ActivityType(models.Model):\n    name = models.CharField(max_length=100)\n    def __str__(self):\n        return self.name\n    class Meta:\n        verbose_name = \"Activity Type\"\n        verbose_name_plural = \"Activity Types\"\nclass Activity(models.Model):\n    mvp = models.ForeignKey(MVP,on_delete=models.CASCADE)\n    activity_type = models.ForeignKey(ActivityType,on_delete=models.CASCADE)",
+        "peekOfCode": "class ActivityType(models.Model):\n    name = models.CharField(max_length=100)\n    def __str__(self):\n        return self.name\n    class Meta:\n        verbose_name = \"Activity Type\"  \n        verbose_name_plural = \"Activity Types\"\nclass Activity(models.Model):\n    mvp = models.ForeignKey(MVP,on_delete=models.CASCADE)\n    activity_type = models.ForeignKey(ActivityType,on_delete=models.CASCADE)",
         "detail": "MVP.models",
         "documentation": {}
     },
@@ -1765,6 +1882,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0024_alter_employee_mvp_role",
+        "description": "website.migrations.0024_alter_employee_mvp_role",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0023_alter_employee_mvp_role\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"employee\",\n            name=\"mvp_role\",\n            field=models.CharField(\n                blank=True,",
+        "detail": "website.migrations.0024_alter_employee_mvp_role",
+        "documentation": {}
+    },
+    {
         "label": "TeamFilter",
         "kind": 6,
         "importPath": "website.admin",
@@ -1958,7 +2084,7 @@
         "kind": 6,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "class Employee(models.Model):\n    is_active = models.BooleanField(default=True)\n    username = models.CharField(max_length=40, blank=True)\n    password = models.CharField(max_length=40, blank=True)\n    employee_id = models.CharField(primary_key=True, max_length=20, default=\"HB-\")\n    employee_name = models.CharField(max_length=255)\n    employee_email = models.EmailField()\n    mvp_role = models.CharField(choices=[('Super','Super'), ('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR')], max_length=20,null=True,blank=True)\n    previous_experience = models.CharField(max_length=255, blank=True)\n    joining_date = models.DateField(null=True, editable=True)",
+        "peekOfCode": "class Employee(models.Model):\n    is_active = models.BooleanField(default=True)\n    username = models.CharField(max_length=40, blank=True)\n    password = models.CharField(max_length=40, blank=True)\n    employee_id = models.CharField(primary_key=True, max_length=20, default=\"HB-\")\n    employee_name = models.CharField(max_length=255)\n    employee_email = models.EmailField()\n    mvp_role = models.CharField(choices=[('Super','Super'), (\"Growth Manager\",\"Growth Manager\"),('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR'),(\"UI Artist\",\"UI Artist\"),(\"Sound Artist\",\"Sound Artist\"),(\"Modler\",\"Modler\"),(\"Video Editor\",\"Video Editor\"),(\"CG Artist\",\"CG Artist\"),(\"QA\",\"QA\")], max_length=20,null=True,blank=True)\n    previous_experience = models.CharField(max_length=255, blank=True)\n    joining_date = models.DateField(null=True, editable=True)",
         "detail": "website.models",
         "documentation": {}
     },
@@ -2084,7 +2210,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def view_quarterly_valuations(request):\n    quarter = request.GET.get(\"quarter\")\n    year = request.GET.get(\"year\")\n    team_id = request.GET.get(\"team\")\n    current_year = datetime.now().year\n    years = [current_year - i for i in range(5)]\n    quarter_months = {\n        \"1\": [\"January\", \"February\", \"March\"],\n        \"2\": [\"April\", \"May\", \"June\"],\n        \"3\": [\"July\", \"August\", \"September\"],",
+        "peekOfCode": "def view_quarterly_valuations(request):\n    quarter = request.GET.get(\"quarter\")\n    year = request.GET.get(\"year\")\n    team_id = request.GET.get(\"team\")\n    grade = request.GET.get(\"grade\")  \n    current_year = datetime.now().year\n    years = [current_year - i for i in range(5)]\n    quarter_months = {\n        \"1\": [\"January\", \"February\", \"March\"],\n        \"2\": [\"April\", \"May\", \"June\"],",
         "detail": "website.views",
         "documentation": {}
     },

@@ -40,7 +40,7 @@ class Employee(models.Model):
     employee_id = models.CharField(primary_key=True, max_length=20, default="HB-")
     employee_name = models.CharField(max_length=255)
     employee_email = models.EmailField()
-    mvp_role = models.CharField(choices=[('Super','Super'), ('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR')], max_length=20,null=True,blank=True)
+    mvp_role = models.CharField(choices=[('Super','Super'), ("Growth Manager","Growth Manager"),('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR'),("UI Artist","UI Artist"),("Sound Artist","Sound Artist"),("Modler","Modler"),("Video Editor","Video Editor"),("CG Artist","CG Artist"),("QA","QA")], max_length=20,null=True,blank=True)
     previous_experience = models.CharField(max_length=255, blank=True)
     joining_date = models.DateField(null=True, editable=True)
     confirmation_date = models.DateField(null=True, editable=True)
@@ -74,7 +74,7 @@ class Employee(models.Model):
             user, created = User.objects.get_or_create(
                 username=self.employee_email, defaults={"email": self.employee_email}
             )
-            if not created:
+            if created:
                 user.set_password(self.password)
                 user.save()
 
@@ -83,7 +83,7 @@ class Employee(models.Model):
             months_of_experience = (today.year - self.joining_date.year) * 12 + (
                 today.month - self.joining_date.month
             )
-            self.highbit_experience = f"{months_of_experience} months"
+            self.previous_experience = f"{months_of_experience} months"
 
         super(Employee, self).save(*args, **kwargs)
 

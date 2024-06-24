@@ -241,6 +241,7 @@ def view_quarterly_valuations(request):
     quarter = request.GET.get("quarter")
     year = request.GET.get("year")
     team_id = request.GET.get("team")
+    grade = request.GET.get("grade")  
     
     current_year = datetime.now().year
     years = [current_year - i for i in range(5)]
@@ -322,6 +323,14 @@ def view_quarterly_valuations(request):
                 elif 7.5 <= quarterly_weighted_average < 8.5:
                     b_grade_count += 1
 
+
+    if grade == "A":
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] >= 8.5]
+    elif grade == "B":
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and 7.5 <= data["quarterly_weighted_average"] < 8.5]
+    elif grade == "C":
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] < 7.5  ]
+
     month_name_list = quarter_months.get(quarter, [])
     if not quarter:
         message = f"Please select a quarter and year to view the evaluations."
@@ -344,8 +353,10 @@ def view_quarterly_valuations(request):
             "message": message,
             "a_grade_count": a_grade_count,
             "b_grade_count": b_grade_count,
+            "grade": grade, 
         },
     )
+
 
 
 def export_csv(request):

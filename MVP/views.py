@@ -21,7 +21,6 @@ def mvp_form(request):
             return redirect("mvp_list")
     else:
         form = MVPForm(request=request)
-
     return render(request, "mvp_form.html", {"form": form})
 
 

@@ -1,40 +1,53 @@
-.mvp{
+.mvp {
     color: #24A9E1;
     font-weight: 700;
 }
-.mvp-edit{
+.mvp-edit {
     font-weight: 200;
 }
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom:2rem;
+.text {
+    font-size: 20px;
 }
-
-.form-group {
-    flex: 1;
-    margin-right: 1rem;
+.field-text {
+    font-size: 15px;
+    font-weight: 400;
 }
-
-.form-group:last-child {
-    margin-right: 0;
-}
-.form-edit{
+.form-edit {
     margin-top: 2rem;
 }
-.save_changes_button{
+.save_changes_button {
     background-color: #24A9E1;
     font-weight: 700;
     color: white;
-    
-  
 }
-.save_changes_button:hover{
+.save_changes_button:hover {
     background-color: #2098CA;
     font-weight: 700;
     color: white;
- 
-  
+}
+.form-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.column {
+    flex: 1;
+}
+.form-group {
+    margin-bottom: 10px;
+}
+.form-group-box {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.8); 
+    border: 1px solid #f4f4f4; 
+    border-radius: 5px; 
+    padding: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+.form-group-box h3,
+.form-group-box div {
+    margin: 5px 0; 
 }
 body {
     background: linear-gradient(135deg, #feffff 0%, #feffff 70%, #d2ebf9 100%);
@@ -44,19 +57,38 @@ body {
     overflow-x: hidden;
 }
 @media screen and (max-width: 768px) {
-
-    .form-row {
-      display: block;
+    .text {
+        font-size: 18px;
     }
-  
+    .field-text {
+        font-size: 14px;
+    }
+    .form-edit {
+        margin-top: 1rem;
+    }
+    .save_changes_button {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+    .form-columns {
+        flex-direction: column;
+    }
+    .column {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 480px) {
+    .text {
+        font-size: 16px;
+    }
+    .field-text {
+        font-size: 12px;
+    }
+    .save_changes_button {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
     .form-group {
-      width: 100%;
-      margin-bottom: 15px;
+        margin-bottom: 20px;
     }
-  
-    .form-group h3,
-    .form-group div {
-      text-align: center;
-    }
-  }
- 
+}

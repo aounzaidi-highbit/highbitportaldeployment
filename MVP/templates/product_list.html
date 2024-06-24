@@ -7,6 +7,14 @@
     .table-scroll {
         overflow-x: auto;
     }
+    .green-dot {
+        height: 10px;
+        width: 10px;
+        background-color: lightgreen;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 5px;
+    }
 </style>
 
 <div class="container mt-5">
@@ -59,11 +67,16 @@
             <tbody>
                 {% for mvp in mvps %}
                 <tr>
-                    <td class="font">{{ mvp.name|truncatewords:3 }}</td>
+                    <td class="font">
+                        {{ mvp.name|truncatewords:3 }}
+                        {% if mvp.is_active %}
+                        <span class="green-dot"></span>
+                        {% endif %}
+                    </td>
                     <td class="font">{{ mvp.team_name|truncatewords:3 }}</td>
                     <td class="font">{{ mvp.start_date }}</td>
                     <td class="font">{{ mvp.end_date }}</td>
-                    <td class="font">{{ mvp.is_active|truncatewords:3 }}</td>
+                    <td class="font">{{ mvp.is_active|yesno:"Yes,No" }}</td>
                     <td>
                         {% if employee.mvp_role == 'Super' %}
                         <button type="button" class="btn add-mvp font view-mvp" data-toggle="modal" data-target="#viewModal{{ mvp.pk }}">View</button>
