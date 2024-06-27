@@ -161,38 +161,37 @@ def product_list(request):
     )
 
 
-@login_required
-def edit_mvp(request, pk):
-    mvp = get_object_or_404(MVP, pk=pk)
-
-    if request.method == "POST":
-        form = MVPForm(request.POST, instance=mvp, request=request)
-        if form.is_valid():
-            form.save()
-            return redirect("mvp_list")
-    else:
-        form = MVPForm(instance=mvp, request=request)
-    return render(request, "edit_mvp.html", {"form": form, "mvp": mvp})
-
-
 # @login_required
 # def edit_mvp(request, pk):
 #     mvp = get_object_or_404(MVP, pk=pk)
-#     user = request.user
-#     employee = Employee.objects.get(employee_email=user.username)
+
 #     if request.method == "POST":
 #         form = MVPForm(request.POST, instance=mvp, request=request)
 #         if form.is_valid():
-#             mvp_instance = form.save(commit=False)
-#             mvp_instance.updated_by =employee.employee_name
-#             mvp_instance.save()
-#             form.save_m2m()
-#             return redirect("mvp_list",mvp_id=mvp.id)
+#             form.save()
+#             return redirect("mvp_list")
 #     else:
 #         form = MVPForm(instance=mvp, request=request)
-
 #     return render(request, "edit_mvp.html", {"form": form, "mvp": mvp})
 
+
+@login_required
+def edit_mvp(request, pk):
+    mvp = get_object_or_404(MVP, pk=pk)
+    user = request.user
+    employee = Employee.objects.get(employee_email=user.username)
+    if request.method == "POST":
+        form = MVPForm(request.POST, instance=mvp, request=request)
+        if form.is_valid():
+            mvp_instance = form.save(commit=False)
+            mvp_instance.updated_by = employee  
+            mvp_instance.save()
+            form.save_m2m()
+            return redirect("mvp_list")
+    else:
+        form = MVPForm(instance=mvp, request=request)
+
+    return render(request, "edit_mvp.html", {"form": form, "mvp": mvp})
 
 @login_required
 def activity_form(request):

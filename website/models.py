@@ -40,7 +40,7 @@ class Employee(models.Model):
     employee_id = models.CharField(primary_key=True, max_length=20, default="HB-")
     employee_name = models.CharField(max_length=255)
     employee_email = models.EmailField()
-    mvp_role = models.CharField(choices=[('Super','Super'), ("Growth Manager","Growth Manager"),('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR'),("UI Artist","UI Artist"),("Sound Artist","Sound Artist"),("Modler","Modler"),("Video Editor","Video Editor"),("CG Artist","CG Artist"),("QA","QA")], max_length=20,null=True,blank=True)
+    mvp_role = models.CharField(choices=[('Super','Super'), ("Growth Manager","Growth Manager"),('Team Lead','Team Lead'),('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR')], max_length=20,null=True,blank=True)
     previous_experience = models.CharField(max_length=255, blank=True)
     joining_date = models.DateField(null=True, editable=True)
     confirmation_date = models.DateField(null=True, editable=True)

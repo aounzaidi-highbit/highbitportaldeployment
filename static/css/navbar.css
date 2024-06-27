@@ -26,8 +26,15 @@
   background-color: #24A9E1;
   color: white !important; 
 }
+#sidebarToggle{
+  background-color: #24A9E1;
+  color: white !important;
 
+}
 
+/* .navbar{
+  background-color: white;
+} */
 @media (max-width: 768px) {
   .navbar{
     background-color: white;

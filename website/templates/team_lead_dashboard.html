@@ -16,9 +16,10 @@
   <head>
     <link rel="stylesheet" href={% static 'css/dashboard.css' %}>
   </head>
-
+  <div class="circle"></div>
   <title>{% block title %}Dashboard | {% endblock title %}</title>
   <body>
+    
     {% if user.is_authenticated %}
       <div class="content">
         <h1 class="welcome_text">Welcome, <span class="team_lead_name">{{ team_lead.employee_name }}</span></h1>

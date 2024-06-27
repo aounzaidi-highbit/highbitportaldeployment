@@ -4,21 +4,15 @@ from website.models import Teams, Employee
 class MVP(models.Model):
     name = models.CharField(max_length=100)
     plan=models.TextField(null=True, blank=True)
-    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)
+    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)        
+    updated_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)
     start_date = models.DateField()
     is_active = models.BooleanField(default=True)
     end_date = models.DateField(null=True, blank=True)
     current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product')])
     developers = models.ManyToManyField(Employee, related_name='developers')
     planners = models.ManyToManyField(Employee, related_name='planners')
-    ui=models.ManyToManyField(Employee, related_name='ui')
-    sound_artist=models.ManyToManyField(Employee, related_name='sound_artist')
-    modler=models.ManyToManyField(Employee, related_name='modler')  
-    video_editor=models.ManyToManyField(Employee, related_name='video_editor')
-    cg_artist=models.ManyToManyField(Employee, related_name='cg_artist')
-    qa=models.ManyToManyField(Employee, related_name='qa')
-    created_at = models.DateField(auto_now_add=True,null=True)
-    
+    associates = models.ManyToManyField(Employee, related_name='associates')
     def __str__(self):
         return self.name
     class Meta:

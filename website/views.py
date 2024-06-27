@@ -276,7 +276,7 @@ def view_quarterly_valuations(request):
             role = evaluation.employee.role
             month = evaluation.evaluation_for.split(" ")[0]
             weighted_average = evaluation._weighted_average
-
+            
             if employee_id not in employee_data:
                 employee_data[employee_id] = {
                     "name": employee_name,
@@ -297,7 +297,7 @@ def view_quarterly_valuations(request):
             if valid_averages:
                 valid_averages = [avg for avg in valid_averages if avg is not None]
                 if valid_averages:
-                    quarterly_weighted_average = sum(valid_averages) / len(valid_averages)
+                    quarterly_weighted_average = (sum(valid_averages) / len(valid_averages) ) * 10
                     quarterly_weighted_average = round(quarterly_weighted_average, 2)
                 else:
                     quarterly_weighted_average = "N/A"
@@ -316,20 +316,22 @@ def view_quarterly_valuations(request):
                 "bonuscalculations": not bonus_calculations
             }
             evaluation_data.append(data_entry)
-
+            
             if quarterly_weighted_average != "N/A":
-                if quarterly_weighted_average >= 8.5:
+                if quarterly_weighted_average >= 85.0:
                     a_grade_count += 1
-                elif 7.5 <= quarterly_weighted_average < 8.5:
+                elif 75.0 <= quarterly_weighted_average < 85.00:
                     b_grade_count += 1
 
 
     if grade == "A":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] >= 8.5]
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] >=85.0]
     elif grade == "B":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and 7.5 <= data["quarterly_weighted_average"] < 8.5]
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and 75.0 <= data["quarterly_weighted_average"] < 85.0]
     elif grade == "C":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] < 7.5  ]
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] < 75.0 ]
+    elif grade == "X":
+        evaluation_data = [data for data in evaluation_data if data["months"].count("N/A") >= 1]
 
     month_name_list = quarter_months.get(quarter, [])
     if not quarter:
@@ -353,7 +355,7 @@ def view_quarterly_valuations(request):
             "message": message,
             "a_grade_count": a_grade_count,
             "b_grade_count": b_grade_count,
-            "grade": grade, 
+            "grade": grade,
         },
     )
 
@@ -405,7 +407,7 @@ def export_csv(request):
         ]
 
         quarterly_weighted_average = (
-            sum(numeric_averages) / len(numeric_averages) if numeric_averages else "N/A"
+            (sum(numeric_averages) / len(numeric_averages)) *10 if numeric_averages else "N/A"
         )
 
         writer.writerow(
@@ -416,6 +418,7 @@ def export_csv(request):
 
 
 def send_emails(request):
+    email_count = 0
     if request.method == "POST":
         quarter = request.POST.get("quarter")
         year = request.POST.get("year")
@@ -478,24 +481,25 @@ def send_emails(request):
             if len(valid_months) != 3:
                 bonus = None
                 average_weighted_score = (
-                    sum(valid_months) / len(valid_months) if valid_months else 0
+                    (sum(valid_months) / len(valid_months)) * 10 if valid_months else 0
                 )
+                
                 grade = (
                     "A"
-                    if average_weighted_score >= 8.5
-                    else "B" if 7.5 <= average_weighted_score < 8.5 else "C"
+                    if average_weighted_score >= 85.0
+                    else "B" if 75.0 <= average_weighted_score < 85.0 else "C"
                 )
             else:
                 monthly_averages = [month_averages.get(month, 0) for month in months]
                 average_weighted_score = (
-                    sum(monthly_averages) / len(monthly_averages)
+                    (sum(monthly_averages) / len(monthly_averages)) *10
                     if monthly_averages
                     else 0
                 )
                 grade = (
                     "A"
-                    if average_weighted_score >= 8.5
-                    else "B" if 7.5 <= average_weighted_score < 8.5 else "C"
+                    if average_weighted_score >= 85.0
+                    else "B" if 75.0 <= average_weighted_score < 85.0 else "C"
                 )
                 bonus = bonus_a if grade == "A" else bonus_b if grade == "B" else None
 
@@ -511,17 +515,17 @@ def send_emails(request):
                 "bonus": bonus,
             }
 
-            subject = "Quarterly Performance Review"
+            subject = f"Quarterly Performance Review - Q{quarter} {year}"
             html_message = render_to_string("quarterly_evaluation_email.html", context)
             plain_message = strip_tags(html_message)
             from_email = "noreply@example.com"
             to = data["email"]
-
+            email_count += 1
             send_mail(
                 subject, plain_message, from_email, [to], html_message=html_message
             )
 
-        messages.success(request, "Quarterly Emails sent successfully")
+        messages.success(request, f"Quarterly Emails sent successfully to {email_count} employees.")
         return redirect("quarterly_evaluations")
 
     messages.error(request, "Invalid request")

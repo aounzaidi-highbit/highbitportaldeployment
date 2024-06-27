@@ -266,6 +266,38 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -770,6 +802,22 @@
         "documentation": {}
     },
     {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
         "label": "TestCase",
         "importPath": "django.test",
         "description": "django.test",
@@ -1199,14 +1247,6 @@
         "documentation": {}
     },
     {
-        "label": "Q",
-        "importPath": "django.db.models",
-        "description": "django.db.models",
-        "isExtraImport": true,
-        "detail": "django.db.models",
-        "documentation": {}
-    },
-    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
@@ -1558,6 +1598,24 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0011_mvp_updated_by",
+        "description": "MVP.migrations.0011_mvp_updated_by",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0010_mvp_cg_artist_mvp_modler_mvp_qa_mvp_sound_artist_and_more\"),\n        (\"website\", \"0024_alter_employee_mvp_role\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"updated_by\",\n            field=models.ForeignKey(",
+        "detail": "MVP.migrations.0011_mvp_updated_by",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0012_remove_mvp_cg_artist_remove_mvp_created_at_and_more",
+        "description": "MVP.migrations.0012_remove_mvp_cg_artist_remove_mvp_created_at_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0011_mvp_updated_by\"),\n        (\"website\", \"0024_alter_employee_mvp_role\"),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name=\"mvp\",\n            name=\"cg_artist\",\n        ),",
+        "detail": "MVP.migrations.0012_remove_mvp_cg_artist_remove_mvp_created_at_and_more",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -1567,11 +1625,20 @@
         "documentation": {}
     },
     {
+        "label": "EmployeeModelMultipleChoiceField",
+        "kind": 6,
+        "importPath": "MVP.forms",
+        "description": "MVP.forms",
+        "peekOfCode": "class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):\n    def label_from_instance(self, obj):\n        return f\"{obj.employee_name} ({obj.role})\"\nclass MVPForm(forms.ModelForm): \n    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'custom-char-field'}))\n    plan = forms.CharField(widget=forms.TextInput(attrs={'class': 'custom-text-field'}))\n    start_date = forms.DateField(widget=forms.DateInput(attrs={\"type\": \"date\", 'class': 'custom-char-field'}))\n    end_date = forms.DateField(\n        required=False, widget=forms.DateInput(attrs={\"type\": \"date\", 'class': 'custom-char-field'})\n    )",
+        "detail": "MVP.forms",
+        "documentation": {}
+    },
+    {
         "label": "MVPForm",
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class MVPForm(forms.ModelForm):\n    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))\n    developers = forms.ModelMultipleChoiceField(\n        queryset=Employee.objects.none(), \n        widget=CheckboxSelectMultiple\n    )\n    planners = forms.ModelMultipleChoiceField(\n        queryset=Employee.objects.none(), \n        widget=CheckboxSelectMultiple\n    )",
+        "peekOfCode": "class MVPForm(forms.ModelForm): \n    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'custom-char-field'}))\n    plan = forms.CharField(widget=forms.TextInput(attrs={'class': 'custom-text-field'}))\n    start_date = forms.DateField(widget=forms.DateInput(attrs={\"type\": \"date\", 'class': 'custom-char-field'}))\n    end_date = forms.DateField(\n        required=False, widget=forms.DateInput(attrs={\"type\": \"date\", 'class': 'custom-char-field'})\n    )\n    current_phase = forms.ChoiceField(\n        choices=[(\"MVP\", \"MVP\"), (\"Product\", \"Product\")],\n        widget=forms.Select(attrs={'class': 'custom-char-field'}),",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1580,7 +1647,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class MVPFilterForm(forms.Form):\n    teams=Teams.objects.all()\n    name = forms.CharField(required=False, label='Name')\n    team_name = forms.ChoiceField(choices=[('', 'Any')]+[(team.id, team.team_name) for team in teams], required=False, label='Team Name')\n    start_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}), label='Start Date')\n    current_phase = forms.ChoiceField(choices=[('', 'Any'), ('MVP','MVP'), ('Product', 'Product')],required=False, label='Current Phase')\n    is_active = forms.ChoiceField(choices=[('', 'Any'), ('true', 'Yes'), ('false', 'No')], required=False, label='Is Active')\nclass ActivityForm(forms.ModelForm):\n    class Meta:\n        model = Activity",
+        "peekOfCode": "class MVPFilterForm(forms.Form):\n    teams = Teams.objects.all()\n    name = forms.CharField(required=False, label=\"Name\")\n    team_name = forms.ChoiceField(\n        choices=[(\"\", \"Any\")] + [(team.id, team.team_name) for team in teams],\n        required=False,\n        label=\"Team Name\",\n    )\n    start_date = forms.DateField(\n        required=False,",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1589,7 +1656,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class ActivityForm(forms.ModelForm):\n    class Meta:\n        model = Activity\n        fields = ['mvp', 'activity_type', 'notes']\n    def __init__(self, *args, **kwargs):\n        user = kwargs.pop('user', None)\n        super(ActivityForm, self).__init__(*args, **kwargs)\n        if user:\n            try:\n                employee = Employee.objects.get(employee_email=user.username)",
+        "peekOfCode": "class ActivityForm(forms.ModelForm):\n    mvp= forms.ModelChoiceField(\n        queryset=MVP.objects.all(),\n        widget=forms.Select(attrs={'class': 'custom-char-field'}),\n    )\n    activity_type = forms.ModelChoiceField(\n        queryset=ActivityType.objects.all(),\n        widget=forms.Select(attrs={'class': 'custom-char-field'}),\n    )\n    notes = forms.CharField(widget=forms.Textarea(attrs={'class': 'custom-text-field'}))",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1598,7 +1665,7 @@
         "kind": 6,
         "importPath": "MVP.models",
         "description": "MVP.models",
-        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)\n    start_date = models.DateField()\n    is_active = models.BooleanField(default=True)\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product')])\n    developers = models.ManyToManyField(Employee, related_name='developers')\n    planners = models.ManyToManyField(Employee, related_name='planners')",
+        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)        \n    updated_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)\n    start_date = models.DateField()\n    is_active = models.BooleanField(default=True)\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product')])\n    developers = models.ManyToManyField(Employee, related_name='developers')",
         "detail": "MVP.models",
         "documentation": {}
     },
@@ -1652,7 +1719,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def edit_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, instance=mvp, request=request)\n        if form.is_valid():\n            form.save()\n            return redirect(\"mvp_list\")\n    else:\n        form = MVPForm(instance=mvp, request=request)\n    return render(request, \"edit_mvp.html\", {\"form\": form, \"mvp\": mvp})",
+        "peekOfCode": "def edit_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, instance=mvp, request=request)\n        if form.is_valid():\n            mvp_instance = form.save(commit=False)\n            mvp_instance.updated_by = employee  \n            mvp_instance.save()",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2084,7 +2151,7 @@
         "kind": 6,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "class Employee(models.Model):\n    is_active = models.BooleanField(default=True)\n    username = models.CharField(max_length=40, blank=True)\n    password = models.CharField(max_length=40, blank=True)\n    employee_id = models.CharField(primary_key=True, max_length=20, default=\"HB-\")\n    employee_name = models.CharField(max_length=255)\n    employee_email = models.EmailField()\n    mvp_role = models.CharField(choices=[('Super','Super'), (\"Growth Manager\",\"Growth Manager\"),('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR'),(\"UI Artist\",\"UI Artist\"),(\"Sound Artist\",\"Sound Artist\"),(\"Modler\",\"Modler\"),(\"Video Editor\",\"Video Editor\"),(\"CG Artist\",\"CG Artist\"),(\"QA\",\"QA\")], max_length=20,null=True,blank=True)\n    previous_experience = models.CharField(max_length=255, blank=True)\n    joining_date = models.DateField(null=True, editable=True)",
+        "peekOfCode": "class Employee(models.Model):\n    is_active = models.BooleanField(default=True)\n    username = models.CharField(max_length=40, blank=True)\n    password = models.CharField(max_length=40, blank=True)\n    employee_id = models.CharField(primary_key=True, max_length=20, default=\"HB-\")\n    employee_name = models.CharField(max_length=255)\n    employee_email = models.EmailField()\n    mvp_role = models.CharField(choices=[('Super','Super'), (\"Growth Manager\",\"Growth Manager\"),('Team Lead','Team Lead'),('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR')], max_length=20,null=True,blank=True)\n    previous_experience = models.CharField(max_length=255, blank=True)\n    joining_date = models.DateField(null=True, editable=True)",
         "detail": "website.models",
         "documentation": {}
     },
@@ -2228,7 +2295,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def send_emails(request):\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        bonus_a = request.POST.get(\"bonusA\")\n        bonus_b = request.POST.get(\"bonusB\")\n        if (\n            not (bonus_a.isdigit() and bonus_b.isdigit())\n            or int(bonus_a) <= 0\n            or int(bonus_b) <= 0",
+        "peekOfCode": "def send_emails(request):\n    email_count = 0\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        bonus_a = request.POST.get(\"bonusA\")\n        bonus_b = request.POST.get(\"bonusB\")\n        if (\n            not (bonus_a.isdigit() and bonus_b.isdigit())\n            or int(bonus_a) <= 0",
         "detail": "website.views",
         "documentation": {}
     },

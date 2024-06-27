@@ -3,101 +3,86 @@
 {% block title %}MVP Form |{% endblock title %}
 {% block content %}
 <link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="circle"></div>
 <h1 class="font mvp-edit">Add <span class="mvp">MVP</span></h1>
 <div class="form-edit">
     <form method="POST" action="{% url 'mvp_form' %}">
         {% csrf_token %}
+       
+        
+        <div class="form-group">
+            <div class="flex-container">
+                <h3 class="font text">Status Active:</h3>
+                <span class="font text field-text">{{ form.is_active }}</span>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px;"> 
         <div class="form-columns">
             <div class="column">
+                <h3 class="font text">MVP Name:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        <h3 class="font text">Status:</h3>
-                        <p class="mb-0 font">Active:</p>
-                        <div>{{ form.is_active }}</div>
+                        
+                        <div class="font text field-text"> {{ form.name }}</div>
                     </div>
                 </div>
+                <h3 class="font text">MVP Plan:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        <h3 class="font text">MVP Name:</h3>
-                        <div class="font text field-text">{{ form.name }}</div>
+                        
+                        <div class="font  field-text">{{ form.plan }}</div>
                     </div>
                 </div>
+                <h3 class="font text">Start Date:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        <h3 class="font text">MVP Plan:</h3>
-                        <div class="font text field-text">{{ form.plan }}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-group-box">
-                        <h3 class="font text">Current Phase:</h3>
-                        <div class="font text field-text">{{ form.current_phase }}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-group-box">
-                        <h3 class="font text">Start Date:</h3>
+                        
                         <div class="font text field-text">{{ form.start_date }}</div>
                     </div>
                 </div>
+                <h3 class="font text">End Date:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        <h3 class="font text">End Date:</h3>
+                        
                         <div class="font text field-text">{{ form.end_date }}</div>
                     </div>
                 </div>
             </div>
             <div class="column">
+                <h3 class="font text">Current Phase:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        <h3 class="font text">Developers:</h3>
+                        <div class="font text field-text">{{ form.current_phase }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">Developers:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
                         <div class="font text field-text">{{ form.developers }}</div>
                     </div>
                 </div>
+                <h3 class="font text">Planners:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        <h3 class="font text">Planners:</h3>
+                        
                         <div class="font text field-text">{{ form.planners }}</div>
                     </div>
                 </div>
+                <h3 class="font text">Associates:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        <h3 class="font text">UI Artists:</h3>
-                        <div class="font text field-text">{{ form.ui }}</div>
+                        
+                        <div class="font text field-text">{{ form.associates }}</div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-group-box">
-                        <h3 class="font text">Video Editor:</h3>
-                        <div class="font text field-text">{{ form.video_editor }}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-group-box">
-                        <h3 class="font text">Sound Artist:</h3>
-                        <div class="font text field-text">{{ form.sound_artist }}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-group-box">
-                        <h3 class="font text">Modeller:</h3>
-                        <div class="font text field-text">{{ form.modler }}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-group-box">
-                        <h3 class="font text">CG Artists:</h3>
-                        <div class="font text field-text">{{ form.cg_artist }}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-group-box">
-                        <h3 class="font text">QA's:</h3>
-                        <div class="font text field-text">{{ form.qa }}</div>
-                    </div>
-                </div>
+
             </div>
         </div>
+    </div>   
         <button type="submit" class="btn font save_changes_button">Submit</button>
     </form>
 </div>
