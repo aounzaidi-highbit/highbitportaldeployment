@@ -12,7 +12,7 @@ class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 
 class MVPForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={"class": "custom-char-field"}))
-    plan = forms.CharField(widget=forms.TextInput(attrs={"class": "custom-text-field"}))
+    plan = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-plan-field"}))
     start_date = forms.DateField(
         widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"})
     )
@@ -141,7 +141,7 @@ class ActivityForm(forms.ModelForm):
         queryset=ActivityType.objects.all(),
         widget=forms.Select(attrs={"class": "custom-act-field"}),
     )
-    notes = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-text-field"}))
+    notes = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-notes-text-field"}))
 
     class Meta:
         model = Activity

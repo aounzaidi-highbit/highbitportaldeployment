@@ -103,7 +103,7 @@
                 <input type="hidden" name="employee_id" value="{{ employee.employee_id }}">
                 <label class="font" for="selected_month">Select Month:</label>
                 <select class="font month-dropdown" name="selected_month" id="selected_month">
-                    <option class="font previous-months" value="{{ last_month }}">Recently submitted evaluation.</option>
+                    <option class="font previous-months" value="{{ last_month }}">{{last_month}}</option>
                     <option class="font previous-months" value="{{ second_last_month }}">{{ second_last_month }}</option>
                     <option class="font previous-months" value="{{ third_last_month }}">{{ third_last_month }}</option>
                 </select>
