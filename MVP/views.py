@@ -1,9 +1,11 @@
+import collections
 import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 import django.utils
 from website.models import Employee
-from .forms import MVPFilterForm, MVPForm, ActivityForm
+from website.decorators import roles_required
+from .forms import ActivityTypeForm, MVPFilterForm, MVPForm, ActivityForm, ActivityType
 from .models import MVP, Activity
 from django.core.paginator import Paginator
 
@@ -230,11 +232,14 @@ def activity_list(request):
 
     if form.is_valid():
         name = form.cleaned_data.get("name")
+        avtivity_type = form.cleaned_data.get("activity_type")
         team_name = form.cleaned_data.get("team_name")
         if name:
             activities = activities.filter(mvp__name__icontains=name)
         if team_name:
             activities = activities.filter(team_name=team_name)
+        if avtivity_type:
+            activities = activities.filter(activity_type=avtivity_type)
 
     sort = request.GET.get("sort", "-id")
     activities = activities.order_by(sort)
@@ -249,3 +254,14 @@ def activity_list(request):
         "employee": employee,
         "page_obj": page_obj
     })
+
+roles_required(["Super", "Growth Manager"])
+def add_activity_type(request):
+    if request.method == "POST":
+        form = ActivityTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("activity_list")
+    else:
+        form = ActivityTypeForm()
+    return render(request, "add_activity_type.html", {"form": form})

@@ -10,4 +10,5 @@ urlpatterns=[
     path('mvp-edit/<int:pk>/', views.edit_mvp, name='edit_mvp'),
     path('activity-form/', views.activity_form, name='activity_form'),
     path('activity-list/', views.activity_list, name='activity_list'),
+    path('activity-type-form', views.add_activity_type, name='activity_type_form'),
 ]

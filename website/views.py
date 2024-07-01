@@ -325,11 +325,11 @@ def view_quarterly_valuations(request):
 
 
     if grade == "A":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] >=85.0]
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] >=85.0 and data["months"].count("N/A") < 1]
     elif grade == "B":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and 75.0 <= data["quarterly_weighted_average"] < 85.0]
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and 75.0 <= data["quarterly_weighted_average"] < 85.0 and data["months"].count("N/A") < 1]
     elif grade == "C":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] < 75.0 ]
+        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] < 75.0 and data["months"].count("N/A") < 1]
     elif grade == "X":
         evaluation_data = [data for data in evaluation_data if data["months"].count("N/A") >= 1]
 

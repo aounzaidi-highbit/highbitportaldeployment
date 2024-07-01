@@ -48,6 +48,7 @@ body {
     padding: 0;
     overflow-x: hidden;
 }
+
 @media (max-width: 768px) {
     .circle{
         display: none;

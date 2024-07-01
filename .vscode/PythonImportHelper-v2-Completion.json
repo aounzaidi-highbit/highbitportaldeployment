@@ -850,6 +850,23 @@
         "documentation": {}
     },
     {
+        "label": "collections",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "collections",
+        "description": "collections",
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "defaultdict",
+        "importPath": "collections",
+        "description": "collections",
+        "isExtraImport": true,
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "kind": 6,
         "isExtraImport": true,
@@ -1028,6 +1045,22 @@
         "documentation": {}
     },
     {
+        "label": "roles_required",
+        "importPath": "website.decorators",
+        "description": "website.decorators",
+        "isExtraImport": true,
+        "detail": "website.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "roles_required",
+        "importPath": "website.decorators",
+        "description": "website.decorators",
+        "isExtraImport": true,
+        "detail": "website.decorators",
+        "documentation": {}
+    },
+    {
         "label": "Paginator",
         "importPath": "django.core.paginator",
         "description": "django.core.paginator",
@@ -1089,14 +1122,6 @@
         "description": "django.utils.html",
         "isExtraImport": true,
         "detail": "django.utils.html",
-        "documentation": {}
-    },
-    {
-        "label": "defaultdict",
-        "importPath": "collections",
-        "description": "collections",
-        "isExtraImport": true,
-        "detail": "collections",
         "documentation": {}
     },
     {
@@ -1202,14 +1227,6 @@
         "description": "django.contrib.auth",
         "isExtraImport": true,
         "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "roles_required",
-        "importPath": "website.decorators",
-        "description": "website.decorators",
-        "isExtraImport": true,
-        "detail": "website.decorators",
         "documentation": {}
     },
     {
@@ -1629,7 +1646,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):\n    def label_from_instance(self, obj):\n        return f\"{obj.employee_name} ({obj.role})\"\nclass MVPForm(forms.ModelForm): \n    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'custom-char-field'}))\n    plan = forms.CharField(widget=forms.TextInput(attrs={'class': 'custom-text-field'}))\n    start_date = forms.DateField(widget=forms.DateInput(attrs={\"type\": \"date\", 'class': 'custom-char-field'}))\n    end_date = forms.DateField(\n        required=False, widget=forms.DateInput(attrs={\"type\": \"date\", 'class': 'custom-char-field'})\n    )",
+        "peekOfCode": "class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):\n    def label_from_instance(self, obj):\n        return f\"{obj.employee_name} ({obj.role})\"\nclass MVPForm(forms.ModelForm):\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    plan = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-text-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})\n    )\n    end_date = forms.DateField(",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1638,7 +1655,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class MVPForm(forms.ModelForm): \n    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'custom-char-field'}))\n    plan = forms.CharField(widget=forms.TextInput(attrs={'class': 'custom-text-field'}))\n    start_date = forms.DateField(widget=forms.DateInput(attrs={\"type\": \"date\", 'class': 'custom-char-field'}))\n    end_date = forms.DateField(\n        required=False, widget=forms.DateInput(attrs={\"type\": \"date\", 'class': 'custom-char-field'})\n    )\n    current_phase = forms.ChoiceField(\n        choices=[(\"MVP\", \"MVP\"), (\"Product\", \"Product\")],\n        widget=forms.Select(attrs={'class': 'custom-char-field'}),",
+        "peekOfCode": "class MVPForm(forms.ModelForm):\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    plan = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-text-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})\n    )\n    end_date = forms.DateField(\n        required=False,\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"}),\n    )",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1647,7 +1664,16 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class MVPFilterForm(forms.Form):\n    teams = Teams.objects.all()\n    name = forms.CharField(required=False, label=\"Name\")\n    team_name = forms.ChoiceField(\n        choices=[(\"\", \"Any\")] + [(team.id, team.team_name) for team in teams],\n        required=False,\n        label=\"Team Name\",\n    )\n    start_date = forms.DateField(\n        required=False,",
+        "peekOfCode": "class MVPFilterForm(forms.Form):\n    teams = Teams.objects.all()\n    name = forms.CharField(\n        widget=forms.TextInput(attrs={\"class\": \"filter-box\"}),\n        required=False,\n        label=\"Name\",\n    )\n    team_name = forms.ChoiceField(\n        widget=forms.Select(attrs={\"class\": \"filter-box\"}),\n        choices=[(\"\", \"Any\")] + [(team.id, team.team_name) for team in teams],",
+        "detail": "MVP.forms",
+        "documentation": {}
+    },
+    {
+        "label": "ActivityTypeForm",
+        "kind": 6,
+        "importPath": "MVP.forms",
+        "description": "MVP.forms",
+        "peekOfCode": "class ActivityTypeForm(forms.ModelForm):\n    name = forms.CharField(\n        widget=forms.TextInput(attrs={\"class\": \"custom-act-text-field\"})\n    )\n    class Meta:\n        model = ActivityType\n        fields = [\"name\"]\nclass ActivityForm(forms.ModelForm):\n    mvp = forms.ModelChoiceField(\n        queryset=MVP.objects.all(),",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1656,7 +1682,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class ActivityForm(forms.ModelForm):\n    mvp= forms.ModelChoiceField(\n        queryset=MVP.objects.all(),\n        widget=forms.Select(attrs={'class': 'custom-char-field'}),\n    )\n    activity_type = forms.ModelChoiceField(\n        queryset=ActivityType.objects.all(),\n        widget=forms.Select(attrs={'class': 'custom-char-field'}),\n    )\n    notes = forms.CharField(widget=forms.Textarea(attrs={'class': 'custom-text-field'}))",
+        "peekOfCode": "class ActivityForm(forms.ModelForm):\n    mvp = forms.ModelChoiceField(\n        queryset=MVP.objects.all(),\n        widget=forms.Select(attrs={\"class\": \"custom-act-field\"}),\n    )\n    activity_type = forms.ModelChoiceField(\n        queryset=ActivityType.objects.all(),\n        widget=forms.Select(attrs={\"class\": \"custom-act-field\"}),\n    )\n    notes = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-text-field\"}))",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1738,6 +1764,15 @@
         "importPath": "MVP.views",
         "description": "MVP.views",
         "peekOfCode": "def activity_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    try:\n        employee = Employee.objects.get(employee_email=user.username)\n        user_team = employee.team\n    except Employee.DoesNotExist:\n        user_team = None\n    if employee.mvp_role == \"Super\":\n        activities = Activity.objects.order_by(\"-id\")",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "add_activity_type",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def add_activity_type(request):\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST)\n        if form.is_valid():\n            form.save()\n            return redirect(\"activity_list\")\n    else:\n        form = ActivityTypeForm()\n    return render(request, \"add_activity_type.html\", {\"form\": form})",
         "detail": "MVP.views",
         "documentation": {}
     },

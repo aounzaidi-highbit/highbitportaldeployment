@@ -14,7 +14,10 @@
         <div class="form-group">
             <div class="flex-container">
                 <h3 class="font text">Status Active:</h3>
-                <span class="font text field-text">{{ form.is_active }}</span>
+                <label class="switch">
+                    {{ form.is_active }}
+                    <span class="slider"></span>
+                </label>
             </div>
         </div>
         
@@ -25,7 +28,7 @@
                 <div class="form-group">
                     <div class="form-group-box">
                         
-                        <div class="myTextField"> {{ form.name }}</div>
+                        <div class="font text field-text"> {{ form.name }}</div>
                     </div>
                 </div>
                 <h3 class="font text">MVP Plan:</h3>

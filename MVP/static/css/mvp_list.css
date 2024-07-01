@@ -2,8 +2,19 @@
     color: #24A9E1;
     font-weight: 700;
 }
+.filter-box{
+    border: none;
+}
 .mvp-list-text-mvp{
     font-weight: 200;
+}
+.bkg{
+    background-color: #24A9E1;
+    color: white;
+}
+.bkg:hover{
+    color: white;
+    background-color: #2098CA;
 }
 .add-mvp{
     background-color: #24A9E1;
