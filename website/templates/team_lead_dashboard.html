@@ -32,7 +32,7 @@
               {% csrf_token %}
               <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
               <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
-              <input class="btn submit" type="submit" value="View Evaluation" />
+              <input class="btn submit view_evaluation" type="submit" value="View Evaluation" />
             </form>
             {% else %}
             <div class="submit-button">
