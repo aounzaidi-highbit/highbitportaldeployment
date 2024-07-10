@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "website",
+    "MVP",
 ]
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -56,7 +56,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Adjust this path as needed
+        'DIRS': [BASE_DIR / 'templates'],  # Correct the DIRS path
         'APP_DIRS': True,
         "OPTIONS": {
             "context_processors": [
@@ -64,13 +64,13 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'context_processors.mvp_role_permission',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -105,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -117,11 +116,16 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-STATIC_ROOT='/home/highbitportal/highbitportaldeployment/static'
+
 STATIC_URL = "static/"
+# STATIC_ROOT = BASE_DIR / "static"
+
+# Add STATIC_ROOT setting
+STATIC_ROOT = BASE_DIR / "static"
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -129,17 +133,10 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-STATIC_DIRS=[
-    BASE_DIR,"static"
-]
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'nimra@highbitsol.com'
-EMAIL_HOST_PASSWORD = 'icws kmmm qwlt tgva'
 EMAIL_HOST_USER = 'evaluationportal@highbitsol.com'
 EMAIL_HOST_PASSWORD = 'leug ghsz xtxs mywt'
-

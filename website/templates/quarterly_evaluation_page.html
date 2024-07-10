@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<title>{% block title %}Quarterly Evaluations |{% endblock title %}</title>
+<head>
+  <link rel="stylesheet" href={% static 'css/quarterly_evaluation_page.css' %}>
+</head>
+<div class="circle"></div>
+<h1 class="font" style="text-align: center; font-weight: 200;">Quarterly <span class="evaluation_quarter_text">Evaluations</span></h1>
+<form style="margin-top: 20px;" action="{% url 'quarterly_evaluations' %}" method="GET" class="form-inline mb-3 font">
+  <div class="form-group mr-3 font" style="display: inline-block;">
+    <label for="quarter" class="mr-2 font">Select Quarter:</label>
+    <select name="quarter" id="quarter" class="form-control font">
+      <option value="1" class="font" {% if quarter == '1' %}selected{% endif %}>Quarter 1 (Jan - Mar)</option>
+      <option value="2" class="font" {% if quarter == '2' %}selected{% endif %}>Quarter 2 (Apr - Jun)</option>
+      <option value="3" class="font" {% if quarter == '3' %}selected{% endif %}>Quarter 3 (Jul - Sep)</option>
+      <option value="4" class="font" {% if quarter == '4' %}selected{% endif %}>Quarter 4 (Oct - Dec)</option>
+    </select>
+  </div>
+
+  <div class="form-group mr-3 font" style="display: inline-block;">
+    <label for="year" class="mr-2 font">Select Year:</label>
+    <select name="year" id="year" class="form-control font">
+      {% for y in years %}
+        <option value="{{ y }}" class="font" {% if year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="form-group mr-3 font" style="display: inline-block;">
+    <label for="team" class="mr-2 font">Select Team:</label>
+    <select name="team" id="team" class="form-control font">
+      <option value="" class="font" {% if not team %}selected{% endif %}>All Teams</option>
+      {% for t in teams %}
+        <option value="{{ t.id }}" class="font" {% if team == t.id|stringformat:"s" %}selected{% endif %}>{{ t.team_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group mr-3 font" style="display: inline-block;">
+    <label for="grade" class="mr-2 font">Select Grade:</label>
+    <select name="grade" id="grade" class="form-control font">
+      <option value="" class="font" {% if not grade %}selected{% endif %}>All Grades</option>
+      <option value="A" class="font" {% if grade == "A" %}selected{% endif %}>A Grade</option>
+      <option value="B" class="font" {% if grade == "B" %}selected{% endif %}>B Grade</option>
+      <option value="C" class="font" {% if grade == "C" %}selected{% endif %}>C Grade</option>
+      <option value="X" class="font" {% if grade == "X" %}selected{% endif %}>X Grade</option>
+    </select>
+  </div>
+  <button type="submit" class="btn font bkg" style="display: inline-block;">Apply</button>
+</form>
+
+{% if evaluation_data %}
+  <h1 class="font my-4" style="font-weight: 200;">Evaluations for <span class="evaluation_quarter_text">Quarter {{ quarter }}</span> of <span class="evaluation_quarter_text">{{ year }}</span></h1>
+  <div class="table-responsive font">
+    <table class="table table-bordered font">
+      <thead class="thead-light font">
+        <tr class="font">
+
+          <th class="font">#</th>
+          <th class="font">Employee ID</th>
+          <th class="font">Employee Name</th>
+          <th class="font">Designation</th>
+          <th class="font">Team</th>
+          {% for month_name in month_names %}
+            <th class="font">{{ month_name }}</th>
+          {% endfor %}
+          <th class="font">Quarterly Average</th>
+        </tr>
+      </thead>
+      <tbody class="font">
+        {% for data in evaluation_data %}
+          <tr class="font">
+            <td class="font">{{ forloop.counter }}</td>
+            <td class="font">{{ data.id }}</td>
+            <td class="font">{{ data.name }}</td>
+            <td class="font">{{ data.role }}</td>
+            <td class="font">{{ data.team_name }}</td>
+            {% for weighted_average in data.months %}
+              <td class="font">{{ weighted_average }}</td>
+            {% endfor %}
+            <td class="font">{{ data.quarterly_weighted_average }}%</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <form action="{% url 'export_csv' %}" method="POST" class="d-inline font">
+    {% csrf_token %}
+    <input type="hidden" name="quarter" value="{{ quarter }}" class="font">
+    <input type="hidden" name="year" value="{{ year }}" class="font">
+    <input type="hidden" name="team" value="{{ team }}" class="font">
+    <button type="submit" class="btn btn-success font">Export as CSV</button>
+  </form>
+  <!-- Button to trigger bonus modal -->
+  <button type="button" class="btn bkg font" data-toggle="modal" data-target="#bonusModal">Enter Bonuses</button>
+
+  <!-- Bonus Modal -->
+  <div class="modal fade" id="bonusModal" tabindex="-1" role="dialog" aria-labelledby="bonusModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bonusModalLabel">Enter Quarterly Bonuses</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="bonusForm">
+            <div class="form-group">
+              <label for="bonusA">Bonus for A Grade Employees</label>
+              <input type="number" class="form-control" id="bonusA" name="bonusA" required>
+            </div>
+            <div class="form-group">
+              <label for="bonusB">Bonus for B Grade Employees</label>
+              <input type="number" class="form-control" id="bonusB" name="bonusB" required>
+            </div>
+            <button type="button" style="margin-top: 10px;" class="btn bkg" onclick="showSummary()">Show Summary</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Modal -->
+  <div class="modal fade" id="summaryModal" tabindex="-1" role="dialog" aria-labelledby="summaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="summaryModalLabel">Bonus Summary</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="summaryContent"></div>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'send_emails' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="quarter" value="{{ quarter }}">
+            <input type="hidden" name="year" value="{{ year }}">
+            <input type="hidden" id="bonusAHidden" name="bonusA">
+            <input type="hidden" id="bonusBHidden" name="bonusB">
+            <input type="hidden" id="selectedEmployees" name="selectedEmployees">
+            <button type="submit" class="btn btn-success">Send Emails</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% else %}
+  <div class="alert alert-warning font" role="alert">
+    {{ message }}
+  </div>
+{% endif %}
+<script>
+  document.getElementById('selectAll').addEventListener('change', function() {
+    const checkboxes = document.querySelectorAll('.selectEmployee');
+    checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+  });
+
+  function showSummary() {
+    const bonusA = document.getElementById('bonusA').value;
+    const bonusB = document.getElementById('bonusB').value;
+
+    if (!bonusA || !bonusB) {
+      alert('Please enter bonuses for both A and B grades.');
+      return;
+    }
+
+    let aGradeCount = 0;
+    let bGradeCount = 0;
+
+    {% for data in evaluation_data %}
+      {% if data.bonuscalculations %}
+        {% if data.quarterly_weighted_average != "N/A" %}
+          {% if data.quarterly_weighted_average >= 85.0 %}
+            aGradeCount += 1;
+          {% elif data.quarterly_weighted_average >= 75.0 and data.quarterly_weighted_average < 85.0 %}
+            bGradeCount += 1;
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    const totalBonusA = bonusA * aGradeCount;
+    const totalBonusB = bonusB * bGradeCount;
+    const totalBonus = totalBonusA + totalBonusB;
+
+    const summaryContent = `
+      <p>Bonus for A Grade Employees: PKR ${bonusA} each</p>
+      <p>Number of A Grade Employees: ${aGradeCount}</p>
+      <p>Total Bonus for A Grade Employees: PKR ${totalBonusA}</p>
+      <br>
+      <p>Bonus for B Grade Employees: PKR ${bonusB} each</p>
+      <p>Number of B Grade Employees: ${bGradeCount}</p>
+      <p>Total Bonus for B Grade Employees: PKR ${totalBonusB}</p>
+      <br>
+      <p><strong>Total Bonus for All Employees: PKR ${totalBonus}</strong></p>
+    `;
+
+    document.getElementById('summaryContent').innerHTML = summaryContent;
+    document.getElementById('bonusAHidden').value = bonusA;
+    document.getElementById('bonusBHidden').value = bonusB;
+
+    $('#bonusModal').modal('hide');
+    $('#summaryModal').modal('show');
+  }
+</script>
+{% endblock content %}

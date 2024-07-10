@@ -1,0 +1,121 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit MVP | {% endblock title %}
+{% block content %}
+<link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
+<div class="circle"></div>
+<h1 class="font  mvp-edit">Edit <span class="mvp">MVP / Product</span></h1>
+
+<div class="form-edit">
+
+    <form method="post" class="font text" id="editForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="flex-container">
+                <h3 class="font text">Status Active:</h3>
+                <label class="switch">
+                    {{ form.is_active }}
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px;"> 
+        <div class="form-columns">
+            <div class="column">
+                <h3 class="font text">MVP Name:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text"> {{ form.name }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">MVP Plan:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.plan }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">Start Date:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.start_date }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">End Date:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.end_date }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <h3 class="font text">Current Phase:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <div class="font text field-text">{{ form.current_phase }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">Developers:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.developers }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">Planners:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.planners }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">Associates:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.associates }}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <button type="submit" class="btn font save_changes_button">Submit</button>
+    </form>
+</div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to save changes?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn save_changes_button" id="confirmChangesBtn">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#saveChangesBtn').click(function() {
+            $('#confirmModal').modal('show');
+        });
+
+        $('#confirmChangesBtn').click(function() {
+            $('#editForm').submit(); 
+        });
+    });
+</script>
+{% endblock %}

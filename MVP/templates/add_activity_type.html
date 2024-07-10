@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Activity Type Form |{% endblock title %}
+{% block content %}
+<link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
+<div class="circle"></div>
+<h1 class="font  mvp-edit">Add <span class="mvp">Activity Type</span></h1>
+  <form method="POST" action="{% url "activity_type_form" %}">
+    {% csrf_token %}
+    <div class="form-edit">
+      <div class="form-row">
+            <div class="form-group">
+                <h3 class="font text">Activity Name:</h3>
+                <div class="font ">{{form.name}}</div>
+            </div>
+        </div>
+    </div>
+        <button type="submit" class="btn font save_changes_button" id="saveChangesBtn">Add Activity Type</button>
+    </form>
+{% endblock %}

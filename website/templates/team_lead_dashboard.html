@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
   <style>
     .employee-item {
@@ -6,56 +7,70 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .submit-button {
       margin-left: 10px;
     }
-  </style>
-  <head>
-    <link rel="stylesheet" href="static/css/dashboard.css">
-  </head>
 
+  </style>
+  
+  <head>
+    <link rel="stylesheet" href={% static 'css/dashboard.css' %}>
+  </head>
+  <div class="circle"></div>
   <title>{% block title %}Dashboard | {% endblock title %}</title>
   <body>
+    
     {% if user.is_authenticated %}
-      <h1 class="welcome_text">Welcome, <span class="team_lead_name">{{ team_lead.employee_name }}</span></h1>
-      <h2 style="margin-bottom: 20px;" class="font your_team_text">The team that is working under your direct supervision and guidance.</h2>
-      <ul>
-        {% for employee in employees %}
-          <div class="employee-item">
-            <div class="employee-details">
-              <li style="margin-bottom: 10px; font-size: 20px;" class="font employee_name">{{ employee.employee_name }} <span class="employee_id">({{ employee.employee_id }})</span></li>
-              <li style="margin-bottom: 10px; list-style: none;" class="font team_name_and_role"> Team: {{ employee.team }} <span class="role">Role: {{ employee.role }}</span></li>
+      <div class="content">
+        <h1 class="welcome_text">Welcome, <span class="team_lead_name">{{ team_lead.employee_name }}</span></h1>
+        <h2 style="margin-bottom: 20px;" class="font your_team_text">The team that is working under your direct supervision and guidance.</h2>
+        {% if submitted_count == employee_count %}
+          <p class="font submitted_count_text">All evaluations are submitted.</p>
+        {% else %}
+          <p class="font submitted_count_text">You have <span class="submitted_count">{{ submitted_count }}</span> out of <span class="submitted_count">{{ employee_count }}</span> evaluations submitted.</p>
+        {% endif %}
+        <ul>
+          {% for employee in employees %}
+          <div class="employee-container">
+            <div class="employee-item">
+                <div class="employee-details">
+                    <ul class ="employee_padding"style="padding-left: 0;">
+                        <li style="margin-bottom: 10px; font-size: 20px;" class="font employee_name">{{ employee.employee_name }} <span class="employee_id">({{ employee.employee_id }})</span></li>
+                        <li style="margin-bottom: 10px; list-style: none;" class="font team_name_and_role"> Team: {{ employee.team }}</li>
+                        <li class="role">Role: {{ employee.role }}</li>
+                    </ul>
+                </div>
+                {% if show_evaluation %}
+                    <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
+                        <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
+                        <input class="btn submit view_evaluation" type="submit" value="View Evaluation" />
+                    </form>
+                {% else %}
+                    <div class="submit-button">
+                        {% if employee.employee_id in submitted_employees %}
+                            <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
+                                <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
+                                <input class="btn edit_evaluation" type="submit" value="Edit Evaluation" />
+                            </form>
+                        {% else %}
+                            <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
+                                <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
+                                <input class="btn submit" type="submit" value="Submit Evaluation" />
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
-            {% if show_evaluation %}
-            <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
-              {% csrf_token %}
-              <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
-              <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
-              <input class="btn submit view_evaluation" type="submit" value="View Evaluation" />
-            </form>
-            {% else %}
-            <div class="submit-button">
-              {% if employee.employee_id in submitted_employees %}
-                <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
-                  {% csrf_token %}
-                  <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
-                  <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
-                  <input class="btn edit_evaluation" type="submit" value="Edit Evaluation" />
-                </form>
-              {% else %}
-                <form method="post" action="{% url 'evaluation' %}?employee_id={{ employee.employee_id }}">
-                  {% csrf_token %}
-                  <input type="hidden" name="employee_id" value="{{ employee.employee_id }}" />
-                  <input type="hidden" name="employee_name" value="{{ employee.employee_name }}" />
-                  <input class="btn submit" type="submit" value="Submit Evaluation" />
-                </form>
-              {% endif %}
-            </div>
-            {% endif %}
           </div>
-        {% endfor %}
-      </ul>
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
   </body>
 {% endblock %}

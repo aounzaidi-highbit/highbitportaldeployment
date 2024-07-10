@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import date, datetime, timedelta
 from django.utils.timezone import now
+from django.utils import timezone
+
 
 class Teams(models.Model):
     team_name = models.CharField(max_length=255)
@@ -21,7 +23,7 @@ class Teams(models.Model):
             if not EvaluationFormModel.objects.filter(
                 employee=employee,
                 evaluation_date__month=current_month,
-                evaluation_date__year=current_year
+                evaluation_date__year=current_year,
             ).exists():
                 return False
         return True
@@ -32,13 +34,16 @@ class Teams(models.Model):
 
 
 class Employee(models.Model):
+    is_active = models.BooleanField(default=True)
     username = models.CharField(max_length=40, blank=True)
     password = models.CharField(max_length=40, blank=True)
     employee_id = models.CharField(primary_key=True, max_length=20, default="HB-")
     employee_name = models.CharField(max_length=255)
     employee_email = models.EmailField()
+    mvp_role = models.CharField(choices=[('Super','Super'), ("Growth Manager","Growth Manager"),('Team Lead','Team Lead'),('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR')], max_length=20,null=True,blank=True)
     previous_experience = models.CharField(max_length=255, blank=True)
     joining_date = models.DateField(null=True, editable=True)
+    confirmation_date = models.DateField(null=True, editable=True)
     team = models.ForeignKey(
         Teams, on_delete=models.SET_NULL, related_name="members", blank=True, null=True
     )
@@ -52,6 +57,14 @@ class Employee(models.Model):
 
     role = models.CharField(max_length=255)
     is_team_lead = models.BooleanField(default=False)
+    
+    def is_permanent(self):
+        if self.confirmation_date and self.confirmation_date <= timezone.now().date():
+            return True
+        return False
+
+    is_permanent.boolean = True
+    is_permanent.short_description = "Is Permanent"
 
     def __str__(self):
         return self.employee_name
@@ -61,7 +74,7 @@ class Employee(models.Model):
             user, created = User.objects.get_or_create(
                 username=self.employee_email, defaults={"email": self.employee_email}
             )
-            if not created:
+            if created:
                 user.set_password(self.password)
                 user.save()
 
@@ -70,7 +83,7 @@ class Employee(models.Model):
             months_of_experience = (today.year - self.joining_date.year) * 12 + (
                 today.month - self.joining_date.month
             )
-            self.highbit_experience = f"{months_of_experience} months"
+            self.previous_experience = f"{months_of_experience} months"
 
         super(Employee, self).save(*args, **kwargs)
 
@@ -110,8 +123,6 @@ class EvaluationFormModel(models.Model):
     def __str__(self):
         return f"Evaluation form submitted by {self.evaluated_by} for {self.employee.employee_name} {self.employee.employee_id}."
 
-
-
     def save(self, *args, **kwargs):
         if not self.pk:
             today = date.today()
@@ -121,6 +132,7 @@ class EvaluationFormModel(models.Model):
             self.evaluation_for = f"{self.previous_month} {self.previous_year}"
 
         super().save(*args, **kwargs)
+
 
 @receiver(post_save, sender=EvaluationFormModel)
 def calculate_weighted_average(sender, instance, created, **kwargs):
@@ -145,13 +157,12 @@ def calculate_weighted_average(sender, instance, created, **kwargs):
                 instance.save(update_fields=["_weighted_average"])
 
 
-
 class AdminFeautures(models.Model):
     form_disabling_date = models.IntegerField()
 
-
     def __str__(self):
         return "Admin Features"
+
     class Meta:
         verbose_name = "Admin Feature"
         verbose_name_plural = "Admin Features"

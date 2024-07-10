@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+<<<<<<< HEAD
 .nav_logo{
     margin-left: 50px;
     margin-top: 20px;
@@ -11,3 +12,64 @@
     font-weight: 500;
     font-size: 20px;
 }
+=======
+.font {
+
+  font-family: "Poppins", sans-serif;
+
+}
+.nav_logo {
+  margin-left: 40px;
+  margin-top: 20px;
+  width: auto;
+}
+
+.login_logout {
+  font-family: "Poppins", sans-serif;
+  color: #24A9E1;
+  margin-right: 50px;
+  font-weight: 500;
+  font-size: 20px;
+}
+.sidebar {
+  border-right: 1px solid #ccc; 
+}
+
+.active {
+  background-color: #24A9E1;
+  color: white !important; 
+}
+#sidebarToggle{
+  background-color: #24A9E1;
+  color: white !important;
+
+}
+
+/* .navbar{
+  background-color: white;
+} */
+@media (max-width: 768px) {
+  .navbar{
+    background-color: white;
+  }
+  .nav_logo {
+    margin-left: 0;
+    }
+    .navbar-toggler-icon-wrapper {
+      display: block;
+    }
+
+
+    .sidebar.active #logo-mobile-default {
+      display: none;
+    }
+
+    .sidebar.active #logo-mobile-toggled {
+      display: block;
+    }
+  }
+
+.d-none {
+    display: none !important;
+  }
+>>>>>>> 24d29b8c2171c4485ef584601a91f0b5cff1eebd

@@ -1,17 +1,19 @@
-import csv
-from datetime import datetime
-from .models import Employee
+from datetime import datetime, timedelta
+from .models import EvaluationFormModel, Employee
 
-def update_joining_dates_from_csv(csv_file_path):
-    with open(csv_file_path, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            try:
-                employee = Employee.objects.get(employee_id=row['employee_id'])
-                employee.joining_date = datetime.strptime(row['JOD'], '%Y-%m-%d').date()
-                employee.save()
-            except Employee.DoesNotExist:
-                print(f"Employee with ID {row['employee_id']} does not exist.")
+today = datetime.now().date()
+first_day_of_current_month = today.replace(day=1)
+first_day_of_previous_quarter = (first_day_of_current_month - timedelta(days=90)).replace(day=1)
 
-# Call the function with the path to your CSV file
-update_joining_dates_from_csv(r"C:\Users\ADMIN\Downloads\Employee Information New.csv")
+# Replace 'Asaad Ramis' with the employee name you are checking
+employee = Employee.objects.get(employee_name='Asaad Ramis')
+
+evaluations = EvaluationFormModel.objects.filter(
+    employee=employee,
+    evaluation_date__gte=first_day_of_previous_quarter,
+    evaluation_date__lt=first_day_of_current_month
+)
+
+print(f"Evaluations found: {evaluations.count()}")
+for evaluation in evaluations:
+    print(evaluation.evaluation_date, evaluation._weighted_average)

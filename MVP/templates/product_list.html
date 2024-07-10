@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Product List | {% endblock title %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/mvp_list.css' %}">
+<style>
+    .table-scroll {
+        overflow-x: auto;
+    }
+    .green-dot {
+        height: 10px;
+        width: 10px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 5px;
+    }
+</style>
+<div class="circle"></div>
+<div class="">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="font mvp-list-text-mvp">Product <span class="mvp-list-text">List</span></h1>
+        
+    </div>
+    <div style="margin-top: -30PX;" class="row">
+        <form method="get" class="form-inline mb-3 font" style="margin-top: 20px;">
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="team" class="mr-2 font">Name:</label>
+                <div class="form-control font">{{ form.name }}</div>
+            </div>
+            
+            {% if employee.mvp_role == "Super" %}
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="team" class="mr-2 font">Select Team:</label>
+                <div class="form-control font">{{ form.team_name }}</div>
+            </div>
+            
+            {% endif %}
+            
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="team" class="mr-2 font">Start Date:</label>
+                <div class="form-control font" >{{ form.start_date }}</div> 
+            </div>
+            
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="team" class="mr-2 font">Is Acitve:</label>
+                <div class="form-control font">{{ form.is_active }}</div>
+            </div>
+            
+            <button type="submit" class="btn font bkg" style="display: inline-block;">Apply</button>
+        </form>
+    </div>
+    
+    <div style="margin-top: 30px;" class="table-scroll">
+        <table class="table table-bordered table-hover">
+            <thead class="thread-style">
+                <tr>
+                    <th class="font">Name</th>
+                    <th class="font">Team Name</th>
+                    <th class="font">
+                        <a style="color:#24A9E1" href="?{% if request.GET.sort == 'start_date' %}sort=-start_date{% else %}sort=start_date{% endif %}" class="font">Start Date</a>
+                    </th>
+                    <th class="font">End Date</th>
+                    <th class="font">Is Active</th>
+                    <th class="font">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mvp in mvps %}
+                <tr>
+                    <td class="font">
+                        {{ mvp.name|truncatewords:3 }}
+                        {% if mvp.is_active %}
+                        <span class="green-dot"></span>
+                        {% endif %}
+                    </td>
+                    <td class="font">{{ mvp.team_name|truncatewords:3 }}</td>
+                    <td class="font">{{ mvp.start_date }}</td>
+                    <td class="font">{{ mvp.end_date }}</td>
+                    <td class="font">{{ mvp.is_active|yesno:"Yes,No" }}</td>
+                    <td>
+                        {% if employee.mvp_role == 'Super' %}
+                        <button type="button" class="btn add-mvp font view-mvp" data-toggle="modal" data-target="#viewModal{{ mvp.pk }}">View</button>
+                        {% else %}
+                        <button type="button" class="btn add-mvp font" data-toggle="modal" data-target="#viewModal{{ mvp.pk }}" style="font-size: 14px;">Edit / View</button>
+                        {% endif %}
+                    </td>
+                </tr>
+    
+                <div class="modal fade" id="viewModal{{ mvp.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{ mvp.pk }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="viewModalLabel{{ mvp.pk }}">MVP Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Name:</strong> {{ mvp.name }}</p>
+                                <p><strong>Plan:</strong> {{ mvp.plan }}</p> 
+                                <p><strong>Team Name:</strong> {{ mvp.team_name }}</p>
+                                <p><strong>Start Date:</strong> {{ mvp.start_date }}</p>
+                                <p><strong>End Date:</strong> {{ mvp.end_date }}</p>
+                                <p><strong>Is Active:</strong> {{ mvp.is_active|yesno:"Yes,No" }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary font" data-dismiss="modal">Close</button>
+                                <a href="{% url 'edit_mvp' mvp.pk %}" class="btn add-mvp font">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if mvps.has_other_pages %}
+    <ul class="pagination">
+        {% if mvps.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ mvps.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        {% for num in mvps.paginator.page_range %}
+        {% if num == mvps.number %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if mvps.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ mvps.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ mvps.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+{% for mvp_detail in mvp_details %}
+<div class="modal fade" id="viewModal{{ mvp_detail.mvp.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModal{{ mvp_detail.mvp.pk }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font" id="viewModal{{ mvp_detail.mvp.pk }}Label">Product Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="font"><b>Name:</b> {{ mvp_detail.mvp.name }}</p>
+                <p class="font"><b>Team Name:</b> {{ mvp_detail.mvp.team_name }}</p>
+                <p class="font"><b>Start Date:</b> {{ mvp_detail.mvp.start_date }}</p>
+                <p class="font"><b>End Date:</b> {{ mvp_detail.mvp.end_date }}</p>
+                <p class="font"><b>Is Active:</b> {{ mvp_detail.mvp.is_active }}</p>
+                <p class="font"><b>Developers:</b>
+                    {% for developer in mvp_detail.developers %}
+                        {{ developer }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p class="font"><b>Planners:</b>
+                    {% for planner in mvp_detail.planners %}
+                        {{ planner }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quarterly Performance Review</title>
+</head>
+<body>
+    {% if bonus is not none %}
+        <p>Hello {{ employee_name }},</p>
+        <p>I hope you're doing well. Your performance review was conducted by your Line Manager {{ team_lead_name }} from Team {{ team_name }}, and I wanted to share the details with you:</p>
+        <p><b>Monthly Ratings:</b></p>
+        {% for month, rating in month_averages.items %}
+            <p>{{ month }}: {{ rating }} / 10</p>
+        {% endfor %}
+
+        <p>Overall Performance for the Quarter:</p>
+        <p><b>Performance Rating: {{ average_weighted_score }}%</b></p>
+        <p><b>Grade: {{ grade }}</b></p>
+
+        <p>
+            {% if grade == 'A' %}
+                Congratulations on achieving an outstanding Grade A rating! Your line manager is pleased with your contributions and your dedication to excellence is commendable.
+                Moving forward, we have full confidence in your ability to maintain this exceptional standard. Your hard work and commitment are pivotal to the success of our team, and we look forward to seeing your continued achievements.
+                Furthermore, I'm delighted to inform you that your Quarter Bonus Amount is PKR- {{ bonus }}, a well-deserved recognition of your performance and dedication.
+                <p><i>Once again, warmest congratulations on your accomplishment and thoroughly earned success!</i></p>
+            {% elif grade == 'B' %}
+                While a grade of B indicates solid performance, there is always room for growth and improvement. I encourage you to reflect on your performance, identify any areas where you can enhance your skills, and seek guidance from your line manager. Your dedication to improvement will undoubtedly contribute to your continued success.
+                Additionally, I'm pleased to inform you that your Quarter Bonus Amount is PKR- {{ bonus }}, a token of appreciation for your hard work and dedication.
+            {% endif %}
+        </p>
+        <p>Thanks and Regards</p>
+    {% else %}
+
+        <p>Hello {{ employee_name }},</p>
+        <p>I hope you're doing well. Your performance review was conducted by your Line Manager {{ team_lead_name }} from Team {{ team_name }}, and I wanted to share the details with you:</p>
+        <p><b>Monthly Ratings:</b></p>
+        {% for month, rating in month_averages.items %}
+            <p>{{ month }}: {{ rating }} / 10</p>
+        {% endfor %}
+
+        <p>Overall Performance for the Quarter:</p>
+        <p><b>Performance Rating: {{ average_weighted_score }}%</b></p>
+
+        {% if grade == 'C' %}
+        <p><b>Grade: {{ grade }}</b></p>
+            <p>Grade C indicates that there's room for improvement, and it's essential to address any weaknesses identified. Your line manager is here to support you in overcoming these challenges and enhancing your performance.</p>
+            <p>Your dedication and hard work will be crucial in turning things around. By focusing on areas of improvement and seeking guidance from your line manager, you can work towards achieving better results.</p>
+        {% elif grade == 'X' %}
+        <p><b>Grade: {{ grade }}</b></p>
+            <p>While a grade of X indicates that unfortunately you are not eligible for a bonus this quarter as one or more of your monthly ratings were missing due to your joining schedule or other reasons.</p>
+            <p>However, get ready for the next quarter. I encourage you to reflect on your performance, identify any areas where you can enhance your skills, and seek guidance from your line manager. Your dedication to improvement will undoubtedly contribute to your continued success.</p>
+        {% endif %}
+        <p>Thanks and Regards</p>
+    {% endif %}
+
+</body>
+</html>
