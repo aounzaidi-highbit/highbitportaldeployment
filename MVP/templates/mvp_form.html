@@ -7,6 +7,8 @@
 
 <div class="circle"></div>
 <h1 class="font mvp-edit">Add <span class="mvp">MVP</span></h1>
+<h4 class="field_error font">{{ form.development_starting_date.errors }}</h4>
+<h4 class="field_error font">{{ form.planners.errors }}</h4>
 <div class="form-edit">
     <form method="POST" action="{% url 'mvp_form' %}">
         {% csrf_token %}
@@ -25,21 +27,21 @@
         <div style="margin-top: 30px;"> 
         <div class="form-columns">
             <div class="column">
-                <h3 class="font text">MVP Name:</h3>
+                <h3 class="font text">* MVP Name:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
                         
                         <div class="font text field-text"> {{ form.name }}</div>
                     </div>
                 </div>
-                <h3 class="font text">MVP Plan:</h3>
+                <h3 class="font text">* MVP Plan:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
                         
                         <div class="font  field-text">{{ form.plan }}</div>
                     </div>
                 </div>
-                <h3 class="font text">Start Date:</h3>
+                <h3 class="font text">* Start Date:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
                         
@@ -61,14 +63,21 @@
                         <div class="font text field-text">{{ form.current_phase }}</div>
                     </div>
                 </div>
-                <h3 class="font text">Developers:</h3>
+                <h3 class="font text">Developers: </h3>
+
                 <div class="form-group">
                     <div class="form-group-box">
-                        
-                        <div class="font text field-text">{{ form.developers }}</div>
+                        <div class="font text field-text">{{ form.developers }} </div>
                     </div>
                 </div>
-                <h3 class="font text">Planners:</h3>
+                <h3 class="font text">Development Starting Date: <span style="margin-left: 220px;"></span></h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <div class="font text field-text">{{ form.development_starting_date }}</div>
+                        
+                    </div>
+                </div>
+                <h3 class="font text">Planners: <span style="margin-left: 220px;"></span></h3>
                 <div class="form-group">
                     <div class="form-group-box">
                         

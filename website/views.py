@@ -53,6 +53,9 @@ def logout_user(request):
 
 @login_required
 def dashboard(request):
+    today = date.today()
+    previous_month_date = today - timedelta(days=today.day)
+    previous_month = previous_month_date.strftime("%B")
     logged_in_user = request.user
     emp = Employee.objects.get(employee_email=logged_in_user)
     emps = Employee.objects.filter(team_lead=emp, is_active=True).all()
@@ -92,6 +95,7 @@ def dashboard(request):
             "show_evaluation": show_evaluation,
             "employee_count": emp_count,
             "submitted_count": submitted_count,
+            "previous_month": previous_month,
         },
     )
 
@@ -425,11 +429,7 @@ def send_emails(request):
         bonus_a = request.POST.get("bonusA")
         bonus_b = request.POST.get("bonusB")
 
-        if (
-            not (bonus_a.isdigit() and bonus_b.isdigit())
-            or int(bonus_a) <= 0
-            or int(bonus_b) <= 0
-        ):
+        if not (bonus_a.isdigit() and bonus_b.isdigit()) or int(bonus_a) <= 0 or int(bonus_b) <= 0:
             messages.error(request, "Invalid bonus amounts")
             return redirect("quarterly_evaluations")
 
@@ -457,9 +457,7 @@ def send_emails(request):
             employee_email = employee.employee_email
             month = evaluation.evaluation_for.split(" ")[0]
             weighted_average = evaluation._weighted_average
-            team_lead_name = (
-                employee.team_lead.employee_name if employee.team_lead else "N/A"
-            )
+            team_lead_name = employee.team_lead.employee_name if employee.team_lead else "N/A"
             team_name = employee.team.team_name if employee.team else "N/A"
 
             if employee_name not in employee_data:
@@ -474,34 +472,17 @@ def send_emails(request):
 
         for employee_name, data in employee_data.items():
             month_averages = data["months"]
-            valid_months = [
-                score for score in month_averages.values() if score != "N/A"
-            ]
+            valid_months = [score for score in month_averages.values() if score != "N/A"]
 
             if len(valid_months) != 3:
+                grade = 'X'
                 bonus = None
-                average_weighted_score = (
-                    (sum(valid_months) / len(valid_months)) * 10 if valid_months else 0
-                )
-                
-                grade = (
-                    "A"
-                    if average_weighted_score >= 85.0
-                    else "B" if 75.0 <= average_weighted_score < 85.0 else "C"
-                )
+                average_weighted_score = 0
             else:
                 monthly_averages = [month_averages.get(month, 0) for month in months]
-                average_weighted_score = (
-                    (sum(monthly_averages) / len(monthly_averages)) *10
-                    if monthly_averages
-                    else 0
-                )
-                grade = (
-                    "A"
-                    if average_weighted_score >= 85.0
-                    else "B" if 75.0 <= average_weighted_score < 85.0 else "C"
-                )
-                bonus = bonus_a if grade == "A" else bonus_b if grade == "B" else None
+                average_weighted_score = (sum(monthly_averages) / len(monthly_averages)) * 10 if monthly_averages else 0
+                grade = 'A' if average_weighted_score >= 85.0 else 'B' if 75.0 <= average_weighted_score < 85.0 else 'C'
+                bonus = bonus_a if grade == 'A' else bonus_b if grade == 'B' else None
 
             average_weighted_score = round(average_weighted_score, 2)
 
@@ -521,9 +502,7 @@ def send_emails(request):
             from_email = "noreply@example.com"
             to = data["email"]
             email_count += 1
-            send_mail(
-                subject, plain_message, from_email, [to], html_message=html_message
-            )
+            send_mail(subject, plain_message, from_email, [to], html_message=html_message)
 
         messages.success(request, f"Quarterly Emails sent successfully to {email_count} employees.")
         return redirect("quarterly_evaluations")

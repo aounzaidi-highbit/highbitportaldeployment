@@ -3,6 +3,7 @@ import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 import django.utils
+import re
 from website.models import Employee
 from website.decorators import roles_required
 from .forms import ActivityTypeForm, MVPFilterForm, MVPForm, ActivityForm, ActivityType
@@ -36,13 +37,13 @@ def mvp_list(request):
 
     if employee.mvp_role == "Super":
         mvps = (
-            MVP.objects.filter(current_phase="MVP").order_by("-id")
+            MVP.objects.filter(current_phase="MVP", is_archived=False).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
     else:
         mvps = (
-            MVP.objects.filter(team_name=user_team, current_phase="MVP").order_by("-id")
+            MVP.objects.filter(team_name=user_team, current_phase="MVP" ,is_archived=False).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
@@ -50,16 +51,19 @@ def mvp_list(request):
     if form.is_valid():
         name = form.cleaned_data.get("name")
         start_date = form.cleaned_data.get("start_date")
-        current_phase = form.cleaned_data.get("current_phase")
+        end_date = form.cleaned_data.get("end_date")
         is_active = form.cleaned_data.get("is_active")
         team_name = form.cleaned_data.get("team_name")
         if name:
             mvps = mvps.filter(name__icontains=name)
         if team_name:
             mvps = mvps.filter(team_name=team_name)
-        if start_date:
-            mvps = mvps.filter(start_date=start_date)
-
+        if start_date and end_date:
+            mvps = mvps.filter(start_date__gte=start_date, end_date__lte=end_date)
+        elif start_date:
+            mvps = mvps.filter(start_date__gte=start_date)
+        elif end_date:
+            mvps = mvps.filter(end_date__lte=end_date)
         if is_active == "true":
             mvps = mvps.filter(is_active=True)
         elif is_active == "false":
@@ -103,13 +107,13 @@ def product_list(request):
 
     if employee.mvp_role == "Super":
         mvps = (
-            MVP.objects.filter(current_phase="Product").order_by("-id")
+            MVP.objects.filter(current_phase="Product", is_archived=False).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
     else:
         mvps = (
-            MVP.objects.filter(team_name=user_team, current_phase="Product").order_by("-id")
+            MVP.objects.filter(team_name=user_team, current_phase="Product", is_archived=False).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
@@ -163,6 +167,88 @@ def product_list(request):
     )
 
 
+@login_required
+def archive_mvp(request, pk):
+    mvp = get_object_or_404(MVP, pk=pk)
+    mvp.is_archived = True
+    mvp.save()
+    return redirect('mvp_list')
+
+@login_required
+def unarchive_mvp(request, pk):
+    mvp = get_object_or_404(MVP, pk=pk)
+    mvp.is_archived = False
+   
+    mvp.save()
+    return redirect('archive_list')
+
+@login_required
+def archive_list(request):
+    form = MVPFilterForm(request.GET)
+    user = request.user
+    employee = Employee.objects.get(employee_email=user.username)
+    user_team = employee.team
+
+    if employee.mvp_role == "Super":
+        mvps = (
+            MVP.objects.filter(current_phase="Archive").order_by("-id")
+            if user_team
+            else MVP.objects.none()
+        )
+    else:
+        mvps = (
+            MVP.objects.filter(team_name=user_team, is_archived=True).order_by("-id")
+            if user_team
+            else MVP.objects.none()
+        )
+
+    if form.is_valid():
+        name = form.cleaned_data.get("name")
+        start_date = form.cleaned_data.get("start_date")
+        end_date = form.cleaned_data.get("end_date")
+        is_active = form.cleaned_data.get("is_active")
+        team_name = form.cleaned_data.get("team_name")
+        if name:
+            mvps = mvps.filter(name__icontains=name)
+        if team_name:
+            mvps = mvps.filter(team_name=team_name)
+        if start_date and end_date:
+            mvps = mvps.filter(start_date__gte=start_date, end_date__lte=end_date)
+        elif start_date:
+            mvps = mvps.filter(start_date__gte=start_date)
+        elif end_date:
+            mvps = mvps.filter(end_date__lte=end_date)
+        if is_active == "true":
+            mvps = mvps.filter(is_active=True)
+        elif is_active == "false":
+            mvps = mvps.filter(is_active=False)
+
+    sort = request.GET.get("sort", "-id")
+    mvps = mvps.order_by(sort)
+
+    paginator = Paginator(mvps, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    mvp_details = []
+    for mvp in page_obj:
+        developers = mvp.developers.all()
+        planners = mvp.planners.all()
+        mvp_details.append({
+            "mvp": mvp,
+            "developers": developers,
+            "planners": planners,
+        })
+
+    return render(
+        request, 
+        "archive_list.html", 
+        {
+            "mvps": page_obj, 
+            "form": form, 
+            "employee": employee,
+            "mvp_details": mvp_details,
+        }
+    )
 # @login_required
 # def edit_mvp(request, pk):
 #     mvp = get_object_or_404(MVP, pk=pk)
@@ -255,7 +341,7 @@ def activity_list(request):
         "page_obj": page_obj
     })
 
-roles_required(["Super", "Growth Manager"])
+
 def add_activity_type(request):
     if request.method == "POST":
         form = ActivityTypeForm(request.POST)

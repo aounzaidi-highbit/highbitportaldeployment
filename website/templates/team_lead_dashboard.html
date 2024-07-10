@@ -25,9 +25,9 @@
         <h1 class="welcome_text">Welcome, <span class="team_lead_name">{{ team_lead.employee_name }}</span></h1>
         <h2 style="margin-bottom: 20px;" class="font your_team_text">The team that is working under your direct supervision and guidance.</h2>
         {% if submitted_count == employee_count %}
-          <p class="font submitted_count_text">All evaluations are submitted.</p>
+          <p class="font submitted_count_text">All evaluations are submitted for month <span class="submitted_count">{{previous_month}}</span>.</p>
         {% else %}
-          <p class="font submitted_count_text">You have <span class="submitted_count">{{ submitted_count }}</span> out of <span class="submitted_count">{{ employee_count }}</span> evaluations submitted.</p>
+          <p class="font submitted_count_text">You have <span class="submitted_count">{{ submitted_count }}</span> out of <span class="submitted_count">{{ employee_count }}</span> evaluations submitted for month <span class="submitted_count">{{previous_month}}</span>.</p>
         {% endif %}
         <ul>
           {% for employee in employees %}

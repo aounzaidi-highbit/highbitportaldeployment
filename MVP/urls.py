@@ -11,4 +11,7 @@ urlpatterns=[
     path('activity-form/', views.activity_form, name='activity_form'),
     path('activity-list/', views.activity_list, name='activity_list'),
     path('activity-type-form', views.add_activity_type, name='activity_type_form'),
+    path('archive_mvp/<int:pk>/', views.archive_mvp, name='archive_mvp'),
+    path('archive-list/', views.archive_list, name='archive_list'),
+    path('unarchive_mvp/<int:pk>/', views.unarchive_mvp, name='unarchive_mvp'),
 ]

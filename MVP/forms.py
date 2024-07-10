@@ -21,6 +21,11 @@ class MVPForm(forms.ModelForm):
         required=False,
         widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"}),
     )
+    development_starting_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"}),
+    )
+
     current_phase = forms.ChoiceField(
         choices=[("MVP", "MVP"), ("Product", "Product")],
         widget=forms.Select(attrs={"class": "custom-char-field"}),
@@ -40,7 +45,7 @@ class MVPForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
-
+    
     class Meta:
         model = MVP
         fields = [
@@ -49,6 +54,7 @@ class MVPForm(forms.ModelForm):
             "start_date",
             "is_active",
             "end_date",
+            "development_starting_date",
             "current_phase",
             "developers",
             "planners",
@@ -67,7 +73,7 @@ class MVPForm(forms.ModelForm):
                 team=user_team, mvp_role="Developer"
             ).exclude(employee_email=user_username)
             self.fields["planners"].queryset = Employee.objects.filter(
-                team=user_team, mvp_role="Planner"
+                mvp_role="Planner"
             ).exclude(employee_email=user_username)
             self.fields["associates"].queryset = Employee.objects.filter(
                 team=user_team
@@ -77,7 +83,18 @@ class MVPForm(forms.ModelForm):
                 | Q(employee_email=user_username)
                 | Q(mvp_role="Growth Manager")
             )
-
+            
+    def clean(self):
+        cleaned_data = super().clean()
+        developers = cleaned_data.get('developers')
+        start_date=cleaned_data.get('start_date')
+        development_starting_date = cleaned_data.get('development_starting_date')
+        planners = cleaned_data.get('planners')
+        if developers and not development_starting_date:
+            self.add_error('development_starting_date', 'Development starting date is required if developers are selected.')
+        if start_date and not planners:
+            self.add_error('planners', 'Planners are required if start date is selected.')
+        return cleaned_data
 
 class MVPFilterForm(forms.Form):
     teams = Teams.objects.all()
@@ -98,7 +115,11 @@ class MVPFilterForm(forms.Form):
         widget=forms.TextInput(attrs={"class": "filter-box", "type": "date"}),
         label="Start Date",
     )
-
+    end_date = forms.DateField(
+        required=False,
+        widget=forms.TextInput(attrs={"class": "filter-box", "type": "date"}),
+        label="End Date",
+    )
     current_phase = forms.ChoiceField(
         widget=forms.TextInput(attrs={"class": "filter-box"}),
         choices=[("", "All"), ("MVP", "MVP"), ("Product", "Product")],

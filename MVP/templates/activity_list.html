@@ -9,7 +9,7 @@
         <h1 class="font mvp-list-text-mvp">Activity <span class="mvp-list-text">List</span></h1>
         {% if employee.mvp_role != "Super" %}
         <div>
-            {% if employee.mvp_role == "Growth Manager" %}
+            {% if employee.mvp_role == "Growth Manager" or employee.mvp_role == "Team Lead"%}
                 <a style="font-size: 15px;" href="{% url 'activity_type_form' %}" class="btn font add-mvp">ADD ACTIVITY TYPE</a>
             {% endif %}
             <a style="font-size: 15px;" href="{% url 'activity_form' %}" class="btn font add-mvp">ADD ACTIVITY</a>
@@ -49,7 +49,7 @@
                     <th class="font">Activity Type</th>
                     <th class="font">Notes</th>
                     <th class="font">
-                        <a style="color:#24A9E1" href="?{% if request.GET.sort == 'created_at' %}sort=-created_at{% else %}sort=created_at{% endif %}" class="font">Created At</a>
+                        <a style="color:#24A9E1" href="?{% if request.GET.sort == 'created_at' %}sort=-created_at{% else %}sort=created_at{% endif %}" class="font">Date</a>
                     </th>
                     <th class="font">Actions</th>
                 </tr>
@@ -76,15 +76,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title font " id="viewModalLabel">Activity Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+           
                 </div>
                 <div class="modal-body font">
                     <p><strong class="font">MVP Name:</strong> <span id="modal-mvp-name"></span></p>
                     <p><strong class="font">Activity Type:</strong> <span id="modal-activity-type"></span></p>
                     <p><strong class="font">Notes:</strong> <span id="modal-notes"></span></p>
-                    <p><strong class="font">Created At:</strong> <span id="modal-created-at"></span></p>
+                    <p><strong class="font">Date:</strong> <span id="modal-created-at"></span></p>
                 </div>
             </div>
         </div>

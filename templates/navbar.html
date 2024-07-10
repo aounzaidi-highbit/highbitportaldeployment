@@ -44,6 +44,7 @@
           {% if logged_in_user_role.mvp_role == 'HR' %}
           <li class="nav-item">
             <a class="nav-link font button {% if request.path == '/dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
+            <a class="nav-link font button" href="https://highbitportal.pythonanywhere.com/admin/login/?next=/admin/" target="_blank">Admin Panel</a>
             <a class="nav-link font button {% if request.path == '/quarterly_evaluations' %}active{% endif %}" href="{% url 'quarterly_evaluations' %}">Quarterly Evaluation</a>
           </li>
           {% elif logged_in_user_role.mvp_role == 'Super' %}
@@ -52,6 +53,8 @@
             <a class="nav-link font button {% if request.path == '/mvp-list/' %}active{% endif %}" href="{% url "mvp_list" %}">  MVP</a>
             <a class="nav-link font button {% if request.path == '/product-list/' %}active{% endif %}" href="{% url "product_list" %}">  Product</a>
             <a class="nav-link font button {% if request.path == '/activity-list/' %}active{% endif %}" href="{% url "activity_list" %}">Activity</a>
+            <a class="nav-link font button {% if request.path == '/archive-list/' %}active{% endif %}" href="{% url "archive_list" %}">Archive</a>
+            
             <a class="nav-link font button {% if request.path == '/quarterly_evaluations' %}active{% endif %}" href="{% url 'quarterly_evaluations' %}">Quarterly Evaluation</a>
             {% comment %} <a class="nav-link font button" href="{% url 'edit_mvp' mvp.pk  %}">Edit MVP</a> {% endcomment %}
           </li>
@@ -61,6 +64,7 @@
             <a class="nav-link font button {% if request.path == '/mvp-list/' %}active{% endif %}" href="{% url "mvp_list" %}">  MVP</a>
             <a class="nav-link font button {% if request.path == '/product-list/' %}active{% endif %}" href="{% url "product_list" %}">  Product</a>
             <a class="nav-link font button {% if request.path == '/activity-list/' %}active{% endif %}" href="{% url "activity_list" %}">Activity</a>
+            <a class="nav-link font button {% if request.path == '/archive-list/' %}active{% endif %}" href="{% url "archive_list" %}">Archive</a>
             {% comment %} <a class="nav-link font button" href="{% url 'edit_mvp' mvp.pk  %}">Edit MVP</a> {% endcomment %}
           </li>
         {% endif %}

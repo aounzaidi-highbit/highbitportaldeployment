@@ -65,3 +65,8 @@ body {
         display: none;
     }
 }
+.archive-mvp{
+    background-color: #ff4c4c
+    !important;
+    color: white !important ;
+}
