@@ -92,6 +92,8 @@ class MVPForm(forms.ModelForm):
         planners = cleaned_data.get('planners')
         if developers and not development_starting_date:
             self.add_error('development_starting_date', 'Development starting date is required if developers are selected.')
+        if development_starting_date and not developers:
+            self.add_error('developers', 'Developers are required if development starting date is selected.')
         if start_date and not planners:
             self.add_error('planners', 'Planners are required if start date is selected.')
         return cleaned_data

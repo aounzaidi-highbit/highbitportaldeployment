@@ -169,7 +169,12 @@ def product_list(request):
 
 @login_required
 def archive_mvp(request, pk):
+    user=request.user
+    employee = Employee.objects.get(employee_email=user.username)
+    
     mvp = get_object_or_404(MVP, pk=pk)
+    mvp.updated_by=employee
+    mvp.is_active = False
     mvp.is_archived = True
     mvp.save()
     return redirect('mvp_list')
@@ -330,7 +335,7 @@ def activity_list(request):
     sort = request.GET.get("sort", "-id")
     activities = activities.order_by(sort)
 
-    paginator = Paginator(activities, 10)
+    paginator = Paginator(activities, 30)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     

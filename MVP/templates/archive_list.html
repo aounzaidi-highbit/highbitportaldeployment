@@ -19,7 +19,7 @@
 <div class="circle"></div>
 <div class="">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="font mvp-list-text-mvp">Achives <span class="mvp-list-text">List</span></h1>
+        <h1 class="font mvp-list-text-mvp">Archives <span class="mvp-list-text">List</span></h1>
         {% if employee.mvp_role == 'Super' %}
         {% elif employee.mvp_role == 'Team Lead' or employee.mvp_role == 'Growth Manager' %}
         <a href="{% url 'mvp_form' %}" class="btn font add-mvp">ADD MVP</a>

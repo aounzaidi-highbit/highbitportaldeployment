@@ -238,14 +238,15 @@ def evaluation_view(request):
             "evaluation_for": evaluation_for,
         },
     )
-    
 @login_required
-@roles_required('HR', 'Super')
+@roles_required('HR', 'Super')    
 def view_quarterly_valuations(request):
     quarter = request.GET.get("quarter")
     year = request.GET.get("year")
     team_id = request.GET.get("team")
-    grade = request.GET.get("grade")  
+    grade = request.GET.get("grade")
+    sort = request.GET.get("sort") 
+    order = request.GET.get("order")  
     
     current_year = datetime.now().year
     years = [current_year - i for i in range(5)]
@@ -327,7 +328,6 @@ def view_quarterly_valuations(request):
                 elif 75.0 <= quarterly_weighted_average < 85.00:
                     b_grade_count += 1
 
-
     if grade == "A":
         evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] >=85.0 and data["months"].count("N/A") < 1]
     elif grade == "B":
@@ -336,6 +336,11 @@ def view_quarterly_valuations(request):
         evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] < 75.0 and data["months"].count("N/A") < 1]
     elif grade == "X":
         evaluation_data = [data for data in evaluation_data if data["months"].count("N/A") >= 1]
+
+    
+    if sort == "quarterly_weighted_average":
+        reverse_order = True if order == "desc" else False
+        evaluation_data = sorted(evaluation_data, key=lambda x: (x['quarterly_weighted_average'] if x['quarterly_weighted_average'] != 'N/A' else 0), reverse=reverse_order)
 
     month_name_list = quarter_months.get(quarter, [])
     if not quarter:
@@ -360,6 +365,8 @@ def view_quarterly_valuations(request):
             "a_grade_count": a_grade_count,
             "b_grade_count": b_grade_count,
             "grade": grade,
+            "sort": sort,  
+            "order": order,  
         },
     )
 

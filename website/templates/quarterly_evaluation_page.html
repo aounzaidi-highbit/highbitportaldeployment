@@ -64,7 +64,18 @@
           {% for month_name in month_names %}
             <th class="font">{{ month_name }}</th>
           {% endfor %}
-          <th class="font">Quarterly Average</th>
+          <th class="font">
+            {% if order == "asc" %}
+              <a style="color:#24A9E1;" href="?quarter={{ quarter }}&year={{ year }}&team={{ team }}&grade={{ grade }}&sort=quarterly_weighted_average&order=desc">
+                Quarterly Average 
+              </a>
+            {% else %}
+              <a style="color:#24A9E1;" href="?quarter={{ quarter }}&year={{ year }}&team={{ team }}&grade={{ grade }}&sort=quarterly_weighted_average&order=asc">
+                Quarterly Average
+              </a>
+            {% endif %}
+          </th>
+          
         </tr>
       </thead>
       <tbody class="font">
