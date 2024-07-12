@@ -70,9 +70,9 @@ class Employee(models.Model):
         return self.employee_name
 
     def save(self, *args, **kwargs):
-        if self.is_team_lead:
+        if self.is_team_lead or self.mvp_role == "Planner":
             user, created = User.objects.get_or_create(
-                username=self.employee_email, defaults={"email": self.employee_email}
+                username=self.employee_email
             )
             if created:
                 user.set_password(self.password)

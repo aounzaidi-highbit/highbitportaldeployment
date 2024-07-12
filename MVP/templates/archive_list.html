@@ -15,6 +15,25 @@
         display: inline-block;
         margin-left: 5px;
     }
+    .pause-icon {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 5px; 
+    }
+    
+    .pause-bar {
+        height: 13px; 
+        width: 4px; 
+        background-color: black; 
+        margin: 0 1px; 
+        display: inline-block;
+        background-color: grey;
+    }
+    .tick-mark {
+        color: green; 
+        font-weight: bold; 
+        margin-left: 5px; 
+    }
 </style>
 <div class="circle"></div>
 <div class="">
@@ -51,10 +70,9 @@
             
             
             <div class="form-group mr-3 font" style="display: inline-block;">
-                <label for="team" class="mr-2 font">Is Acitve:</label>
-                <div class="form-control font">{{ form.is_active }}</div>
+                <label for="team" class="mr-2 font">Status:</label>
+                <div class="form-control font">{{ form.status }}</div>
             </div>
-            
             <button type="submit" class="btn font bkg" style="display: inline-block;">Apply</button>
         </form>
     </div>
@@ -69,7 +87,7 @@
                         <a style="color:#24A9E1;" href="?{% if request.GET.sort == 'start_date' %}sort=-start_date{% else %}sort=start_date{% endif %}" class="font">Start Date</a>
                     </th>
                     <th class="font">End Date</th>
-                    <th class="font">Is Active</th>
+                    <th class="font">Status</th>
                     <th class="font">Actions</th>
                 </tr>
             </thead>
@@ -78,14 +96,24 @@
                 <tr>
                     <td class="font">
                         {{ mvp.name|truncatewords:3 }}
-                        {% if mvp.is_active %}
-                        <span class="green-dot"></span>
+                        {% if mvp.status == 'Pause' %}
+                            <span class="pause-icon">
+                                <span class="pause-bar"></span>
+                                <span class="pause-bar"></span>
+                            </span>
+                        {% endif %}
+                       
+                        {% if mvp.status == 'Active' %}
+                            <span class="green-dot"></span>
+                        {% elif mvp.status == 'Completed' %}
+                        <span class="tick-mark">✓</span>
+                        
                         {% endif %}
                     </td>
                     <td class="font">{{ mvp.team_name|truncatewords:3 }}</td>
                     <td class="font">{{ mvp.start_date }}</td>
                     <td class="font">{{ mvp.end_date }}</td>
-                    <td class="font">{{ mvp.is_active|yesno:"Yes,No" }}</td>
+                    <td class="font">{{ mvp.status }}</td>
                     <td>
                         {% if employee.mvp_role == 'Super' %}
                         <button type="button" class="btn add-mvp font view-mvp" data-toggle="modal" data-target="#viewModal{{ mvp.pk }}">View</button>
@@ -109,7 +137,7 @@
                                 <p><strong>Team Name:</strong> {{ mvp.team_name }}</p>
                                 <p><strong>Start Date:</strong> {{ mvp.start_date }}</p>
                                 <p><strong>End Date:</strong> {{ mvp.end_date }}</p>
-                                <p><strong>Is Active:</strong> {{ mvp.is_active|yesno:"Yes,No" }}</p>
+                                <p><strong>Status:</strong> {{ mvp.status }}</p>
                                 
                             </div>
                             <div class="modal-footer">
@@ -160,14 +188,19 @@
                 <p class="font"><b>Start Date:</b> {{ mvp_detail.mvp.start_date }}</p>
                 <p class="font"><b>End Date:</b> {{ mvp_detail.mvp.end_date }}</p>
                 <p class="font"><b>Is Active:</b> {{ mvp_detail.mvp.is_active }}</p>
-                <p class="font"><b>Developers:</b>
-                    {% for developer in mvp_detail.developers %}
-                        {{ developer }}{% if not forloop.last %}, {% endif %}
+                <p><strong>Planners:</strong>
+                    {% for planner in mvp.planners.all %}
+                        {{ planner.employee_name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
-                <p class="font"><b>Planners:</b>
-                    {% for planner in mvp_detail.planners %}
-                        {{ planner }}{% if not forloop.last %}, {% endif %}
+                <p><strong>Developers:</strong>
+                    {% for developer in mvp.developers.all %}
+                        {{ developer.employee_name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p><strong>Assoicates:</strong>
+                    {% for associate in mvp.associates.all %}
+                        {{ associate.employee_name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
             </div>

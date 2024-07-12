@@ -25,9 +25,12 @@ class MVPForm(forms.ModelForm):
         required=False,
         widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"}),
     )
-
+    status = forms.ChoiceField(
+        choices=[("Active", "Active"), ("Pause", "Pause"), ("Completed", "Completed"), ],
+        widget=forms.Select(attrs={"class": "custom-status-field"}),
+    )
     current_phase = forms.ChoiceField(
-        choices=[("MVP", "MVP"), ("Product", "Product")],
+        choices=[("","Select Phase"),("MVP", "MVP"), ("Product", "Product"), ("Failed", "Failed")],
         widget=forms.Select(attrs={"class": "custom-char-field"}),
     )
     developers = forms.ModelMultipleChoiceField(
@@ -52,7 +55,7 @@ class MVPForm(forms.ModelForm):
             "name",
             "plan",
             "start_date",
-            "is_active",
+            "status",
             "end_date",
             "development_starting_date",
             "current_phase",
@@ -90,6 +93,7 @@ class MVPForm(forms.ModelForm):
         start_date=cleaned_data.get('start_date')
         development_starting_date = cleaned_data.get('development_starting_date')
         planners = cleaned_data.get('planners')
+        
         if developers and not development_starting_date:
             self.add_error('development_starting_date', 'Development starting date is required if developers are selected.')
         if development_starting_date and not developers:
@@ -106,7 +110,7 @@ class MVPFilterForm(forms.Form):
         label="Name",
     )
     team_name = forms.ChoiceField(
-        widget=forms.Select(attrs={"class": "filter-box"}),
+        widget=forms.Select(attrs={"class": "team-filter-box"}),
         choices=[("", "Any")] + [(team.id, team.team_name) for team in teams],
         required=False,
         label="Team Name",
@@ -128,13 +132,13 @@ class MVPFilterForm(forms.Form):
         required=False,
         label="Current Phase",
     )
-    is_active = forms.ChoiceField(
-        widget=forms.Select(attrs={"class": "filter-box"}),
-        choices=[("", "All"), ("true", "Yes"), ("false", "No")],
-        required=False,
-        label="Is Active",
-    )
 
+    status= forms.ChoiceField(
+        widget=forms.Select(attrs={"class": "filter-box"}),
+        choices=[("", "All"), ("Active", "Active"), ("Pause", "Pause"), ("Completed", "Completed")],
+        required=False,
+        label="Status",
+    )
     activities = ActivityType.objects.all()
     activity_type = forms.ChoiceField(
         widget=forms.Select(attrs={"class": "filter-box"}),
@@ -176,8 +180,13 @@ class ActivityForm(forms.ModelForm):
         if user:
             try:
                 employee = Employee.objects.get(employee_email=user.username)
-                self.fields["mvp"].queryset = MVP.objects.filter(
-                    team_name=employee.team
-                )
+                if employee.mvp_role == "Planner":
+                    self.fields["mvp"].queryset = MVP.objects.filter(
+                        planners=employee, is_archived=False
+                    )
+                else:
+                    self.fields["mvp"].queryset = MVP.objects.filter(
+                    team_name=employee.team, is_archived=False
+                    )
             except Employee.DoesNotExist:
                 self.fields["mvp"].queryset = MVP.objects.none()

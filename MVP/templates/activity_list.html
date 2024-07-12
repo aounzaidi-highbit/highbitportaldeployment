@@ -10,7 +10,7 @@
         {% if employee.mvp_role != "Super" %}
         <div>
             {% if employee.mvp_role == "Growth Manager" or employee.mvp_role == "Team Lead"%}
-                <a style="font-size: 15px;" href="{% url 'activity_type_form' %}" class="btn font add-mvp">ADD ACTIVITY TYPE</a>
+                <a style="font-size: 15px;" href="{% url 'activity_type_list' %}" class="btn font add-mvp">ADD ACTIVITY TYPE</a>
             {% endif %}
             <a style="font-size: 15px;" href="{% url 'activity_form' %}" class="btn font add-mvp">ADD ACTIVITY</a>
         </div>
@@ -48,6 +48,8 @@
                     {% endif %}
                     <th class="font">Activity Type</th>
                     <th class="font">Notes</th>
+     
+                    <th class="font">Created By</th>
                     <th class="font">
                         <a style="color:#24A9E1" href="?{% if request.GET.sort == 'created_at' %}sort=-created_at{% else %}sort=created_at{% endif %}" class="font">Date</a>
                     </th>
@@ -63,6 +65,12 @@
                     {% endif %}
                     <td class="font">{{ activity.activity_type.name }}</td>
                     <td class="font">{{ activity.notes|truncatewords:3 }}<span class="d-none full-notes">{{ activity.notes }}</span></td>
+                    {% if activity.created_by is None %}
+                        <td class="font">{{activity.mvp.updated_by.employee_name}}</td>
+                    {% else %}
+                        <td class="font">{{activity.created_by.employee_name}}</td>
+                    {% endif %}
+                    
                     <td class="font">{{ activity.created_at }}</td>
                     <td><button type="button" class="btn btn-sm view-btn font add-mvp" data-toggle="modal" data-target="#viewModal">View</button></td>
                 </tr>
@@ -120,7 +128,7 @@
                 const mvpName = row.querySelector('td:nth-child(1)').textContent;
                 const activityType = row.querySelector('td:nth-child(2)').textContent;
                 const notes = row.querySelector('.full-notes').textContent;
-                const createdAt = row.querySelector('td:nth-child(4)').textContent;
+                const createdAt = row.querySelector('td:nth-child(5)').textContent;
 
                 document.getElementById('modal-mvp-name').textContent = mvpName;
                 document.getElementById('modal-activity-type').textContent = activityType;

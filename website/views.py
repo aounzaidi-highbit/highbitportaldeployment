@@ -22,13 +22,20 @@ from django.core.mail import send_mail
 
 
 # Create your views here.
-
-
 @never_cache
 @require_http_methods(["GET", "POST"])
 def home(request):
     if request.user.is_authenticated:
-        return redirect("dashboard")
+        try:
+            emp = Employee.objects.get(employee_email=request.user.email)
+            if emp.mvp_role == "Planner":
+                return redirect("mvp_list")
+            else:
+                return redirect("dashboard")
+        except Employee.DoesNotExist:
+            messages.error(request, "Employee record not found.")
+            logout(request)
+            return redirect("home")
 
     if request.method == "POST":
         email = request.POST["email"]
@@ -37,19 +44,26 @@ def home(request):
         if user is not None:
             login(request, user)
             messages.success(request, "You have been logged in")
-            return redirect("dashboard")
+            try:
+                emp = Employee.objects.get(employee_email=email)
+                if emp.mvp_role == "Planner":
+                    return redirect("mvp_list")
+                else:
+                    return redirect("dashboard")
+            except Employee.DoesNotExist:
+                messages.error(request, "Employee record not found.")
+                logout(request)
+                return redirect("home")
         else:
-            messages.error(request, "There was a log in error")
+            messages.error(request, "There was a login error")
             return redirect("home")
     else:
         return render(request, "home.html")
-
 
 @login_required
 def logout_user(request):
     logout(request)
     return redirect("home")
-
 
 @login_required
 def dashboard(request):
@@ -270,9 +284,9 @@ def view_quarterly_valuations(request):
 
         if team_id:
             q_objects &= Q(employee__team__id=team_id)
-
+        
         evaluations = EvaluationFormModel.objects.filter(q_objects)
-
+            # evaluations = EvaluationFormModel.objects.filter(q_objects, employee__is_active=True)
         employee_data = {}
         for evaluation in evaluations:
             employee_id = evaluation.employee.employee_id
@@ -455,7 +469,7 @@ def send_emails(request):
         for month in months:
             q_objects |= Q(evaluation_for=f"{month} {year}")
 
-        evaluations = EvaluationFormModel.objects.filter(q_objects)
+        evaluations = EvaluationFormModel.objects.filter(q_objects,employee__is_active=True)
 
         employee_data = {}
         for evaluation in evaluations:

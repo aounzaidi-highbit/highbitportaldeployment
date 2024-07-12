@@ -14,4 +14,8 @@ urlpatterns=[
     path('archive_mvp/<int:pk>/', views.archive_mvp, name='archive_mvp'),
     path('archive-list/', views.archive_list, name='archive_list'),
     path('unarchive_mvp/<int:pk>/', views.unarchive_mvp, name='unarchive_mvp'),
+    path('activity-type-list/', views.activity_types_list, name='activity_type_list'),
+    path('edit-activity-type/<int:pk>/', views.edit_activity_type, name='edit_activity'),  
+    path('failed-list/', views.failed_mvp_list, name='failed_mvp_list'),
 ]
+
