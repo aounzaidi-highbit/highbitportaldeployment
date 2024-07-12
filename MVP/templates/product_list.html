@@ -41,6 +41,11 @@
                 <label for="team" class="mr-2 font">Start Date:</label>
                 <div class="form-control font" >{{ form.start_date }}</div> 
             </div>
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="team" class="mr-2 font">End Date:</label>
+                <div class="form-control font" >{{ form.end_date }}</div> 
+            </div>
+            
             
             <div class="form-group mr-3 font" style="display: inline-block;">
                 <label for="team" class="mr-2 font">Is Acitve:</label>
@@ -91,10 +96,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="viewModalLabel{{ mvp.pk }}">MVP Details</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <h5 class="modal-title" id="viewModalLabel{{ mvp.pk }}">Product Details</h5>
                             </div>
                             <div class="modal-body">
                                 <p><strong>Name:</strong> {{ mvp.name }}</p>
@@ -107,6 +109,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary font" data-dismiss="modal">Close</button>
                                 <a href="{% url 'edit_mvp' mvp.pk %}" class="btn add-mvp font">Edit</a>
+                                <a href="{% url 'archive_mvp' mvp.pk %}" class="btn archive-mvp font">Archive</a>
                             </div>
                         </div>
                     </div>
@@ -142,9 +145,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title font" id="viewModal{{ mvp_detail.mvp.pk }}Label">Product Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                
             </div>
             <div class="modal-body">
                 <p class="font"><b>Name:</b> {{ mvp_detail.mvp.name }}</p>

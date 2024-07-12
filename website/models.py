@@ -17,7 +17,7 @@ class Teams(models.Model):
     def evaluations_submitted(self):
         current_month = now().month
         current_year = now().year
-        employees = self.members.filter(is_team_lead=False)
+        employees = self.members.filter(is_team_lead=False, is_active=True)
 
         for employee in employees:
             if not EvaluationFormModel.objects.filter(

@@ -13,7 +13,7 @@
         {% endfor %}
 
         <p>Overall Performance for the Quarter:</p>
-        <p><b>Performance Rating: {{ average_weighted_score }}%</b></p>
+        <p><b>Quarterly Average: {{ average_weighted_score }}%</b></p>
         <p><b>Grade: {{ grade }}</b></p>
 
         <p>
@@ -39,7 +39,7 @@
 
         <p>Overall Performance for the Quarter:</p>
         <p><b>Performance Rating: {{ average_weighted_score }}%</b></p>
-
+        
         {% if grade == 'C' %}
         <p><b>Grade: {{ grade }}</b></p>
             <p>Grade C indicates that there's room for improvement, and it's essential to address any weaknesses identified. Your line manager is here to support you in overcoming these challenges and enhancing your performance.</p>
@@ -51,6 +51,6 @@
         {% endif %}
         <p>Thanks and Regards</p>
     {% endif %}
-
+    
 </body>
 </html>

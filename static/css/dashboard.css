@@ -150,6 +150,7 @@ body {
 
 .edit_evaluation:hover {
     background-color: #5A5A5A;
+    color: white;
 }
 
 .view_evaluation {

@@ -53,6 +53,9 @@ def logout_user(request):
 
 @login_required
 def dashboard(request):
+    today = date.today()
+    previous_month_date = today - timedelta(days=today.day)
+    previous_month = previous_month_date.strftime("%B")
     logged_in_user = request.user
     emp = Employee.objects.get(employee_email=logged_in_user)
     emps = Employee.objects.filter(team_lead=emp, is_active=True).all()
@@ -92,6 +95,7 @@ def dashboard(request):
             "show_evaluation": show_evaluation,
             "employee_count": emp_count,
             "submitted_count": submitted_count,
+            "previous_month": previous_month,
         },
     )
 
@@ -234,15 +238,16 @@ def evaluation_view(request):
             "evaluation_for": evaluation_for,
         },
     )
-
 @login_required
-@roles_required('HR', 'Super')
+@roles_required('HR', 'Super')    
 def view_quarterly_valuations(request):
     quarter = request.GET.get("quarter")
     year = request.GET.get("year")
     team_id = request.GET.get("team")
     grade = request.GET.get("grade")
-
+    sort = request.GET.get("sort") 
+    order = request.GET.get("order")  
+    
     current_year = datetime.now().year
     years = [current_year - i for i in range(5)]
 
@@ -276,7 +281,7 @@ def view_quarterly_valuations(request):
             role = evaluation.employee.role
             month = evaluation.evaluation_for.split(" ")[0]
             weighted_average = evaluation._weighted_average
-
+            
             if employee_id not in employee_data:
                 employee_data[employee_id] = {
                     "name": employee_name,
@@ -316,13 +321,12 @@ def view_quarterly_valuations(request):
                 "bonuscalculations": not bonus_calculations
             }
             evaluation_data.append(data_entry)
-
+            
             if quarterly_weighted_average != "N/A":
                 if quarterly_weighted_average >= 85.0:
                     a_grade_count += 1
                 elif 75.0 <= quarterly_weighted_average < 85.00:
                     b_grade_count += 1
-
 
     if grade == "A":
         evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] >=85.0 and data["months"].count("N/A") < 1]
@@ -333,6 +337,11 @@ def view_quarterly_valuations(request):
     elif grade == "X":
         evaluation_data = [data for data in evaluation_data if data["months"].count("N/A") >= 1]
 
+    
+    if sort == "quarterly_weighted_average":
+        reverse_order = True if order == "desc" else False
+        evaluation_data = sorted(evaluation_data, key=lambda x: (x['quarterly_weighted_average'] if x['quarterly_weighted_average'] != 'N/A' else 0), reverse=reverse_order)
+
     month_name_list = quarter_months.get(quarter, [])
     if not quarter:
         message = f"Please select a quarter and year to view the evaluations."
@@ -340,7 +349,7 @@ def view_quarterly_valuations(request):
         message = f"No evaluations found for Quarter {quarter} of {year}."
 
     teams = Teams.objects.all()
-
+    
     return render(
         request,
         "quarterly_evaluation_page.html",
@@ -356,6 +365,8 @@ def view_quarterly_valuations(request):
             "a_grade_count": a_grade_count,
             "b_grade_count": b_grade_count,
             "grade": grade,
+            "sort": sort,  
+            "order": order,  
         },
     )
 

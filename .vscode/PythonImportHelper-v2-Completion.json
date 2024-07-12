@@ -298,6 +298,70 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -563,6 +627,22 @@
     },
     {
         "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
@@ -1045,6 +1125,15 @@
         "documentation": {}
     },
     {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
         "label": "roles_required",
         "importPath": "website.decorators",
         "description": "website.decorators",
@@ -1252,15 +1341,6 @@
         "description": "django.views.decorators.http",
         "isExtraImport": true,
         "detail": "django.views.decorators.http",
-        "documentation": {}
-    },
-    {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
         "documentation": {}
     },
     {
@@ -1633,6 +1713,42 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0013_mvp_development_starting_date",
+        "description": "MVP.migrations.0013_mvp_development_starting_date",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0012_remove_mvp_cg_artist_remove_mvp_created_at_and_more\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"development_starting_date\",\n            field=models.DateField(blank=True, null=True),\n        ),",
+        "detail": "MVP.migrations.0013_mvp_development_starting_date",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0014_mvp_planning_starting_date",
+        "description": "MVP.migrations.0014_mvp_planning_starting_date",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0013_mvp_development_starting_date\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"planning_starting_date\",\n            field=models.DateField(blank=True, null=True),\n        ),",
+        "detail": "MVP.migrations.0014_mvp_planning_starting_date",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0015_remove_mvp_planning_starting_date_and_more",
+        "description": "MVP.migrations.0015_remove_mvp_planning_starting_date_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0014_mvp_planning_starting_date\"),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name=\"mvp\",\n            name=\"planning_starting_date\",\n        ),\n        migrations.AlterField(",
+        "detail": "MVP.migrations.0015_remove_mvp_planning_starting_date_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0016_mvp_is_archived",
+        "description": "MVP.migrations.0016_mvp_is_archived",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0015_remove_mvp_planning_starting_date_and_more\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"is_archived\",\n            field=models.BooleanField(default=False),\n        ),",
+        "detail": "MVP.migrations.0016_mvp_is_archived",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -1691,7 +1807,7 @@
         "kind": 6,
         "importPath": "MVP.models",
         "description": "MVP.models",
-        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)        \n    updated_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)\n    start_date = models.DateField()\n    is_active = models.BooleanField(default=True)\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product')])\n    developers = models.ManyToManyField(Employee, related_name='developers')",
+        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)        \n    updated_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)\n    start_date = models.DateField()\n    is_active = models.BooleanField(default=True)\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product'),('Archive','Archive')])\n    developers = models.ManyToManyField(Employee, related_name='developers')",
         "detail": "MVP.models",
         "documentation": {}
     },
@@ -1727,7 +1843,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def mvp_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"MVP\").order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
+        "peekOfCode": "def mvp_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"MVP\", is_archived=False).order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -1736,7 +1852,34 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def product_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Product\").order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
+        "peekOfCode": "def product_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Product\", is_archived=False).order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "archive_mvp",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def archive_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.is_archived = True\n    mvp.save()\n    return redirect('mvp_list')\n@login_required\ndef unarchive_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.is_archived = False\n    mvp.save()",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "unarchive_mvp",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def unarchive_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.is_archived = False\n    mvp.save()\n    return redirect('archive_list')\n@login_required\ndef archive_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "archive_list",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def archive_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Archive\").order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -1990,6 +2133,15 @@
         "description": "website.migrations.0024_alter_employee_mvp_role",
         "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0023_alter_employee_mvp_role\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"employee\",\n            name=\"mvp_role\",\n            field=models.CharField(\n                blank=True,",
         "detail": "website.migrations.0024_alter_employee_mvp_role",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0025_alter_employee_mvp_role",
+        "description": "website.migrations.0025_alter_employee_mvp_role",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0024_alter_employee_mvp_role\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"employee\",\n            name=\"mvp_role\",\n            field=models.CharField(\n                blank=True,",
+        "detail": "website.migrations.0025_alter_employee_mvp_role",
         "documentation": {}
     },
     {
@@ -2285,7 +2437,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def logout_user(request):\n    logout(request)\n    return redirect(\"home\")\n@login_required\ndef dashboard(request):\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)\n    emps = Employee.objects.filter(team_lead=emp, is_active=True).all()\n    emp_count = emps.count()\n    current_month = now().month",
+        "peekOfCode": "def logout_user(request):\n    logout(request)\n    return redirect(\"home\")\n@login_required\ndef dashboard(request):\n    today = date.today()\n    previous_month_date = today - timedelta(days=today.day)\n    previous_month = previous_month_date.strftime(\"%B\")\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)",
         "detail": "website.views",
         "documentation": {}
     },
@@ -2294,7 +2446,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def dashboard(request):\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)\n    emps = Employee.objects.filter(team_lead=emp, is_active=True).all()\n    emp_count = emps.count()\n    current_month = now().month\n    current_year = now().year\n    form_disabling_date = AdminFeautures.objects.first()\n    show_evaluation = False\n    submitted_employees = []",
+        "peekOfCode": "def dashboard(request):\n    today = date.today()\n    previous_month_date = today - timedelta(days=today.day)\n    previous_month = previous_month_date.strftime(\"%B\")\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)\n    emps = Employee.objects.filter(team_lead=emp, is_active=True).all()\n    emp_count = emps.count()\n    current_month = now().month\n    current_year = now().year",
         "detail": "website.views",
         "documentation": {}
     },
@@ -2330,7 +2482,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def send_emails(request):\n    email_count = 0\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        bonus_a = request.POST.get(\"bonusA\")\n        bonus_b = request.POST.get(\"bonusB\")\n        if (\n            not (bonus_a.isdigit() and bonus_b.isdigit())\n            or int(bonus_a) <= 0",
+        "peekOfCode": "def send_emails(request):\n    email_count = 0\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        bonus_a = request.POST.get(\"bonusA\")\n        bonus_b = request.POST.get(\"bonusB\")\n        if not (bonus_a.isdigit() and bonus_b.isdigit()) or int(bonus_a) <= 0 or int(bonus_b) <= 0:\n            messages.error(request, \"Invalid bonus amounts\")\n            return redirect(\"quarterly_evaluations\")",
         "detail": "website.views",
         "documentation": {}
     },
