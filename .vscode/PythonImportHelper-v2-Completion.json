@@ -41,6 +41,14 @@
         "documentation": {}
     },
     {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
         "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
@@ -227,6 +235,70 @@
     },
     {
         "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
@@ -879,6 +951,14 @@
         "description": "django.forms.widgets",
         "isExtraImport": true,
         "detail": "django.forms.widgets",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
         "documentation": {}
     },
     {
@@ -1749,6 +1829,42 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0017_alter_mvp_current_phase",
+        "description": "MVP.migrations.0017_alter_mvp_current_phase",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0016_mvp_is_archived\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"mvp\",\n            name=\"current_phase\",\n            field=models.CharField(\n                choices=[(\"MVP\", \"MVP\"), (\"Product\", \"Product\")], max_length=100",
+        "detail": "MVP.migrations.0017_alter_mvp_current_phase",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0018_remove_mvp_is_active_mvp_status",
+        "description": "MVP.migrations.0018_remove_mvp_is_active_mvp_status",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0017_alter_mvp_current_phase\"),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name=\"mvp\",\n            name=\"is_active\",\n        ),\n        migrations.AddField(",
+        "detail": "MVP.migrations.0018_remove_mvp_is_active_mvp_status",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0019_alter_mvp_current_phase",
+        "description": "MVP.migrations.0019_alter_mvp_current_phase",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0018_remove_mvp_is_active_mvp_status\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"mvp\",\n            name=\"current_phase\",\n            field=models.CharField(\n                choices=[(\"MVP\", \"MVP\"), (\"Product\", \"Product\"), (\"Failed\", \"Failed\")],",
+        "detail": "MVP.migrations.0019_alter_mvp_current_phase",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0020_activity_created_by",
+        "description": "MVP.migrations.0020_activity_created_by",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0019_alter_mvp_current_phase\"),\n        (\"website\", \"0025_alter_employee_mvp_role\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"activity\",\n            name=\"created_by\",\n            field=models.ForeignKey(",
+        "detail": "MVP.migrations.0020_activity_created_by",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -1780,7 +1896,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class MVPFilterForm(forms.Form):\n    teams = Teams.objects.all()\n    name = forms.CharField(\n        widget=forms.TextInput(attrs={\"class\": \"filter-box\"}),\n        required=False,\n        label=\"Name\",\n    )\n    team_name = forms.ChoiceField(\n        widget=forms.Select(attrs={\"class\": \"filter-box\"}),\n        choices=[(\"\", \"Any\")] + [(team.id, team.team_name) for team in teams],",
+        "peekOfCode": "class MVPFilterForm(forms.Form):\n    teams = Teams.objects.all()\n    name = forms.CharField(\n        widget=forms.TextInput(attrs={\"class\": \"filter-box\"}),\n        required=False,\n        label=\"Name\",\n    )\n    team_name = forms.ChoiceField(\n        widget=forms.Select(attrs={\"class\": \"team-filter-box\"}),\n        choices=[(\"\", \"Any\")] + [(team.id, team.team_name) for team in teams],",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1807,7 +1923,7 @@
         "kind": 6,
         "importPath": "MVP.models",
         "description": "MVP.models",
-        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)        \n    updated_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)\n    start_date = models.DateField()\n    is_active = models.BooleanField(default=True)\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product'),('Archive','Archive')])\n    developers = models.ManyToManyField(Employee, related_name='developers')",
+        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)        \n    updated_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)\n    start_date = models.DateField()\n    status = models.CharField(max_length=100,choices=[('Pause', 'Pause'), ('Completed', 'Completed'), ('Active','Active')],default='Active')\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product'),('Failed','Failed')],default='MVP')\n    developers = models.ManyToManyField(Employee, related_name='developers')",
         "detail": "MVP.models",
         "documentation": {}
     },
@@ -1825,7 +1941,7 @@
         "kind": 6,
         "importPath": "MVP.models",
         "description": "MVP.models",
-        "peekOfCode": "class Activity(models.Model):\n    mvp = models.ForeignKey(MVP,on_delete=models.CASCADE)\n    activity_type = models.ForeignKey(ActivityType,on_delete=models.CASCADE)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE,null=True)\n    notes=models.TextField()\n    created_at=models.DateField(auto_now_add=True)\n    def __str__(self):\n        return self.mvp.name\n    class Meta:\n        verbose_name = \"Activity\"",
+        "peekOfCode": "class Activity(models.Model):\n    mvp = models.ForeignKey(MVP,on_delete=models.CASCADE)\n    activity_type = models.ForeignKey(ActivityType,on_delete=models.CASCADE)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE,null=True)\n    notes=models.TextField()\n    created_at=models.DateField(auto_now_add=True)\n    created_by=models.ForeignKey(Employee,on_delete=models.CASCADE, null=True)\n    def __str__(self):\n        return self.mvp.name\n    def save(self, *args, **kwargs):",
         "detail": "MVP.models",
         "documentation": {}
     },
@@ -1861,7 +1977,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def archive_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.is_archived = True\n    mvp.save()\n    return redirect('mvp_list')\n@login_required\ndef unarchive_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.is_archived = False\n    mvp.save()",
+        "peekOfCode": "def archive_mvp(request, pk):\n    user=request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.updated_by=employee\n    mvp.is_archived = True\n    mvp.save()\n    return redirect('mvp_list')\n@login_required\ndef unarchive_mvp(request, pk):",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -1897,7 +2013,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def activity_form(request):\n    if request.method == \"POST\":\n        form = ActivityForm(request.POST, user=request.user)\n        if form.is_valid():\n            activity = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            activity.team_name = employee.team\n            activity.save()\n            form.save_m2m()\n            return redirect(\"activity_list\")",
+        "peekOfCode": "def activity_form(request):\n    if request.method == \"POST\":\n        form = ActivityForm(request.POST, user=request.user)\n        if form.is_valid():\n            activity = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            activity.team_name = employee.team\n            activity.created_by = employee\n            activity.save()\n            form.save_m2m()",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -1911,11 +2027,38 @@
         "documentation": {}
     },
     {
+        "label": "failed_mvp_list",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def failed_mvp_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Failed\", is_archived=False).order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "activity_types_list",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def activity_types_list(request):\n    activities = ActivityType.objects.all()\n    return render(request, \"activity_type_list.html\", {\"activities\": activities})\n@login_required\ndef edit_activity_type(request, pk):\n    activity = get_object_or_404(ActivityType, id=pk)\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST, instance=activity)\n        if form.is_valid():\n            form.save()",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "edit_activity_type",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def edit_activity_type(request, pk):\n    activity = get_object_or_404(ActivityType, id=pk)\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST, instance=activity)\n        if form.is_valid():\n            form.save()\n            return redirect(\"activity_type_list\")\n    else:\n        form = ActivityTypeForm(instance=activity)\n    return render(request, \"activity_type_edit.html\", {\"form\": form})",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
         "label": "add_activity_type",
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def add_activity_type(request):\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST)\n        if form.is_valid():\n            form.save()\n            return redirect(\"activity_list\")\n    else:\n        form = ActivityTypeForm()\n    return render(request, \"add_activity_type.html\", {\"form\": form})",
+        "peekOfCode": "def add_activity_type(request):\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST)\n        if form.is_valid():\n            form.save()\n            return redirect(\"activity_type_list\")\n    else:\n        form = ActivityTypeForm()\n    return render(request, \"add_activity_type.html\", {\"form\": form})",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2329,7 +2472,7 @@
         "kind": 6,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "class Teams(models.Model):\n    team_name = models.CharField(max_length=255)\n    def __str__(self):\n        return self.team_name\n    @property\n    def evaluations_submitted(self):\n        current_month = now().month\n        current_year = now().year\n        employees = self.members.filter(is_team_lead=False)\n        for employee in employees:",
+        "peekOfCode": "class Teams(models.Model):\n    team_name = models.CharField(max_length=255)\n    def __str__(self):\n        return self.team_name\n    @property\n    def evaluations_submitted(self):\n        current_month = now().month\n        current_year = now().year\n        employees = self.members.filter(is_team_lead=False, is_active=True)\n        for employee in employees:",
         "detail": "website.models",
         "documentation": {}
     },
@@ -2428,7 +2571,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def home(request):\n    if request.user.is_authenticated:\n        return redirect(\"dashboard\")\n    if request.method == \"POST\":\n        email = request.POST[\"email\"]\n        password = request.POST[\"password\"]\n        user = authenticate(request, username=email, password=password)\n        if user is not None:\n            login(request, user)\n            messages.success(request, \"You have been logged in\")",
+        "peekOfCode": "def home(request):\n    if request.user.is_authenticated:\n        try:\n            emp = Employee.objects.get(employee_email=request.user.email)\n            if emp.mvp_role == \"Planner\":\n                return redirect(\"mvp_list\")\n            else:\n                return redirect(\"dashboard\")\n        except Employee.DoesNotExist:\n            messages.error(request, \"Employee record not found.\")",
         "detail": "website.views",
         "documentation": {}
     },
@@ -2464,7 +2607,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def view_quarterly_valuations(request):\n    quarter = request.GET.get(\"quarter\")\n    year = request.GET.get(\"year\")\n    team_id = request.GET.get(\"team\")\n    grade = request.GET.get(\"grade\")  \n    current_year = datetime.now().year\n    years = [current_year - i for i in range(5)]\n    quarter_months = {\n        \"1\": [\"January\", \"February\", \"March\"],\n        \"2\": [\"April\", \"May\", \"June\"],",
+        "peekOfCode": "def view_quarterly_valuations(request):\n    quarter = request.GET.get(\"quarter\")\n    year = request.GET.get(\"year\")\n    team_id = request.GET.get(\"team\")\n    grade = request.GET.get(\"grade\")\n    sort = request.GET.get(\"sort\") \n    order = request.GET.get(\"order\")  \n    current_year = datetime.now().year\n    years = [current_year - i for i in range(5)]\n    quarter_months = {",
         "detail": "website.views",
         "documentation": {}
     },

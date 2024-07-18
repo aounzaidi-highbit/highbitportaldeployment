@@ -72,7 +72,13 @@
     border-radius: 4px;
 }
 
-
+.custom-status-field{
+    border: 1px solid #cccccc;
+    width: 500px;               
+    padding: 5px;               
+    border-radius: 4px; 
+    font-size: 16px; 
+}
 .text {
     font-size: 25px;
     font-weight: 600;

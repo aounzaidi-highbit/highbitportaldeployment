@@ -9,17 +9,15 @@
 <h4 class="field_error font">{{ form.development_starting_date.errors }}</h4>
 <h4 class="field_error font">{{ form.developers.errors }}</h4>
 <h4 class="field_error font">{{ form.planners.errors }}</h4>
+
 <div class="form-edit">
 
     <form method="post" class="font text" id="editForm">
         {% csrf_token %}
         <div class="form-group">
             <div class="flex-container">
-                <h3 class="font text">Status Active:</h3>
-                <label class="switch">
-                    {{ form.is_active }}
-                    <span class="slider"></span>
-                </label>
+                <h3 class="font text">Status:</h3>
+                <span class="font">{{ form.status }}</span>
             </div>
         </div>
         
@@ -61,6 +59,7 @@
                     <div class="form-group-box">
                         <div class="font text field-text">{{ form.current_phase }}</div>
                     </div>
+                    <div id="phase-definition" class="phase-definition font" style="font-weight: 400; margin-top: 10px;"></div>
                 </div>
                 <h3 class="font text">Developers: </h3>
                 <div class="form-group">
@@ -122,6 +121,26 @@
         $('#confirmChangesBtn').click(function() {
             $('#editForm').submit(); 
         });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const phaseSelect = document.querySelector('select[name="current_phase"]');
+        const phaseDefinition = document.getElementById('phase-definition');
+
+        const phaseMessages = {
+            "MVP": "MVP: A newly developing game that hasn't been tested in the market yet.",
+            "Product": "Product: When MVP successfully tested in the market for at least 3-4 weeks with positive ROI.",
+            "Failed": "Failed Product: When MVP with negative ROI 60 days after completion."
+        };
+
+        function updatePhaseMessage() {
+            const selectedPhase = phaseSelect.value;
+            phaseDefinition.textContent = phaseMessages[selectedPhase] || "";
+        }
+
+        updatePhaseMessage();
+        phaseSelect.addEventListener("change", updatePhaseMessage);
     });
 </script>
 {% endblock %}

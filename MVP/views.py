@@ -9,7 +9,8 @@ from website.decorators import roles_required
 from .forms import ActivityTypeForm, MVPFilterForm, MVPForm, ActivityForm, ActivityType
 from .models import MVP, Activity
 from django.core.paginator import Paginator
-
+from django.contrib import messages
+from django.db.models import Q
 
 @login_required
 def mvp_form(request):
@@ -41,18 +42,20 @@ def mvp_list(request):
             if user_team
             else MVP.objects.none()
         )
-    else:
+    elif employee.mvp_role == "Growth Manager" or employee.mvp_role == "Team Lead":
         mvps = (
             MVP.objects.filter(team_name=user_team, current_phase="MVP" ,is_archived=False).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
-
+    elif employee.mvp_role == "Planner":
+        mvps = MVP.objects.filter(planners=employee, current_phase="MVP", is_archived=False).order_by("-id")
+        
     if form.is_valid():
         name = form.cleaned_data.get("name")
         start_date = form.cleaned_data.get("start_date")
         end_date = form.cleaned_data.get("end_date")
-        is_active = form.cleaned_data.get("is_active")
+        status = form.cleaned_data.get("status")
         team_name = form.cleaned_data.get("team_name")
         if name:
             mvps = mvps.filter(name__icontains=name)
@@ -64,11 +67,10 @@ def mvp_list(request):
             mvps = mvps.filter(start_date__gte=start_date)
         elif end_date:
             mvps = mvps.filter(end_date__lte=end_date)
-        if is_active == "true":
-            mvps = mvps.filter(is_active=True)
-        elif is_active == "false":
-            mvps = mvps.filter(is_active=False)
-
+        if status:
+            mvps = mvps.filter(status=status)
+    
+            
     sort = request.GET.get("sort", "-id")
     mvps = mvps.order_by(sort)
 
@@ -86,11 +88,11 @@ def mvp_list(request):
         })
 
     return render(
-        request,
-        "mvp_list.html",
+        request, 
+        "mvp_list.html", 
         {
-            "mvps": page_obj,
-            "form": form,
+            "mvps": page_obj, 
+            "form": form, 
             "employee": employee,
             "mvp_details": mvp_details,
         }
@@ -102,6 +104,7 @@ def mvp_list(request):
 def product_list(request):
     form = MVPFilterForm(request.GET)
     user = request.user
+
     employee = Employee.objects.get(employee_email=user.username)
     user_team = employee.team
 
@@ -111,18 +114,20 @@ def product_list(request):
             if user_team
             else MVP.objects.none()
         )
-    else:
+    elif employee.mvp_role == "Growth Manager" or employee.mvp_role == "Team Lead":
         mvps = (
-            MVP.objects.filter(team_name=user_team, current_phase="Product", is_archived=False).order_by("-id")
+            MVP.objects.filter(team_name=user_team, current_phase="Product" ,is_archived=False).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
-
+    elif employee.mvp_role == "Planner":
+        mvps = MVP.objects.filter(planners=employee, current_phase="Product", is_archived=False).order_by("-id")
+        
     if form.is_valid():
         name = form.cleaned_data.get("name")
         start_date = form.cleaned_data.get("start_date")
         end_date = form.cleaned_data.get("end_date")
-        is_active = form.cleaned_data.get("is_active")
+        status = form.cleaned_data.get("status")
         team_name = form.cleaned_data.get("team_name")
         if name:
             mvps = mvps.filter(name__icontains=name)
@@ -134,12 +139,9 @@ def product_list(request):
             mvps = mvps.filter(start_date__gte=start_date)
         elif end_date:
             mvps = mvps.filter(end_date__lte=end_date)
-        if is_active == "true":
-            mvps = mvps.filter(is_active=True)
-        elif is_active == "false":
-            mvps = mvps.filter(is_active=False)
-
-
+        if status:
+            mvps = mvps.filter(status=status)
+    
     sort = request.GET.get("sort", "-id")
     mvps = mvps.order_by(sort)
 
@@ -157,11 +159,11 @@ def product_list(request):
         })
 
     return render(
-        request,
-        "product_list.html",
+        request, 
+        "product_list.html", 
         {
-            "mvps": page_obj,
-            "form": form,
+            "mvps": page_obj, 
+            "form": form, 
             "employee": employee,
             "mvp_details": mvp_details,
         }
@@ -172,10 +174,8 @@ def product_list(request):
 def archive_mvp(request, pk):
     user=request.user
     employee = Employee.objects.get(employee_email=user.username)
-
     mvp = get_object_or_404(MVP, pk=pk)
     mvp.updated_by=employee
-    mvp.is_active = False
     mvp.is_archived = True
     mvp.save()
     return redirect('mvp_list')
@@ -184,7 +184,7 @@ def archive_mvp(request, pk):
 def unarchive_mvp(request, pk):
     mvp = get_object_or_404(MVP, pk=pk)
     mvp.is_archived = False
-
+   
     mvp.save()
     return redirect('archive_list')
 
@@ -212,7 +212,7 @@ def archive_list(request):
         name = form.cleaned_data.get("name")
         start_date = form.cleaned_data.get("start_date")
         end_date = form.cleaned_data.get("end_date")
-        is_active = form.cleaned_data.get("is_active")
+        status = form.cleaned_data.get("status")
         team_name = form.cleaned_data.get("team_name")
         if name:
             mvps = mvps.filter(name__icontains=name)
@@ -224,10 +224,9 @@ def archive_list(request):
             mvps = mvps.filter(start_date__gte=start_date)
         elif end_date:
             mvps = mvps.filter(end_date__lte=end_date)
-        if is_active == "true":
-            mvps = mvps.filter(is_active=True)
-        elif is_active == "false":
-            mvps = mvps.filter(is_active=False)
+        if status:
+            mvps = mvps.filter(status=status)
+
 
     sort = request.GET.get("sort", "-id")
     mvps = mvps.order_by(sort)
@@ -246,11 +245,11 @@ def archive_list(request):
         })
 
     return render(
-        request,
-        "archive_list.html",
+        request, 
+        "archive_list.html", 
         {
-            "mvps": page_obj,
-            "form": form,
+            "mvps": page_obj, 
+            "form": form, 
             "employee": employee,
             "mvp_details": mvp_details,
         }
@@ -278,7 +277,7 @@ def edit_mvp(request, pk):
         form = MVPForm(request.POST, instance=mvp, request=request)
         if form.is_valid():
             mvp_instance = form.save(commit=False)
-            mvp_instance.updated_by = employee
+            mvp_instance.updated_by = employee  
             mvp_instance.save()
             form.save_m2m()
             return redirect("mvp_list")
@@ -295,6 +294,7 @@ def activity_form(request):
             activity = form.save(commit=False)
             employee = Employee.objects.get(employee_email=request.user.username)
             activity.team_name = employee.team
+            activity.created_by = employee
             activity.save()
             form.save_m2m()
             return redirect("activity_list")
@@ -315,6 +315,12 @@ def activity_list(request):
 
     if employee.mvp_role == "Super":
         activities = Activity.objects.order_by("-id")
+    elif employee.mvp_role == "Planner":
+        mvp_ids = MVP.objects.filter(
+            Q(planners=employee) | Q(developers=employee)
+        ).values_list('id', flat=True)
+        
+        activities = Activity.objects.filter(mvp_id__in=mvp_ids).order_by("-id")
     else:
         activities = (
             Activity.objects.filter(team_name=user_team).order_by("-id")
@@ -324,14 +330,14 @@ def activity_list(request):
 
     if form.is_valid():
         name = form.cleaned_data.get("name")
-        avtivity_type = form.cleaned_data.get("activity_type")
+        activity_type = form.cleaned_data.get("activity_type")
         team_name = form.cleaned_data.get("team_name")
         if name:
             activities = activities.filter(mvp__name__icontains=name)
         if team_name:
             activities = activities.filter(team_name=team_name)
-        if avtivity_type:
-            activities = activities.filter(activity_type=avtivity_type)
+        if activity_type:
+            activities = activities.filter(activity_type=activity_type)
 
     sort = request.GET.get("sort", "-id")
     activities = activities.order_by(sort)
@@ -339,7 +345,7 @@ def activity_list(request):
     paginator = Paginator(activities, 30)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-
+    
     return render(request, "activity_list.html", {
         "activities": activities,
         "form": form,
@@ -347,13 +353,101 @@ def activity_list(request):
         "page_obj": page_obj
     })
 
+@login_required
+def failed_mvp_list(request):
+    form = MVPFilterForm(request.GET)
+    user = request.user
 
+    employee = Employee.objects.get(employee_email=user.username)
+    user_team = employee.team
+
+    if employee.mvp_role == "Super":
+        mvps = (
+            MVP.objects.filter(current_phase="Failed", is_archived=False).order_by("-id")
+            if user_team
+            else MVP.objects.none()
+        )
+    elif employee.mvp_role == "Growth Manager" or employee.mvp_role == "Team Lead":
+        mvps = (
+            MVP.objects.filter(team_name=user_team, current_phase="Failed" ,is_archived=False).order_by("-id")
+            if user_team
+            else MVP.objects.none()
+        )
+    elif employee.mvp_role == "Planner":
+        mvps = MVP.objects.filter(planners=employee, current_phase="Failed", is_archived=False).order_by("-id")
+        
+    if form.is_valid():
+        name = form.cleaned_data.get("name")
+        start_date = form.cleaned_data.get("start_date")
+        end_date = form.cleaned_data.get("end_date")
+        status = form.cleaned_data.get("status")
+        team_name = form.cleaned_data.get("team_name")
+        if name:
+            mvps = mvps.filter(name__icontains=name)
+        if team_name:
+            mvps = mvps.filter(team_name=team_name)
+        if start_date and end_date:
+            mvps = mvps.filter(start_date__gte=start_date, end_date__lte=end_date)
+        elif start_date:
+            mvps = mvps.filter(start_date__gte=start_date)
+        elif end_date:
+            mvps = mvps.filter(end_date__lte=end_date)
+        if status:
+            mvps = mvps.filter(status=status)
+    
+            
+    sort = request.GET.get("sort", "-id")
+    mvps = mvps.order_by(sort)
+
+    paginator = Paginator(mvps, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    mvp_details = []
+    for mvp in page_obj:
+        developers = mvp.developers.all()
+        planners = mvp.planners.all()
+        mvp_details.append({
+            "mvp": mvp,
+            "developers": developers,
+            "planners": planners,
+        })
+
+    return render(
+        request, 
+        "failed_mvp_list.html", 
+        {
+            "mvps": page_obj, 
+            "form": form, 
+            "employee": employee,
+            "mvp_details": mvp_details,
+        }
+    )
+
+    
+@login_required
+def activity_types_list(request):
+    activities = ActivityType.objects.all()
+    return render(request, "activity_type_list.html", {"activities": activities})
+
+@login_required
+def edit_activity_type(request, pk):
+    activity = get_object_or_404(ActivityType, id=pk)
+    if request.method == "POST":
+        form = ActivityTypeForm(request.POST, instance=activity)
+        if form.is_valid():
+            form.save()
+            return redirect("activity_type_list")
+    else:
+        form = ActivityTypeForm(instance=activity)
+    return render(request, "activity_type_edit.html", {"form": form})
+
+@login_required
 def add_activity_type(request):
     if request.method == "POST":
         form = ActivityTypeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("activity_list")
+            return redirect("activity_type_list")
     else:
         form = ActivityTypeForm()
     return render(request, "add_activity_type.html", {"form": form})

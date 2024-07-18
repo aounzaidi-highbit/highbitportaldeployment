@@ -12,6 +12,10 @@
 .filter-box{
     border: none;
 }
+.team-filter-box{
+    width: 80px;
+    border: none;
+}
 .mvp-list-text-mvp{
     font-weight: 200;
 }

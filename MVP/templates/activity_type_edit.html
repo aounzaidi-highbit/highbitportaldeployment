@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Add Activity Type| {% endblock title %}
+{% block title %}Edit Activity Type| {% endblock title %}
 {% block content %}
 <link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
 
 <div class="circle"></div>
-<h1 class="font  mvp-edit">Add <span class="mvp">Activity Type</span></h1>
-  <form method="POST"  >
+<h1 class="font  mvp-edit">Edit <span class="mvp">Activity Type</span></h1>
+  <form method="POST" >
     {% csrf_token %}
     {{ form.as_p }}
         <button type="submit" class="btn font save_changes_button" id="saveChangesBtn">Save Changes</button>
