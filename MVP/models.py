@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from website.models import Teams, Employee
 
@@ -15,25 +16,26 @@ class MVP(models.Model):
     associates = models.ManyToManyField(Employee, related_name='associates')
     development_starting_date = models.DateField(null=True, blank=True)
     is_archived = models.BooleanField(default=False)
-        
+    first_completion_date=models.DateField(null=True, blank=True)
+    
     def __str__(self):
         return self.name
     
     def save(self, *args, **kwargs):
-        if self.pk: 
+        if self.pk:
             previous = MVP.objects.get(pk=self.pk)
             changes = []
             for field in self._meta.fields:
                 field_name = field.name
                 old_value = getattr(previous, field_name)
                 new_value = getattr(self, field_name)
-                
+
                 if old_value is None:
                     if old_value != new_value:
                         changes.append(f'{field.verbose_name}: set to "{new_value}" updated by "{self.updated_by.employee_name}"')
                 else:
                     if old_value != new_value:
-                        changes.append(f'{field.verbose_name}: changed from "{old_value}" to "{new_value}" updated by "{self.updated_by.employee_name}"\n')
+                        changes.append(f'{field.verbose_name}: changed from "{old_value}" to "{new_value}" updated by "{self.updated_by.employee_name}"')
             if changes:
                 notes = "\n".join(changes)
                 activity = Activity(
@@ -45,7 +47,6 @@ class MVP(models.Model):
                 activity.save()
 
         super().save(*args, **kwargs)
-
     class Meta:
         verbose_name = "MVP"
         verbose_name_plural = "MVPs"

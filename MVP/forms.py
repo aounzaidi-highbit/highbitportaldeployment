@@ -48,7 +48,9 @@ class MVPForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
-    
+    first_completion_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"}))
     class Meta:
         model = MVP
         fields = [
@@ -58,6 +60,7 @@ class MVPForm(forms.ModelForm):
             "status",
             "end_date",
             "development_starting_date",
+            "first_completion_date",
             "current_phase",
             "developers",
             "planners",
@@ -86,20 +89,27 @@ class MVPForm(forms.ModelForm):
                 | Q(employee_email=user_username)
                 | Q(mvp_role="Growth Manager")
             )
-            
+    def clean_first_completion_date(self):
+        if self.instance.pk and self.instance.first_completion_date:
+            return self.instance.first_completion_date
+        return self.cleaned_data['first_completion_date']
+    
     def clean(self):
         cleaned_data = super().clean()
         developers = cleaned_data.get('developers')
         start_date=cleaned_data.get('start_date')
         development_starting_date = cleaned_data.get('development_starting_date')
         planners = cleaned_data.get('planners')
-        
+        status=cleaned_data.get('status')
+        first_completion_date=cleaned_data.get('first_completion_date')
         if developers and not development_starting_date:
             self.add_error('development_starting_date', 'Development starting date is required if developers are selected.')
         if development_starting_date and not developers:
             self.add_error('developers', 'Developers are required if development starting date is selected.')
         if start_date and not planners:
             self.add_error('planners', 'Planners are required if start date is selected.')
+        if status=="Completed" and not first_completion_date:
+            self.add_error('first_completion_date', 'First completion date is required if status is completed.')
         return cleaned_data
 
 class MVPFilterForm(forms.Form):

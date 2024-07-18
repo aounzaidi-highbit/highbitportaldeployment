@@ -64,7 +64,7 @@
                     <td class="font">{{ activity.team_name.team_name }}</td>
                     {% endif %}
                     <td class="font">{{ activity.activity_type.name }}</td>
-                    <td class="font">{{ activity.notes|truncatewords:3 }}<span class="d-none full-notes">{{ activity.notes }}</span></td>
+                    <td class="font"><span class="full-notes d-none">{{ activity.notes }}</span>{{ activity.notes|truncatewords:3 }}</td>
                     {% if activity.created_by is None %}
                         <td class="font">{{activity.mvp.updated_by.employee_name}}</td>
                     {% else %}
@@ -84,7 +84,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title font " id="viewModalLabel">Activity Details</h5>
-           
                 </div>
                 <div class="modal-body font">
                     <p><strong class="font">MVP Name:</strong> <span id="modal-mvp-name"></span></p>
@@ -128,11 +127,11 @@
                 const mvpName = row.querySelector('td:nth-child(1)').textContent;
                 const activityType = row.querySelector('td:nth-child(2)').textContent;
                 const notes = row.querySelector('.full-notes').textContent;
-                const createdAt = row.querySelector('td:nth-child(5)').textContent;
+                const createdAt = row.querySelector('td:nth-child(6)').textContent;
 
                 document.getElementById('modal-mvp-name').textContent = mvpName;
                 document.getElementById('modal-activity-type').textContent = activityType;
-                document.getElementById('modal-notes').textContent = notes;
+                document.getElementById('modal-notes').innerHTML = notes.replace(/\n/g, '<br>');
                 document.getElementById('modal-created-at').textContent = createdAt;
             });
         });

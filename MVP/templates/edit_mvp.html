@@ -23,7 +23,24 @@
         
         <div style="margin-top: 30px;"> 
         <div class="form-columns">
+            
             <div class="column">
+                <div id="first_completion_date_field" style="display: none;">
+                    <h3 class="font text" style="color: red ;">First Completion Date:</h3>
+                    {% if first_completion_date is none %}
+                    <div class="form-group">
+                        <div class="form-group-box">
+                            <div class="font text field-text">{{ form.first_completion_date }}</div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="form-group">
+                        <div class="form-group-box">
+                            <input type="text" class="font text field-text" style="border: none;" value="{{ first_completion_date }}" readonly>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
                 <h3 class="font text">* MVP Name:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
@@ -127,6 +144,8 @@
     document.addEventListener("DOMContentLoaded", function () {
         const phaseSelect = document.querySelector('select[name="current_phase"]');
         const phaseDefinition = document.getElementById('phase-definition');
+        const statusSelect = document.querySelector('select[name="status"]');
+        const firstCompletionDateField = document.getElementById('first_completion_date_field');
 
         const phaseMessages = {
             "MVP": "MVP: A newly developing game that hasn't been tested in the market yet.",
@@ -139,8 +158,20 @@
             phaseDefinition.textContent = phaseMessages[selectedPhase] || "";
         }
 
+        function toggleFirstCompletionDateField() {
+            const selectedStatus = statusSelect.value;
+            if (selectedStatus === "Completed") {
+                firstCompletionDateField.style.display = "block";
+            } else {
+                firstCompletionDateField.style.display = "none";
+            }
+        }
+
         updatePhaseMessage();
         phaseSelect.addEventListener("change", updatePhaseMessage);
+
+        toggleFirstCompletionDateField();
+        statusSelect.addEventListener("change", toggleFirstCompletionDateField);
     });
 </script>
 {% endblock %}
