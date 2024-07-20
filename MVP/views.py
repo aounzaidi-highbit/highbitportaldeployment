@@ -2,7 +2,7 @@ import collections
 import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
-import django.utils
+from django.utils.timezone import now
 import re
 from website.models import Employee
 from website.decorators import roles_required
@@ -32,10 +32,9 @@ def mvp_form(request):
 def mvp_list(request):
     form = MVPFilterForm(request.GET)
     user = request.user
-
     employee = Employee.objects.get(employee_email=user.username)
     user_team = employee.team
-
+    
     if employee.mvp_role == "Super":
         mvps = (
             MVP.objects.filter(current_phase="MVP", is_archived=False).order_by("-id")
@@ -50,7 +49,7 @@ def mvp_list(request):
         )
     elif employee.mvp_role == "Planner":
         mvps = MVP.objects.filter(planners=employee, current_phase="MVP", is_archived=False).order_by("-id")
-        
+    
     if form.is_valid():
         name = form.cleaned_data.get("name")
         start_date = form.cleaned_data.get("start_date")
@@ -70,23 +69,29 @@ def mvp_list(request):
         if status:
             mvps = mvps.filter(status=status)
     
-            
     sort = request.GET.get("sort", "-id")
     mvps = mvps.order_by(sort)
 
     paginator = Paginator(mvps, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    
     mvp_details = []
     for mvp in page_obj:
         developers = mvp.developers.all()
         planners = mvp.planners.all()
+        sixty_days_passed = False
+        if mvp.first_completion_date:
+            if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
+                sixty_days_passed = True
+        
         mvp_details.append({
             "mvp": mvp,
             "developers": developers,
             "planners": planners,
+            "sixty_days_passed": sixty_days_passed,
         })
-
+ 
     return render(
         request, 
         "mvp_list.html", 
@@ -97,7 +102,6 @@ def mvp_list(request):
             "mvp_details": mvp_details,
         }
     )
-
 
 
 @login_required
@@ -271,6 +275,8 @@ def archive_list(request):
 @login_required
 def edit_mvp(request, pk):
     mvp = get_object_or_404(MVP, pk=pk)
+    first_completion_date = mvp.first_completion_date
+    
     user = request.user
     employee = Employee.objects.get(employee_email=user.username)
     if request.method == "POST":
@@ -284,7 +290,7 @@ def edit_mvp(request, pk):
     else:
         form = MVPForm(instance=mvp, request=request)
 
-    return render(request, "edit_mvp.html", {"form": form, "mvp": mvp})
+    return render(request, "edit_mvp.html", {"form": form, "mvp": mvp, "first_completion_date": first_completion_date})
 
 @login_required
 def activity_form(request):
@@ -431,11 +437,15 @@ def activity_types_list(request):
 
 @login_required
 def edit_activity_type(request, pk):
+    mvp = get_object_or_404(MVP, pk=pk)
     activity = get_object_or_404(ActivityType, id=pk)
     if request.method == "POST":
         form = ActivityTypeForm(request.POST, instance=activity)
         if form.is_valid():
+            if mvp.first_completion_date:
+                form.instance.first_completion_date = mvp.first_completion_date
             form.save()
+
             return redirect("activity_type_list")
     else:
         form = ActivityTypeForm(instance=activity)

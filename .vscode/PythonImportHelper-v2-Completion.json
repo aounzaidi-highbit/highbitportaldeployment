@@ -434,6 +434,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -978,55 +994,6 @@
         "documentation": {}
     },
     {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
-        "isExtraImport": true,
-        "detail": "django.test",
-        "documentation": {}
-    },
-    {
-        "label": "TestCase",
-        "importPath": "django.test",
-        "description": "django.test",
-        "isExtraImport": true,
-        "detail": "django.test",
-        "documentation": {}
-    },
-    {
-        "label": "product_list",
-        "importPath": "MVP.views",
-        "description": "MVP.views",
-        "isExtraImport": true,
-        "detail": "MVP.views",
-        "documentation": {}
-    },
-    {
-        "label": "views",
-        "importPath": "website",
-        "description": "website",
-        "isExtraImport": true,
-        "detail": "website",
-        "documentation": {}
-    },
-    {
-        "label": "collections",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "collections",
-        "description": "collections",
-        "detail": "collections",
-        "documentation": {}
-    },
-    {
-        "label": "defaultdict",
-        "importPath": "collections",
-        "description": "collections",
-        "isExtraImport": true,
-        "detail": "collections",
-        "documentation": {}
-    },
-    {
         "label": "datetime",
         "kind": 6,
         "isExtraImport": true,
@@ -1116,92 +1083,156 @@
         "documentation": {}
     },
     {
-        "label": "get_object_or_404",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
         "isExtraImport": true,
-        "detail": "django.shortcuts",
+        "detail": "django.test",
         "documentation": {}
     },
     {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
         "isExtraImport": true,
-        "detail": "django.shortcuts",
+        "detail": "django.test",
         "documentation": {}
     },
     {
-        "label": "redirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
+        "label": "product_list",
+        "importPath": "MVP.views",
+        "description": "MVP.views",
         "isExtraImport": true,
-        "detail": "django.shortcuts",
+        "detail": "MVP.views",
         "documentation": {}
     },
     {
-        "label": "redirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
+        "label": "views",
+        "importPath": "website",
+        "description": "website",
         "isExtraImport": true,
-        "detail": "django.shortcuts",
+        "detail": "website",
         "documentation": {}
     },
     {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "redirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "get_object_or_404",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "login_required",
-        "importPath": "django.contrib.auth.decorators",
-        "description": "django.contrib.auth.decorators",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.decorators",
-        "documentation": {}
-    },
-    {
-        "label": "login_required",
-        "importPath": "django.contrib.auth.decorators",
-        "description": "django.contrib.auth.decorators",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.decorators",
-        "documentation": {}
-    },
-    {
-        "label": "django.utils",
+        "label": "collections",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "django.utils",
-        "description": "django.utils",
-        "detail": "django.utils",
+        "importPath": "collections",
+        "description": "collections",
+        "detail": "collections",
         "documentation": {}
     },
     {
-        "label": "timezone",
-        "importPath": "django.utils",
-        "description": "django.utils",
+        "label": "defaultdict",
+        "importPath": "collections",
+        "description": "collections",
         "isExtraImport": true,
-        "detail": "django.utils",
+        "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "django.contrib.auth.decorators",
+        "description": "django.contrib.auth.decorators",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "django.contrib.auth.decorators",
+        "description": "django.contrib.auth.decorators",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "now",
+        "importPath": "django.utils.timezone",
+        "description": "django.utils.timezone",
+        "isExtraImport": true,
+        "detail": "django.utils.timezone",
+        "documentation": {}
+    },
+    {
+        "label": "now",
+        "importPath": "django.utils.timezone",
+        "description": "django.utils.timezone",
+        "isExtraImport": true,
+        "detail": "django.utils.timezone",
+        "documentation": {}
+    },
+    {
+        "label": "now",
+        "importPath": "django.utils.timezone",
+        "description": "django.utils.timezone",
+        "isExtraImport": true,
+        "detail": "django.utils.timezone",
+        "documentation": {}
+    },
+    {
+        "label": "make_aware",
+        "importPath": "django.utils.timezone",
+        "description": "django.utils.timezone",
+        "isExtraImport": true,
+        "detail": "django.utils.timezone",
         "documentation": {}
     },
     {
@@ -1351,27 +1382,11 @@
         "documentation": {}
     },
     {
-        "label": "now",
-        "importPath": "django.utils.timezone",
-        "description": "django.utils.timezone",
+        "label": "timezone",
+        "importPath": "django.utils",
+        "description": "django.utils",
         "isExtraImport": true,
-        "detail": "django.utils.timezone",
-        "documentation": {}
-    },
-    {
-        "label": "now",
-        "importPath": "django.utils.timezone",
-        "description": "django.utils.timezone",
-        "isExtraImport": true,
-        "detail": "django.utils.timezone",
-        "documentation": {}
-    },
-    {
-        "label": "make_aware",
-        "importPath": "django.utils.timezone",
-        "description": "django.utils.timezone",
-        "isExtraImport": true,
-        "detail": "django.utils.timezone",
+        "detail": "django.utils",
         "documentation": {}
     },
     {
@@ -1865,6 +1880,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0021_mvp_first_completion_date",
+        "description": "MVP.migrations.0021_mvp_first_completion_date",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0020_activity_created_by\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"first_completion_date\",\n            field=models.DateField(blank=True, null=True),\n        ),",
+        "detail": "MVP.migrations.0021_mvp_first_completion_date",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -2004,7 +2028,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def edit_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, instance=mvp, request=request)\n        if form.is_valid():\n            mvp_instance = form.save(commit=False)\n            mvp_instance.updated_by = employee  \n            mvp_instance.save()",
+        "peekOfCode": "def edit_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    first_completion_date = mvp.first_completion_date\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, instance=mvp, request=request)\n        if form.is_valid():\n            mvp_instance = form.save(commit=False)\n            mvp_instance.updated_by = employee  ",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2040,7 +2064,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def activity_types_list(request):\n    activities = ActivityType.objects.all()\n    return render(request, \"activity_type_list.html\", {\"activities\": activities})\n@login_required\ndef edit_activity_type(request, pk):\n    activity = get_object_or_404(ActivityType, id=pk)\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST, instance=activity)\n        if form.is_valid():\n            form.save()",
+        "peekOfCode": "def activity_types_list(request):\n    activities = ActivityType.objects.all()\n    return render(request, \"activity_type_list.html\", {\"activities\": activities})\n@login_required\ndef edit_activity_type(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    activity = get_object_or_404(ActivityType, id=pk)\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST, instance=activity)\n        if form.is_valid():",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2049,7 +2073,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def edit_activity_type(request, pk):\n    activity = get_object_or_404(ActivityType, id=pk)\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST, instance=activity)\n        if form.is_valid():\n            form.save()\n            return redirect(\"activity_type_list\")\n    else:\n        form = ActivityTypeForm(instance=activity)\n    return render(request, \"activity_type_edit.html\", {\"form\": form})",
+        "peekOfCode": "def edit_activity_type(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    activity = get_object_or_404(ActivityType, id=pk)\n    if request.method == \"POST\":\n        form = ActivityTypeForm(request.POST, instance=activity)\n        if form.is_valid():\n            if mvp.first_completion_date:\n                form.instance.first_completion_date = mvp.first_completion_date\n            form.save()\n            return redirect(\"activity_type_list\")",
         "detail": "MVP.views",
         "documentation": {}
     },

@@ -28,6 +28,7 @@
             {% endif %}
         </p>
         <p>Thanks and Regards</p>
+        <p>This is an automated email. Please do not reply.</p>
     {% else %}
 
         <p>Hello {{ employee_name }},</p>
@@ -39,7 +40,7 @@
 
         <p>Overall Performance for the Quarter:</p>
         <p><b>Performance Rating: {{ average_weighted_score }}%</b></p>
-        
+
         {% if grade == 'C' %}
         <p><b>Grade: {{ grade }}</b></p>
             <p>Grade C indicates that there's room for improvement, and it's essential to address any weaknesses identified. Your line manager is here to support you in overcoming these challenges and enhancing your performance.</p>
@@ -50,7 +51,8 @@
             <p>However, get ready for the next quarter. I encourage you to reflect on your performance, identify any areas where you can enhance your skills, and seek guidance from your line manager. Your dedication to improvement will undoubtedly contribute to your continued success.</p>
         {% endif %}
         <p>Thanks and Regards</p>
+        <p>This is an automated email. Please do not reply.</p>
     {% endif %}
-    
+
 </body>
 </html>
