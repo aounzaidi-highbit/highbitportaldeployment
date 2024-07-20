@@ -37,12 +37,12 @@ class MVP(models.Model):
                     if old_value != new_value:
                         changes.append(f'{field.verbose_name}: changed from "{old_value}" to "{new_value}" updated by "{self.updated_by.employee_name}"')
             if changes:
-                notes = "\n".join(changes)
+                changes = "\n".join(changes)
                 activity = Activity(
                     mvp=self,
                     activity_type=ActivityType.objects.get_or_create(name="Update")[0],
                     team_name=self.team_name,
-                    notes=notes,
+                    changes=changes,
                 )
                 activity.save()
 
@@ -63,9 +63,11 @@ class Activity(models.Model):
     mvp = models.ForeignKey(MVP,on_delete=models.CASCADE)
     activity_type = models.ForeignKey(ActivityType,on_delete=models.CASCADE)
     team_name=models.ForeignKey(Teams,on_delete=models.CASCADE,null=True)
-    notes=models.TextField()
+    notes=models.TextField(null=True, blank=True)
+    changes=models.TextField(null=True, blank=True)
     created_at=models.DateField(auto_now_add=True)
-    created_by=models.ForeignKey(Employee,on_delete=models.CASCADE, null=True)
+    remarks=models.TextField(null=True, blank=True)
+    created_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)
     def __str__(self):
         return self.mvp.name
     def save(self, *args, **kwargs):

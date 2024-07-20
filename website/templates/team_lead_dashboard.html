@@ -14,16 +14,21 @@
   </style>
   
   <head>
-    <link rel="stylesheet" href={% static 'css/dashboard.css' %}>
+    <link rel="stylesheet" href={% static 'css/evaluations.css' %}>
   </head>
   <div class="circle"></div>
-  <title>{% block title %}Dashboard | {% endblock title %}</title>
+  <title>{% block title %}Evaluations | {% endblock title %}</title>
   <body>
     
     {% if user.is_authenticated %}
       <div class="content">
+        {% if team_lead.mvp_role == 'Super' %}
+        <h1 class="font" style="font-weight: 800; color:#24A9E1 ;">Evaluations</h1>
+        {% else  %}
         <h1 class="welcome_text">Welcome, <span class="team_lead_name">{{ team_lead.employee_name }}</span></h1>
         <h2 style="margin-bottom: 20px;" class="font your_team_text">The team that is working under your direct supervision and guidance.</h2>
+        {% endif %}
+
         {% if submitted_count == employee_count %}
           <p class="font submitted_count_text">All evaluations are submitted for month <span class="submitted_count">{{previous_month}}</span>.</p>
         {% else %}

@@ -49,6 +49,7 @@
   <button type="submit" class="btn font bkg" style="display: inline-block;">Filter</button>
 </form>
 
+
 {% if evaluation_data %}
   <h1 class="font my-4" style="font-weight: 200;">Evaluations for <span class="evaluation_quarter_text">Quarter {{ quarter }}</span> of <span class="evaluation_quarter_text">{{ year }}</span></h1>
   <div class="table-responsive font">
@@ -75,7 +76,9 @@
               </a>
             {% endif %}
           </th>
-          
+          {% if show_button %}
+          <th class="font">Grade</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody class="font">
@@ -90,6 +93,10 @@
               <td class="font">{{ weighted_average }}</td>
             {% endfor %}
             <td class="font">{{ data.quarterly_weighted_average }}%</td>
+            {% if show_button %}
+            <td class="font">{{data.grade}}</td>
+            {% endif %}
+
           </tr>
         {% endfor %}
       </tbody>
@@ -102,9 +109,17 @@
     <input type="hidden" name="team" value="{{ team }}" class="font">
     <button type="submit" class="btn btn-success font">Export as CSV</button>
   </form>
-  <!-- Button to trigger bonus modal -->
   <button type="button" class="btn bkg font" data-toggle="modal" data-target="#bonusModal">Enter Bonuses</button>
-
+  {% if show_button %}
+    <form action="{% url 'update_grades' %}" method="POST" class="d-inline font">
+      {% csrf_token %}
+      <input type="hidden" name="quarter" value="{{ quarter }}" class="font">
+      <input type="hidden" name="year" value="{{ year }}" class="font">
+      <input type="hidden" name="team" value="{{ team }}" class="font">
+      <button type="submit" class="btn btn-primary font">Update Grades</button>
+    </form>
+  {% endif %}
+    
   <!-- Bonus Modal -->
   <div class="modal fade" id="bonusModal" tabindex="-1" role="dialog" aria-labelledby="bonusModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<head>
+<link rel="stylesheet" href="{% static "css/super_dashboard.css" %}">
+<title>{% block title %}Dashboard |{% endblock title %}</title>
+<div class="circle"></div>
+<h1 class="welcome_text font">Welcome, <span class="team_lead_name">{{ emp.employee_name }}</span></h1>
+<h2 style="margin-bottom: 20px;" class="font your "> <span class="dashboard">Dashboard</span></h2>
+
+<h2 class="font heading-box" style="margin-top:30px; font-size: 25px;">MVP & Products:</h2>
+
+<div class="experience-container" style="margin-top:0">
+    <div class="experience-item">
+        <h3 class="font h3-color">MVPs</h3>
+        <div class="counter-margins" ><span class="font experience-count">{{ mvp_count }}</span></div>
+    </div>
+    <div class="experience-item">
+        <h3 class="font h3-color">Products</h3>
+        <div class="counter-margins"  ><span class="font experience-count">{{ product_count }}</span></div>
+    </div>
+    <div class="experience-item">
+        <h3 class="font h3-color">Failed</h3>
+        <div class="counter-margins"  ><span class="font experience-count">{{ failed_count }}</span></div>
+    </div>
+</div>
+
+<h2 class="font heading-box" style="margin-top:-20px; font-size: 25px;">Employees:</h2>
+<div class="experience-container" style="margin-top:0">
+    <div class="experience-item">
+        <h3 class="font h3-color">Total Employees</h3>
+        <div  class="counter-margins" ><span class="font experience-count">{{ employee_count }}</span></div>
+    </div>
+    <div class="experience-item">
+        <h3 class="font h3-color">Permanent Employees</h3>
+        <div  class="counter-margins" ><span class="font experience-count">{{ permenant_employee_count }}</span></div>
+    </div>
+    <div class="experience-item">
+        <h3 class="font h3-color">Probation Employees</h3>
+        <div  class="counter-margins"><span class="font experience-count">{{ probation_employee_count }}</span></div>
+    </div>
+    
+</div>
+
+<h2 class="font heading-box" style="margin-top:-20px; font-size: 25px;">Grades:</h2>
+<div class="experience-container" style="margin-top:0">
+    <div class="experience-item">
+        <h3 class="font grade_text  h3-color">A 
+            <span class="line-separator"></span> 
+            <span class="font grade-counter">{{ grade_a_count }}</span>
+        </h3>
+    </div>
+    <div class="experience-item">
+        <h3 class="font grade_text h3-color">B
+            <span class="line-separator"></span> 
+            <span class="font grade-counter">{{ grade_b_count }}</span>
+        </h3>
+    </div>
+    <div class="experience-item">
+        <h3 class="font grade_text h3-color">C
+            <span class="line-separator"></span> 
+            <span class="font grade-counter">{{ grade_c_count }}</span>
+        </h3>
+    </div>
+    
+</div>
+
+{% endblock %}

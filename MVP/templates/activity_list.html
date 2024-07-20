@@ -47,8 +47,9 @@
                     <th class="font">Team</th>
                     {% endif %}
                     <th class="font">Activity Type</th>
+                    <th class="font">Changes</th>
+                    <th class="font">Remarks</th>
                     <th class="font">Notes</th>
-     
                     <th class="font">Created By</th>
                     <th class="font">
                         <a style="color:#24A9E1" href="?{% if request.GET.sort == 'created_at' %}sort=-created_at{% else %}sort=created_at{% endif %}" class="font">Date</a>
@@ -56,6 +57,7 @@
                     <th class="font">Actions</th>
                 </tr>
             </thead>
+            
             <tbody>
                 {% for activity in page_obj %}
                 <tr>
@@ -64,18 +66,62 @@
                     <td class="font">{{ activity.team_name.team_name }}</td>
                     {% endif %}
                     <td class="font">{{ activity.activity_type.name }}</td>
-                    <td class="font"><span class="full-notes d-none">{{ activity.notes }}</span>{{ activity.notes|truncatewords:3 }}</td>
-                    {% if activity.created_by is None %}
-                        <td class="font">{{activity.mvp.updated_by.employee_name}}</td>
+                    {% if activity.changes is none or activity.changes == '' %}
+                    <td class="font">-</td>
                     {% else %}
-                        <td class="font">{{activity.created_by.employee_name}}</td>
+                    <td class="font">
+                        <span class="full-changes d-none">{{ activity.changes }}</span>
+                        {{ activity.changes|truncatewords:3 }}
+                    </td>
+                    {% endif %}
+
+                    
+                    {% if activity.remarks is none or activity.remarks == '' %}
+                    <td class="font">-</td>
+                    {% else %}
+                    <td class="font">
+                        <span class="full-remarks d-none">{{ activity.remarks }}</span>
+                        {{ activity.remarks|truncatewords:3 }}
                     {% endif %}
                     
+                    {% if activity.notes is none or activity.notes == '' %}
+                    <td class="font">-</td>
+                    {% else %}
+                    <td class="font">
+                        <span class="full-notes d-none">{{ activity.notes }}</span>
+                        {{ activity.notes|truncatewords:3 }}
+                    
+                    {% endif %}
+
+                   
+                    <td class="font">
+                        {% if activity.created_by is None %}
+                            {{activity.mvp.updated_by.employee_name}}
+                        {% else %}
+                            {{activity.created_by.employee_name}}
+                        {% endif %}
+                    </td>
+                    
                     <td class="font">{{ activity.created_at }}</td>
-                    <td><button type="button" class="btn btn-sm view-btn font add-mvp" data-toggle="modal" data-target="#viewModal">View</button></td>
+                    <td>
+                        <button type="button" class="btn btn-sm view-btn font add-mvp" data-toggle="modal" data-target="#viewModal"
+                                data-mvp-name="{{ activity.mvp.name }}"
+                                {% if employee.mvp_role == 'Super' %}
+                                data-team="{{ activity.team_name.team_name }}"
+                                {% endif %}
+                                data-activity-type="{{ activity.activity_type.name }}"
+                                data-changes="{{ activity.changes }}"
+                                data-remarks="{{ activity.remarks }}"
+                                data-notes="{{ activity.notes }}"
+                                data-created-at="{{ activity.created_at }}"
+                                data-created-by="{% if activity.created_by is None %}{{ activity.mvp.updated_by.employee_name }}{% else %}{{ activity.created_by.employee_name }}{% endif %}">
+                            View
+                        </button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
+            
         </table>
     </div>
 
@@ -83,17 +129,24 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font " id="viewModalLabel">Activity Details</h5>
+                    <h5 class="modal-title font" id="viewModalLabel">Activity Details</h5>
                 </div>
                 <div class="modal-body font">
                     <p><strong class="font">MVP Name:</strong> <span id="modal-mvp-name"></span></p>
+                    {% if employee.mvp_role == 'Super' %}
+                    <p><strong class="font">Team:</strong> <span id="modal-team"></span></p>
+                    {% endif %}
                     <p><strong class="font">Activity Type:</strong> <span id="modal-activity-type"></span></p>
+                    <p><strong class="font">Changes:</strong> <span id="modal-changes"></span></p>
+                    <p><strong class="font">Remarks:</strong> <span id="modal-remarks"></span></p>
                     <p><strong class="font">Notes:</strong> <span id="modal-notes"></span></p>
                     <p><strong class="font">Date:</strong> <span id="modal-created-at"></span></p>
+                    <p><strong class="font">Created By:</strong> <span id="modal-created-by"></span></p>
                 </div>
             </div>
         </div>
     </div>
+    
 
     {% if page_obj.has_other_pages %}
     <ul class="pagination">
@@ -123,16 +176,16 @@
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.view-btn').forEach(function (button) {
             button.addEventListener('click', function () {
-                const row = button.closest('tr');
-                const mvpName = row.querySelector('td:nth-child(1)').textContent;
-                const activityType = row.querySelector('td:nth-child(2)').textContent;
-                const notes = row.querySelector('.full-notes').textContent;
-                const createdAt = row.querySelector('td:nth-child(6)').textContent;
-
-                document.getElementById('modal-mvp-name').textContent = mvpName;
-                document.getElementById('modal-activity-type').textContent = activityType;
-                document.getElementById('modal-notes').innerHTML = notes.replace(/\n/g, '<br>');
-                document.getElementById('modal-created-at').textContent = createdAt;
+                document.getElementById('modal-mvp-name').textContent = button.getAttribute('data-mvp-name');
+                {% if employee.mvp_role == 'Super' %}
+                document.getElementById('modal-team').textContent = button.getAttribute('data-team');
+                {% endif %}
+                document.getElementById('modal-activity-type').textContent = button.getAttribute('data-activity-type');
+                document.getElementById('modal-changes').innerHTML = button.getAttribute('data-changes').replace(/\n/g, '<br>');
+                document.getElementById('modal-remarks').innerHTML = button.getAttribute('data-remarks').replace(/\n/g, '<br>');
+                document.getElementById('modal-notes').innerHTML = button.getAttribute('data-notes').replace(/\n/g, '<br>');
+                document.getElementById('modal-created-at').textContent = button.getAttribute('data-created-at');
+                document.getElementById('modal-created-by').textContent = button.getAttribute('data-created-by');
             });
         });
     });

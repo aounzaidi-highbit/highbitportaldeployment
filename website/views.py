@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from website.decorators import roles_required
 from website.models import Employee, EvaluationFormModel, AdminFeautures, Teams
+
 from .forms import EvaluationForm, FileUploadForm
 from django.shortcuts import get_object_or_404
 import csv
@@ -19,7 +20,7 @@ from django.utils.timezone import make_aware
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.mail import send_mail
-
+from MVP.models import MVP
 
 # Create your views here.
 @never_cache
@@ -28,10 +29,12 @@ def home(request):
     if request.user.is_authenticated:
         try:
             emp = Employee.objects.get(employee_email=request.user.email)
-            if emp.mvp_role == "Planner":
+            if emp.mvp_role == "Super":
+                return redirect("super_dashboard")
+            elif emp.mvp_role == "Planner":
                 return redirect("mvp_list")
             else:
-                return redirect("dashboard")
+                return redirect("evaluations")
         except Employee.DoesNotExist:
             messages.error(request, "Employee record not found.")
             logout(request)
@@ -48,8 +51,10 @@ def home(request):
                 emp = Employee.objects.get(employee_email=email)
                 if emp.mvp_role == "Planner":
                     return redirect("mvp_list")
+                elif emp.mvp_role == "Super":
+                    return redirect("super_dashboard")
                 else:
-                    return redirect("dashboard")
+                    return redirect("evaluations")
             except Employee.DoesNotExist:
                 messages.error(request, "Employee record not found.")
                 logout(request)
@@ -60,13 +65,38 @@ def home(request):
     else:
         return render(request, "home.html")
 
+
 @login_required
 def logout_user(request):
     logout(request)
     return redirect("home")
 
+
+@roles_required("Super")
 @login_required
-def dashboard(request):
+def super_dashboard(request):
+    emp = Employee.objects.get(employee_email=request.user)
+    mvp= MVP.objects.filter(current_phase="MVP").all()
+    products = MVP.objects.filter(current_phase="Product").all()
+    failed= MVP.objects.filter(current_phase="Failed").all()
+    mvp_count = mvp.count()
+    product_count = products.count()
+    failed_count = failed.count()
+    
+    employee_count = Employee.objects.filter(is_active=True).exclude(mvp_role='Super').count()
+    permenant_employee_count = Employee.objects.filter(is_active=True, is_permanent=True).count()
+    probation_employee_count = Employee.objects.filter(is_active=True, is_permanent=False).count()
+    
+    grade_a_count= Employee.objects.filter(grade='A').count()
+    grade_b_count= Employee.objects.filter(grade='B').count()
+    grade_c_count= Employee.objects.filter(grade='C').count()
+    grade_x_count= Employee.objects.filter(grade='X').count()
+    
+    return render(request, "super_dashboard.html", {"emp": emp, "mvp": mvp, "products": products, "failed": failed, "mvp_count": mvp_count, "product_count": product_count, "failed_count": failed_count, "employee_count": employee_count, "permenant_employee_count": permenant_employee_count, "probation_employee_count": probation_employee_count, "grade_a_count": grade_a_count, "grade_b_count": grade_b_count, "grade_c_count": grade_c_count, "grade_x_count": grade_x_count})
+
+
+@login_required
+def evaluations(request):
     today = date.today()
     previous_month_date = today - timedelta(days=today.day)
     previous_month = previous_month_date.strftime("%B")
@@ -74,6 +104,7 @@ def dashboard(request):
     emp = Employee.objects.get(employee_email=logged_in_user)
     emps = Employee.objects.filter(team_lead=emp, is_active=True).all()
     emp_count = emps.count()
+
     current_month = now().month
     current_year = now().year
     form_disabling_date = AdminFeautures.objects.first()
@@ -165,7 +196,7 @@ def evaluation_view(request):
             )
             form_submitted = True
             is_editing = True
-            return redirect(reverse("dashboard"))
+            return redirect(reverse("evaluations"))
         else:
             if now() >= disabling_date:
                 form_submitted = False
@@ -252,17 +283,20 @@ def evaluation_view(request):
             "evaluation_for": evaluation_for,
         },
     )
+
+
 @login_required
-@roles_required('HR', 'Super')    
+@roles_required("HR", "Super")
 def view_quarterly_valuations(request):
     quarter = request.GET.get("quarter")
     year = request.GET.get("year")
     team_id = request.GET.get("team")
     grade = request.GET.get("grade")
-    sort = request.GET.get("sort") 
-    order = request.GET.get("order")  
-    
+    sort = request.GET.get("sort")
+    order = request.GET.get("order")
+
     current_year = datetime.now().year
+    current_month = datetime.now().month
     years = [current_year - i for i in range(5)]
 
     quarter_months = {
@@ -276,6 +310,19 @@ def view_quarterly_valuations(request):
     a_grade_count = 0
     b_grade_count = 0
 
+
+    if current_month in [1, 2, 3]:
+        current_quarter = 1
+    elif current_month in [4, 5, 6]:
+        current_quarter = 2
+    elif current_month in [7, 8, 9]:
+        current_quarter = 3
+    else:
+        current_quarter = 4
+
+
+    show_button = int(quarter) == current_quarter - 1 if quarter else False
+
     if quarter in quarter_months and year:
         months = quarter_months[quarter]
         q_objects = Q()
@@ -284,20 +331,21 @@ def view_quarterly_valuations(request):
 
         if team_id:
             q_objects &= Q(employee__team__id=team_id)
-        
-        evaluations = EvaluationFormModel.objects.filter(q_objects)
-            # evaluations = EvaluationFormModel.objects.filter(q_objects, employee__is_active=True)
+
+        evaluations = EvaluationFormModel.objects.filter(q_objects, employee__is_active=True)
         employee_data = {}
         for evaluation in evaluations:
             employee_id = evaluation.employee.employee_id
             employee_name = evaluation.employee.employee_name
             team_name = evaluation.employee.team.team_name
             role = evaluation.employee.role
+            employee_grade = evaluation.employee.grade
             month = evaluation.evaluation_for.split(" ")[0]
             weighted_average = evaluation._weighted_average
-            
+
             if employee_id not in employee_data:
                 employee_data[employee_id] = {
+                    "employee_grade": employee_grade,
                     "name": employee_name,
                     "team_name": team_name,
                     "months": {month: weighted_average},
@@ -316,7 +364,9 @@ def view_quarterly_valuations(request):
             if valid_averages:
                 valid_averages = [avg for avg in valid_averages if avg is not None]
                 if valid_averages:
-                    quarterly_weighted_average = (sum(valid_averages) / len(valid_averages) ) * 10
+                    quarterly_weighted_average = (
+                        sum(valid_averages) / len(valid_averages)
+                    ) * 10
                     quarterly_weighted_average = round(quarterly_weighted_average, 2)
                 else:
                     quarterly_weighted_average = "N/A"
@@ -332,10 +382,11 @@ def view_quarterly_valuations(request):
                 "role": employee_info["role"],
                 "months": monthly_averages,
                 "quarterly_weighted_average": quarterly_weighted_average,
-                "bonuscalculations": not bonus_calculations
+                "bonuscalculations": not bonus_calculations,
+                "grade": employee_info["employee_grade"],  
             }
             evaluation_data.append(data_entry)
-            
+
             if quarterly_weighted_average != "N/A":
                 if quarterly_weighted_average >= 85.0:
                     a_grade_count += 1
@@ -343,18 +394,45 @@ def view_quarterly_valuations(request):
                     b_grade_count += 1
 
     if grade == "A":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] >=85.0 and data["months"].count("N/A") < 1]
+        evaluation_data = [
+            data
+            for data in evaluation_data
+            if data["quarterly_weighted_average"] != "N/A"
+            and data["quarterly_weighted_average"] >= 85.0
+            and data["months"].count("N/A") < 1
+        ]
     elif grade == "B":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and 75.0 <= data["quarterly_weighted_average"] < 85.0 and data["months"].count("N/A") < 1]
+        evaluation_data = [
+            data
+            for data in evaluation_data
+            if data["quarterly_weighted_average"] != "N/A"
+            and 75.0 <= data["quarterly_weighted_average"] < 85.0
+            and data["months"].count("N/A") < 1
+        ]
     elif grade == "C":
-        evaluation_data = [data for data in evaluation_data if data["quarterly_weighted_average"] != "N/A" and data["quarterly_weighted_average"] < 75.0 and data["months"].count("N/A") < 1]
+        evaluation_data = [
+            data
+            for data in evaluation_data
+            if data["quarterly_weighted_average"] != "N/A"
+            and data["quarterly_weighted_average"] < 75.0
+            and data["months"].count("N/A") < 1
+        ]
     elif grade == "X":
-        evaluation_data = [data for data in evaluation_data if data["months"].count("N/A") >= 1]
+        evaluation_data = [
+            data for data in evaluation_data if data["months"].count("N/A") >= 1
+        ]
 
-    
     if sort == "quarterly_weighted_average":
         reverse_order = True if order == "desc" else False
-        evaluation_data = sorted(evaluation_data, key=lambda x: (x['quarterly_weighted_average'] if x['quarterly_weighted_average'] != 'N/A' else 0), reverse=reverse_order)
+        evaluation_data = sorted(
+            evaluation_data,
+            key=lambda x: (
+                x["quarterly_weighted_average"]
+                if x["quarterly_weighted_average"] != "N/A"
+                else 0
+            ),
+            reverse=reverse_order,
+        )
 
     month_name_list = quarter_months.get(quarter, [])
     if not quarter:
@@ -363,7 +441,7 @@ def view_quarterly_valuations(request):
         message = f"No evaluations found for Quarter {quarter} of {year}."
 
     teams = Teams.objects.all()
-    
+
     return render(
         request,
         "quarterly_evaluation_page.html",
@@ -379,12 +457,11 @@ def view_quarterly_valuations(request):
             "a_grade_count": a_grade_count,
             "b_grade_count": b_grade_count,
             "grade": grade,
-            "sort": sort,  
-            "order": order,  
+            "sort": sort,
+            "order": order,
+            "show_button": show_button,  
         },
     )
-
-
 
 def export_csv(request):
     quarter = request.POST.get("quarter")
@@ -432,7 +509,9 @@ def export_csv(request):
         ]
 
         quarterly_weighted_average = (
-            (sum(numeric_averages) / len(numeric_averages)) *10 if numeric_averages else "N/A"
+            (sum(numeric_averages) / len(numeric_averages)) * 10
+            if numeric_averages
+            else "N/A"
         )
 
         writer.writerow(
@@ -450,7 +529,11 @@ def send_emails(request):
         bonus_a = request.POST.get("bonusA")
         bonus_b = request.POST.get("bonusB")
 
-        if not (bonus_a.isdigit() and bonus_b.isdigit()) or int(bonus_a) <= 0 or int(bonus_b) <= 0:
+        if (
+            not (bonus_a.isdigit() and bonus_b.isdigit())
+            or int(bonus_a) <= 0
+            or int(bonus_b) <= 0
+        ):
             messages.error(request, "Invalid bonus amounts")
             return redirect("quarterly_evaluations")
 
@@ -469,7 +552,9 @@ def send_emails(request):
         for month in months:
             q_objects |= Q(evaluation_for=f"{month} {year}")
 
-        evaluations = EvaluationFormModel.objects.filter(q_objects,employee__is_active=True)
+        evaluations = EvaluationFormModel.objects.filter(
+            q_objects, employee__is_active=True
+        )
 
         employee_data = {}
         for evaluation in evaluations:
@@ -478,7 +563,9 @@ def send_emails(request):
             employee_email = employee.employee_email
             month = evaluation.evaluation_for.split(" ")[0]
             weighted_average = evaluation._weighted_average
-            team_lead_name = employee.team_lead.employee_name if employee.team_lead else "N/A"
+            team_lead_name = (
+                employee.team_lead.employee_name if employee.team_lead else "N/A"
+            )
             team_name = employee.team.team_name if employee.team else "N/A"
 
             if employee_name not in employee_data:
@@ -493,17 +580,27 @@ def send_emails(request):
 
         for employee_name, data in employee_data.items():
             month_averages = data["months"]
-            valid_months = [score for score in month_averages.values() if score != "N/A"]
+            valid_months = [
+                score for score in month_averages.values() if score != "N/A"
+            ]
 
             if len(valid_months) != 3:
-                grade = 'X'
+                grade = "X"
                 bonus = None
                 average_weighted_score = 0
             else:
                 monthly_averages = [month_averages.get(month, 0) for month in months]
-                average_weighted_score = (sum(monthly_averages) / len(monthly_averages)) * 10 if monthly_averages else 0
-                grade = 'A' if average_weighted_score >= 85.0 else 'B' if 75.0 <= average_weighted_score < 85.0 else 'C'
-                bonus = bonus_a if grade == 'A' else bonus_b if grade == 'B' else None
+                average_weighted_score = (
+                    (sum(monthly_averages) / len(monthly_averages)) * 10
+                    if monthly_averages
+                    else 0
+                )
+                grade = (
+                    "A"
+                    if average_weighted_score >= 85.0
+                    else "B" if 75.0 <= average_weighted_score < 85.0 else "C"
+                )
+                bonus = bonus_a if grade == "A" else bonus_b if grade == "B" else None
 
             average_weighted_score = round(average_weighted_score, 2)
 
@@ -523,9 +620,13 @@ def send_emails(request):
             from_email = "noreply@example.com"
             to = data["email"]
             email_count += 1
-            send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+            send_mail(
+                subject, plain_message, from_email, [to], html_message=html_message
+            )
 
-        messages.success(request, f"Quarterly Emails sent successfully to {email_count} employees.")
+        messages.success(
+            request, f"Quarterly Emails sent successfully to {email_count} employees."
+        )
         return redirect("quarterly_evaluations")
 
     messages.error(request, "Invalid request")
@@ -569,6 +670,93 @@ def handle_uploaded_file(csv_file):
                 print(f"Employee with ID {employee_id} does not exist.")
 
 
+@login_required
+@roles_required("HR", "Super")
+def update_grades(request):
+    if request.method == "POST":
+        quarter = request.POST.get("quarter")
+        year = request.POST.get("year")
+        team_id = request.POST.get("team")
+
+        updated = update_employee_grades(quarter, year, team_id)
+
+        if updated:
+            messages.success(request, "Grades updated successfully.")
+        else:
+            messages.error(request, "Failed to update grades.")
+
+    return redirect("quarterly_evaluations")
+
+
+def update_employee_grades(quarter, year, team_id):
+
+    quarter_months = {
+        "1": ["January", "February", "March"],
+        "2": ["April", "May", "June"],
+        "3": ["July", "August", "September"],
+        "4": ["October", "November", "December"],
+    }
+
+    if quarter not in quarter_months or not year:
+        return False
+
+    months = quarter_months[quarter]
+    q_objects = Q()
+    for month in months:
+        q_objects |= Q(evaluation_for=f"{month} {year}")
+
+    if team_id:
+        q_objects &= Q(employee__team__id=team_id)
+
+    evaluations = EvaluationFormModel.objects.filter(q_objects)
+    if not evaluations.exists():
+        return False  
+    employee_data = {}
+
+    for evaluation in evaluations:
+        employee_id = evaluation.employee.employee_id
+        month = evaluation.evaluation_for.split(" ")[0]
+        weighted_average = evaluation._weighted_average
+
+        if employee_id not in employee_data:
+            employee_data[employee_id] = {
+                "months": {month: weighted_average},
+            }
+        else:
+            employee_data[employee_id]["months"][month] = weighted_average
+
+    for employee_id, data in employee_data.items():
+        monthly_averages = [data["months"].get(month, "N/A") for month in months]
+
+        if "N/A" in monthly_averages:
+            grade = "X"
+        else:
+            valid_averages = [avg for avg in monthly_averages if avg != "N/A"]
+            if valid_averages:
+                valid_averages = [avg for avg in valid_averages if avg is not None]
+                if valid_averages:
+                    quarterly_weighted_average = (
+                        sum(valid_averages) / len(valid_averages)
+                    ) * 10
+                    quarterly_weighted_average = round(quarterly_weighted_average, 2)
+                else:
+                    quarterly_weighted_average = "N/A"
+            else:
+                quarterly_weighted_average = "N/A"
+
+            if quarterly_weighted_average != "N/A":
+                if quarterly_weighted_average >= 85.0:
+                    grade = "A"
+                elif 75.0 <= quarterly_weighted_average < 85.0:
+                    grade = "B"
+                else:
+                    grade = "C"
+            else:
+                grade = "X"
+
+        Employee.objects.filter(employee_id=employee_id).update(grade=grade)
+
+    return True  
 
 
 

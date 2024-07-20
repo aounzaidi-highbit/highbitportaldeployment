@@ -181,7 +181,7 @@ class EmployeeInformation(admin.ModelAdmin):
     search_fields = ["employee_id", "employee_name"]
     list_filter = ["team", "is_team_lead", IsTeamLeadFilter]
     actions = [send_quarterly_evaluation_email]
-
+    exclude = ["username", "password", "grade"]
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "team_lead":
             kwargs["queryset"] = Employee.objects.filter(is_team_lead=True)
