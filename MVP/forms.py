@@ -11,6 +11,7 @@ class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 
 
 class MVPForm(forms.ModelForm):
+    remarks = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-plan-field"}), required=False)
     name = forms.CharField(widget=forms.TextInput(attrs={"class": "custom-char-field"}))
     plan = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-plan-field"}))
     start_date = forms.DateField(
@@ -65,8 +66,22 @@ class MVPForm(forms.ModelForm):
             "developers",
             "planners",
             "associates",
+            
         ]
 
+    def save(self, commit=True):
+        mvp = super().save(commit=commit)
+        remarks = self.cleaned_data.get("remarks")
+        if remarks:
+            activity = Activity.objects.create(
+                mvp=mvp,
+                activity_type=ActivityType.objects.get_or_create(name="Update")[0],team_name=mvp.team_name, remarks=remarks)
+            activity.save()
+        return mvp
+                
+                
+
+    
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
         super(MVPForm, self).__init__(*args, **kwargs)
@@ -178,8 +193,8 @@ class ActivityForm(forms.ModelForm):
         queryset=ActivityType.objects.all(),
         widget=forms.Select(attrs={"class": "custom-act-field"}),
     )
+    changes = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-notes-text-field"}),required=False)
     notes = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-notes-text-field"}))
-
     class Meta:
         model = Activity
         fields = ["mvp", "activity_type", "notes"]

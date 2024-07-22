@@ -1,17 +1,15 @@
-
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Edit MVP | {% endblock title %}
 {% block content %}
 <link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
 <div class="circle"></div>
-<h1 class="font  mvp-edit">Edit <span class="mvp">MVP / Product</span></h1>
+<h1 class="font mvp-edit">Edit <span class="mvp">MVP / Product</span></h1>
 <h4 class="field_error font">{{ form.development_starting_date.errors }}</h4>
 <h4 class="field_error font">{{ form.developers.errors }}</h4>
 <h4 class="field_error font">{{ form.planners.errors }}</h4>
 
 <div class="form-edit">
-
     <form method="post" class="font text" id="editForm">
         {% csrf_token %}
         <div class="form-group">
@@ -26,7 +24,7 @@
             
             <div class="column">
                 <div id="first_completion_date_field" style="display: none;">
-                    <h3 class="font text" style="color: red ;">First Completion Date:</h3>
+                    <h3 class="font text" style="color: red;">First Completion Date:</h3>
                     {% if first_completion_date is none %}
                     <div class="form-group">
                         <div class="form-group-box">
@@ -44,32 +42,35 @@
                 <h3 class="font text">* MVP Name:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
-                        <div class="font text field-text"> {{ form.name }}</div>
+                        <div class="font text field-text">{{ form.name }}</div>
                     </div>
                 </div>
                 <h3 class="font text">* MVP Plan:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
                         <div class="font text field-text">{{ form.plan }}</div>
                     </div>
                 </div>
                 <h3 class="font text">* Start Date:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
                         <div class="font text field-text">{{ form.start_date }}</div>
                     </div>
                 </div>
                 <h3 class="font text">End Date:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
                         <div class="font text field-text">{{ form.end_date }}</div>
                     </div>
                 </div>
+                <h3 class="font text">Remarks: <span style="font-size: 15px;">(Only add remarks when editing/changing the form)</span></h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <div class="font text field-text">{{ form.remarks }}</div>
+                    </div>
+                </div>
             </div>
+
             <div class="column">
                 <h3 class="font text">Current Phase:</h3>
                 <div class="form-group">
@@ -81,11 +82,10 @@
                 <h3 class="font text">Developers: </h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
                         <div class="font text field-text">{{ form.developers }}</div>
                     </div>
                 </div>
-                <h3 class="font text">Development Starting Date: <span style="margin-left: 220px;"></span></h3>
+                <h3 class="font text">Development Starting Date:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
                         <div class="font text field-text">{{ form.development_starting_date }}</div>
@@ -94,21 +94,18 @@
                 <h3 class="font text">Planners: </h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
                         <div class="font text field-text">{{ form.planners }}</div>
                     </div>
                 </div>
                 <h3 class="font text">Associates:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
                         <div class="font text field-text">{{ form.associates }}</div>
                     </div>
                 </div>
-
             </div>
         </div>
-        <button type="submit" class="btn font save_changes_button">Submit</button>
+        <button type="button" class="btn font save_changes_button" id="saveChangesBtn">Submit</button>
     </form>
 </div>
 
@@ -117,7 +114,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
-                
             </div>
             <div class="modal-body">
                 Are you sure you want to save changes?

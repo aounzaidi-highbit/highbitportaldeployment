@@ -43,7 +43,7 @@ class Employee(models.Model):
     mvp_role = models.CharField(choices=[('Super','Super'), ("Growth Manager","Growth Manager"),('Team Lead','Team Lead'),('Planner', 'Planner'), ('Developer', 'Developer'), ('HR','HR')], max_length=20,null=True,blank=True)
     previous_experience = models.CharField(max_length=255, blank=True)
     joining_date = models.DateField(null=True, editable=True)
-    confirmation_date = models.DateField(null=True, editable=True)
+    confirmation_date = models.DateField(null=True, blank=True,editable=True)
     team = models.ForeignKey(
         Teams, on_delete=models.SET_NULL, related_name="members", blank=True, null=True
     )
@@ -54,17 +54,10 @@ class Employee(models.Model):
         blank=True,
         null=True,
     )
-
+    is_permanent = models.BooleanField(default=False)
     role = models.CharField(max_length=255)
+    grade=models.CharField(max_length=255,null=True,blank=True)
     is_team_lead = models.BooleanField(default=False)
-    
-    def is_permanent(self):
-        if self.confirmation_date and self.confirmation_date <= timezone.now().date():
-            return True
-        return False
-
-    is_permanent.boolean = True
-    is_permanent.short_description = "Is Permanent"
 
     def __str__(self):
         return self.employee_name
@@ -72,10 +65,14 @@ class Employee(models.Model):
     def save(self, *args, **kwargs):
         if self.is_team_lead or self.mvp_role == "Planner":
             user, created = User.objects.get_or_create(
-                username=self.employee_email
+                username=self.employee_email, defaults={'email': self.employee_email}
             )
             if created:
                 user.set_password(self.password)
+                user.save()
+            else:
+
+                user.email = self.employee_email
                 user.save()
 
         if self.joining_date:
@@ -84,6 +81,8 @@ class Employee(models.Model):
                 today.month - self.joining_date.month
             )
             self.previous_experience = f"{months_of_experience} months"
+
+        self.is_permanent = self.confirmation_date is not None
 
         super(Employee, self).save(*args, **kwargs)
 
@@ -97,7 +96,6 @@ class Employee(models.Model):
     class Meta:
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
-
 
 class EvaluationFormModel(models.Model):
     tl_marks = models.FloatField()

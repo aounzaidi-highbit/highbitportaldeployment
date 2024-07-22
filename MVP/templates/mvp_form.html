@@ -13,15 +13,15 @@
 <div class="form-edit">
     <form method="POST" action="{% url 'mvp_form' %}">
         {% csrf_token %}
-       
+
         <div class="form-group">
             <div class="flex-container">
                 <h3 class="font text">Status:</h3>
                 <span class="font">{{ form.status }}</span>
             </div>
         </div>
-        
-        <div style="margin-top: 30px;"> 
+
+        <div style="margin-top: 30px;">
         <div class="form-columns">
             <div class="column">
                 <div id="first_completion_date_field" style="display: none;">
@@ -35,31 +35,32 @@
                 <h3 class="font text">* MVP Name:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
+
                         <div class="font text field-text"> {{ form.name }}</div>
                     </div>
                 </div>
                 <h3 class="font text">* MVP Plan:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
+
                         <div class="font  field-text">{{ form.plan }}</div>
                     </div>
                 </div>
                 <h3 class="font text">* Start Date:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
+
                         <div class="font text field-text">{{ form.start_date }}</div>
                     </div>
                 </div>
                 <h3 class="font text">End Date:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
+
                         <div class="font text field-text">{{ form.end_date }}</div>
                     </div>
                 </div>
+
             </div>
             <div class="column">
                 <h3 class="font text">Current Phase:</h3>
@@ -80,27 +81,27 @@
                 <div class="form-group">
                     <div class="form-group-box">
                         <div class="font text field-text">{{ form.development_starting_date }}</div>
-                        
+
                     </div>
                 </div>
                 <h3 class="font text">Planners: <span style="margin-left: 220px;"></span></h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
+
                         <div class="font text field-text">{{ form.planners }}</div>
                     </div>
                 </div>
                 <h3 class="font text">Associates:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
-                        
+
                         <div class="font text field-text">{{ form.associates }}</div>
                     </div>
                 </div>
 
             </div>
         </div>
-    </div>   
+    </div>
         <button type="submit" class="btn font save_changes_button">Submit</button>
     </form>
 </div>

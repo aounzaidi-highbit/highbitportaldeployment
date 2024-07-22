@@ -450,6 +450,78 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -715,6 +787,54 @@
     },
     {
         "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
@@ -1012,22 +1132,6 @@
     },
     {
         "label": "date",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
@@ -1436,6 +1540,14 @@
         "description": "django.views.decorators.http",
         "isExtraImport": true,
         "detail": "django.views.decorators.http",
+        "documentation": {}
+    },
+    {
+        "label": "MVP",
+        "importPath": "MVP.models",
+        "description": "MVP.models",
+        "isExtraImport": true,
+        "detail": "MVP.models",
         "documentation": {}
     },
     {
@@ -1889,6 +2001,51 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0022_rename_notes_activity_changes_activity_remarks",
+        "description": "MVP.migrations.0022_rename_notes_activity_changes_activity_remarks",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0021_mvp_first_completion_date\"),\n    ]\n    operations = [\n        migrations.RenameField(\n            model_name=\"activity\",\n            old_name=\"notes\",\n            new_name=\"changes\",\n        ),",
+        "detail": "MVP.migrations.0022_rename_notes_activity_changes_activity_remarks",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0023_remove_activity_created_by",
+        "description": "MVP.migrations.0023_remove_activity_created_by",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0022_rename_notes_activity_changes_activity_remarks\"),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name=\"activity\",\n            name=\"created_by\",\n        ),\n    ]",
+        "detail": "MVP.migrations.0023_remove_activity_created_by",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0024_activity_notes",
+        "description": "MVP.migrations.0024_activity_notes",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0023_remove_activity_created_by\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"activity\",\n            name=\"notes\",\n            field=models.TextField(blank=True, null=True),\n        ),",
+        "detail": "MVP.migrations.0024_activity_notes",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0025_alter_activity_changes",
+        "description": "MVP.migrations.0025_alter_activity_changes",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0024_activity_notes\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"activity\",\n            name=\"changes\",\n            field=models.TextField(blank=True, null=True),\n        ),",
+        "detail": "MVP.migrations.0025_alter_activity_changes",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0026_activity_created_by",
+        "description": "MVP.migrations.0026_activity_created_by",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0025_alter_activity_changes\"),\n        (\"website\", \"0028_alter_employee_confirmation_date\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"activity\",\n            name=\"created_by\",\n            field=models.ForeignKey(",
+        "detail": "MVP.migrations.0026_activity_created_by",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -1902,7 +2059,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):\n    def label_from_instance(self, obj):\n        return f\"{obj.employee_name} ({obj.role})\"\nclass MVPForm(forms.ModelForm):\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    plan = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})\n    )\n    end_date = forms.DateField(",
+        "peekOfCode": "class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):\n    def label_from_instance(self, obj):\n        return f\"{obj.employee_name} ({obj.role})\"\nclass MVPForm(forms.ModelForm):\n    remarks = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}), required=False)\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    plan = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})\n    )",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1911,7 +2068,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class MVPForm(forms.ModelForm):\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    plan = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})\n    )\n    end_date = forms.DateField(\n        required=False,\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"}),\n    )",
+        "peekOfCode": "class MVPForm(forms.ModelForm):\n    remarks = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}), required=False)\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    plan = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})\n    )\n    end_date = forms.DateField(\n        required=False,\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"}),",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1938,7 +2095,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class ActivityForm(forms.ModelForm):\n    mvp = forms.ModelChoiceField(\n        queryset=MVP.objects.all(),\n        widget=forms.Select(attrs={\"class\": \"custom-act-field\"}),\n    )\n    activity_type = forms.ModelChoiceField(\n        queryset=ActivityType.objects.all(),\n        widget=forms.Select(attrs={\"class\": \"custom-act-field\"}),\n    )\n    notes = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-notes-text-field\"}))",
+        "peekOfCode": "class ActivityForm(forms.ModelForm):\n    mvp = forms.ModelChoiceField(\n        queryset=MVP.objects.all(),\n        widget=forms.Select(attrs={\"class\": \"custom-act-field\"}),\n    )\n    activity_type = forms.ModelChoiceField(\n        queryset=ActivityType.objects.all(),\n        widget=forms.Select(attrs={\"class\": \"custom-act-field\"}),\n    )\n    changes = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-notes-text-field\"}),required=False)",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -1965,7 +2122,7 @@
         "kind": 6,
         "importPath": "MVP.models",
         "description": "MVP.models",
-        "peekOfCode": "class Activity(models.Model):\n    mvp = models.ForeignKey(MVP,on_delete=models.CASCADE)\n    activity_type = models.ForeignKey(ActivityType,on_delete=models.CASCADE)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE,null=True)\n    notes=models.TextField()\n    created_at=models.DateField(auto_now_add=True)\n    created_by=models.ForeignKey(Employee,on_delete=models.CASCADE, null=True)\n    def __str__(self):\n        return self.mvp.name\n    def save(self, *args, **kwargs):",
+        "peekOfCode": "class Activity(models.Model):\n    mvp = models.ForeignKey(MVP,on_delete=models.CASCADE)\n    activity_type = models.ForeignKey(ActivityType,on_delete=models.CASCADE)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE,null=True)\n    notes=models.TextField(null=True, blank=True)\n    changes=models.TextField(null=True, blank=True)\n    created_at=models.DateField(auto_now_add=True)\n    remarks=models.TextField(null=True, blank=True)\n    created_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)\n    def __str__(self):",
         "detail": "MVP.models",
         "documentation": {}
     },
@@ -2312,6 +2469,33 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0026_employee_grade",
+        "description": "website.migrations.0026_employee_grade",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0025_alter_employee_mvp_role\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"employee\",\n            name=\"grade\",\n            field=models.CharField(blank=True, max_length=255, null=True),\n        ),",
+        "detail": "website.migrations.0026_employee_grade",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0027_employee_is_permanent",
+        "description": "website.migrations.0027_employee_is_permanent",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0026_employee_grade\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"employee\",\n            name=\"is_permanent\",\n            field=models.BooleanField(default=False),\n        ),",
+        "detail": "website.migrations.0027_employee_is_permanent",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0028_alter_employee_confirmation_date",
+        "description": "website.migrations.0028_alter_employee_confirmation_date",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0027_employee_is_permanent\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"employee\",\n            name=\"confirmation_date\",\n            field=models.DateField(blank=True, null=True),\n        ),",
+        "detail": "website.migrations.0028_alter_employee_confirmation_date",
+        "documentation": {}
+    },
+    {
         "label": "TeamFilter",
         "kind": 6,
         "importPath": "website.admin",
@@ -2343,7 +2527,7 @@
         "kind": 6,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "class EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\",\"role\",\"is_permanent\",\"is_active\", \"team\", \"team_lead\")\n    readonly_fields = (\"is_permanent\",)\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    actions = [send_quarterly_evaluation_email]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):\n        if db_field.name == \"team_lead\":\n            kwargs[\"queryset\"] = Employee.objects.filter(is_team_lead=True)\n        return super().formfield_for_foreignkey(db_field, request, **kwargs)",
+        "peekOfCode": "class EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\",\"role\",\"is_permanent\",\"is_active\", \"team\", \"team_lead\")\n    readonly_fields = (\"is_permanent\",)\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    actions = [send_quarterly_evaluation_email]\n    exclude = [\"username\", \"password\", \"grade\"]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):\n        if db_field.name == \"team_lead\":\n            kwargs[\"queryset\"] = Employee.objects.filter(is_team_lead=True)",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -2442,7 +2626,7 @@
         "kind": 5,
         "importPath": "website.admin",
         "description": "website.admin",
-        "peekOfCode": "send_quarterly_evaluation_email.short_description = (\n    \"Send quarterly evaluation email to selected employees\"\n)\nclass EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\",\"role\",\"is_permanent\",\"is_active\", \"team\", \"team_lead\")\n    readonly_fields = (\"is_permanent\",)\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    actions = [send_quarterly_evaluation_email]\n    def formfield_for_foreignkey(self, db_field, request, **kwargs):",
+        "peekOfCode": "send_quarterly_evaluation_email.short_description = (\n    \"Send quarterly evaluation email to selected employees\"\n)\nclass EmployeeInformation(admin.ModelAdmin):\n    list_display = (\"employee_id\", \"employee_name\",\"role\",\"is_permanent\",\"is_active\", \"team\", \"team_lead\")\n    readonly_fields = (\"is_permanent\",)\n    search_fields = [\"employee_id\", \"employee_name\"]\n    list_filter = [\"team\", \"is_team_lead\", IsTeamLeadFilter]\n    actions = [send_quarterly_evaluation_email]\n    exclude = [\"username\", \"password\", \"grade\"]",
         "detail": "website.admin",
         "documentation": {}
     },
@@ -2537,56 +2721,11 @@
         "documentation": {}
     },
     {
-        "label": "today",
-        "kind": 5,
-        "importPath": "website.test",
-        "description": "website.test",
-        "peekOfCode": "today = datetime.now().date()\nfirst_day_of_current_month = today.replace(day=1)\nfirst_day_of_previous_quarter = (first_day_of_current_month - timedelta(days=90)).replace(day=1)\n# Replace 'Asaad Ramis' with the employee name you are checking\nemployee = Employee.objects.get(employee_name='Asaad Ramis')\nevaluations = EvaluationFormModel.objects.filter(\n    employee=employee,\n    evaluation_date__gte=first_day_of_previous_quarter,\n    evaluation_date__lt=first_day_of_current_month\n)",
-        "detail": "website.test",
-        "documentation": {}
-    },
-    {
-        "label": "first_day_of_current_month",
-        "kind": 5,
-        "importPath": "website.test",
-        "description": "website.test",
-        "peekOfCode": "first_day_of_current_month = today.replace(day=1)\nfirst_day_of_previous_quarter = (first_day_of_current_month - timedelta(days=90)).replace(day=1)\n# Replace 'Asaad Ramis' with the employee name you are checking\nemployee = Employee.objects.get(employee_name='Asaad Ramis')\nevaluations = EvaluationFormModel.objects.filter(\n    employee=employee,\n    evaluation_date__gte=first_day_of_previous_quarter,\n    evaluation_date__lt=first_day_of_current_month\n)\nprint(f\"Evaluations found: {evaluations.count()}\")",
-        "detail": "website.test",
-        "documentation": {}
-    },
-    {
-        "label": "first_day_of_previous_quarter",
-        "kind": 5,
-        "importPath": "website.test",
-        "description": "website.test",
-        "peekOfCode": "first_day_of_previous_quarter = (first_day_of_current_month - timedelta(days=90)).replace(day=1)\n# Replace 'Asaad Ramis' with the employee name you are checking\nemployee = Employee.objects.get(employee_name='Asaad Ramis')\nevaluations = EvaluationFormModel.objects.filter(\n    employee=employee,\n    evaluation_date__gte=first_day_of_previous_quarter,\n    evaluation_date__lt=first_day_of_current_month\n)\nprint(f\"Evaluations found: {evaluations.count()}\")\nfor evaluation in evaluations:",
-        "detail": "website.test",
-        "documentation": {}
-    },
-    {
-        "label": "employee",
-        "kind": 5,
-        "importPath": "website.test",
-        "description": "website.test",
-        "peekOfCode": "employee = Employee.objects.get(employee_name='Asaad Ramis')\nevaluations = EvaluationFormModel.objects.filter(\n    employee=employee,\n    evaluation_date__gte=first_day_of_previous_quarter,\n    evaluation_date__lt=first_day_of_current_month\n)\nprint(f\"Evaluations found: {evaluations.count()}\")\nfor evaluation in evaluations:\n    print(evaluation.evaluation_date, evaluation._weighted_average)",
-        "detail": "website.test",
-        "documentation": {}
-    },
-    {
-        "label": "evaluations",
-        "kind": 5,
-        "importPath": "website.test",
-        "description": "website.test",
-        "peekOfCode": "evaluations = EvaluationFormModel.objects.filter(\n    employee=employee,\n    evaluation_date__gte=first_day_of_previous_quarter,\n    evaluation_date__lt=first_day_of_current_month\n)\nprint(f\"Evaluations found: {evaluations.count()}\")\nfor evaluation in evaluations:\n    print(evaluation.evaluation_date, evaluation._weighted_average)",
-        "detail": "website.test",
-        "documentation": {}
-    },
-    {
         "label": "urlpatterns",
         "kind": 5,
         "importPath": "website.urls",
         "description": "website.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home, name=\"home\"),\n    path('quarterly_evaluations', views.view_quarterly_valuations, name='quarterly_evaluations'),\n    path(\"dashboard\", views.dashboard, name=\"dashboard\"),\n    path(\"logout\", views.logout_user, name=\"logout\"),\n    path(\"evaluation\", views.evaluation_view, name=\"evaluation\"),\n    path('upload/', views.upload_file, name='upload_file'),\n    path('export_csv/', views.export_csv, name='export_csv'),\n    path('send-emails/', views.send_emails, name='send_emails'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home, name=\"home\"),\n    path('quarterly_evaluations', views.view_quarterly_valuations, name='quarterly_evaluations'),\n    path(\"evaluations\", views.evaluations, name=\"evaluations\"),\n    path(\"logout\", views.logout_user, name=\"logout\"),\n    path(\"evaluation\", views.evaluation_view, name=\"evaluation\"),\n    path('upload/', views.upload_file, name='upload_file'),\n    path('export_csv/', views.export_csv, name='export_csv'),\n    path('send-emails/', views.send_emails, name='send_emails'),\n    path('update-grades/', views.update_grades, name='update_grades'),",
         "detail": "website.urls",
         "documentation": {}
     },
@@ -2595,7 +2734,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def home(request):\n    if request.user.is_authenticated:\n        try:\n            emp = Employee.objects.get(employee_email=request.user.email)\n            if emp.mvp_role == \"Planner\":\n                return redirect(\"mvp_list\")\n            else:\n                return redirect(\"dashboard\")\n        except Employee.DoesNotExist:\n            messages.error(request, \"Employee record not found.\")",
+        "peekOfCode": "def home(request):\n    if request.user.is_authenticated:\n        try:\n            emp = Employee.objects.get(employee_email=request.user.email)\n            if emp.mvp_role == \"Super\":\n                return redirect(\"super_dashboard\")\n            elif emp.mvp_role == \"Planner\":\n                return redirect(\"mvp_list\")\n            else:\n                return redirect(\"evaluations\")",
         "detail": "website.views",
         "documentation": {}
     },
@@ -2604,16 +2743,25 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def logout_user(request):\n    logout(request)\n    return redirect(\"home\")\n@login_required\ndef dashboard(request):\n    today = date.today()\n    previous_month_date = today - timedelta(days=today.day)\n    previous_month = previous_month_date.strftime(\"%B\")\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)",
+        "peekOfCode": "def logout_user(request):\n    logout(request)\n    return redirect(\"home\")\n@roles_required(\"Super\")\n@login_required\ndef super_dashboard(request):\n    emp = Employee.objects.get(employee_email=request.user)\n    mvp= MVP.objects.filter(current_phase=\"MVP\").all()\n    products = MVP.objects.filter(current_phase=\"Product\").all()\n    failed= MVP.objects.filter(current_phase=\"Failed\").all()",
         "detail": "website.views",
         "documentation": {}
     },
     {
-        "label": "dashboard",
+        "label": "super_dashboard",
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def dashboard(request):\n    today = date.today()\n    previous_month_date = today - timedelta(days=today.day)\n    previous_month = previous_month_date.strftime(\"%B\")\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)\n    emps = Employee.objects.filter(team_lead=emp, is_active=True).all()\n    emp_count = emps.count()\n    current_month = now().month\n    current_year = now().year",
+        "peekOfCode": "def super_dashboard(request):\n    emp = Employee.objects.get(employee_email=request.user)\n    mvp= MVP.objects.filter(current_phase=\"MVP\").all()\n    products = MVP.objects.filter(current_phase=\"Product\").all()\n    failed= MVP.objects.filter(current_phase=\"Failed\").all()\n    mvp_count = mvp.count()\n    product_count = products.count()\n    failed_count = failed.count()\n    employee_count = Employee.objects.filter(is_active=True).exclude(mvp_role='Super').count()\n    permenant_employee_count = Employee.objects.filter(is_active=True, is_permanent=True).count()",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "evaluations",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def evaluations(request):\n    today = date.today()\n    previous_month_date = today - timedelta(days=today.day)\n    previous_month = previous_month_date.strftime(\"%B\")\n    logged_in_user = request.user\n    emp = Employee.objects.get(employee_email=logged_in_user)\n    emps = Employee.objects.filter(team_lead=emp, is_active=True).all()\n    emp_count = emps.count()\n    current_month = now().month\n    current_year = now().year",
         "detail": "website.views",
         "documentation": {}
     },
@@ -2631,7 +2779,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def view_quarterly_valuations(request):\n    quarter = request.GET.get(\"quarter\")\n    year = request.GET.get(\"year\")\n    team_id = request.GET.get(\"team\")\n    grade = request.GET.get(\"grade\")\n    sort = request.GET.get(\"sort\") \n    order = request.GET.get(\"order\")  \n    current_year = datetime.now().year\n    years = [current_year - i for i in range(5)]\n    quarter_months = {",
+        "peekOfCode": "def view_quarterly_valuations(request):\n    quarter = request.GET.get(\"quarter\")\n    year = request.GET.get(\"year\")\n    team_id = request.GET.get(\"team\")\n    grade = request.GET.get(\"grade\")\n    sort = request.GET.get(\"sort\")\n    order = request.GET.get(\"order\")\n    current_year = datetime.now().year\n    current_month = datetime.now().month\n    years = [current_year - i for i in range(5)]",
         "detail": "website.views",
         "documentation": {}
     },
@@ -2649,7 +2797,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def send_emails(request):\n    email_count = 0\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        bonus_a = request.POST.get(\"bonusA\")\n        bonus_b = request.POST.get(\"bonusB\")\n        if not (bonus_a.isdigit() and bonus_b.isdigit()) or int(bonus_a) <= 0 or int(bonus_b) <= 0:\n            messages.error(request, \"Invalid bonus amounts\")\n            return redirect(\"quarterly_evaluations\")",
+        "peekOfCode": "def send_emails(request):\n    email_count = 0\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        bonus_a = request.POST.get(\"bonusA\")\n        bonus_b = request.POST.get(\"bonusB\")\n        if (\n            not (bonus_a.isdigit() and bonus_b.isdigit())\n            or int(bonus_a) <= 0",
         "detail": "website.views",
         "documentation": {}
     },
@@ -2668,6 +2816,24 @@
         "importPath": "website.views",
         "description": "website.views",
         "peekOfCode": "def handle_uploaded_file(csv_file):\n    reader = csv.DictReader(csv_file.read().decode(\"utf-8\").splitlines())\n    for row in reader:\n        employee_id = row[\"employee_id\"]\n        joining_date_str = row.get(\"DOJ\", \"\")\n        if joining_date_str:\n            try:\n                joining_date = datetime.strptime(joining_date_str, \"%d-%b-%y\").date()\n            except ValueError:\n                print(",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "update_grades",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def update_grades(request):\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        team_id = request.POST.get(\"team\")\n        updated = update_employee_grades(quarter, year, team_id)\n        if updated:\n            messages.success(request, \"Grades updated successfully.\")\n        else:\n            messages.error(request, \"Failed to update grades.\")",
+        "detail": "website.views",
+        "documentation": {}
+    },
+    {
+        "label": "update_employee_grades",
+        "kind": 2,
+        "importPath": "website.views",
+        "description": "website.views",
+        "peekOfCode": "def update_employee_grades(quarter, year, team_id):\n    quarter_months = {\n        \"1\": [\"January\", \"February\", \"March\"],\n        \"2\": [\"April\", \"May\", \"June\"],\n        \"3\": [\"July\", \"August\", \"September\"],\n        \"4\": [\"October\", \"November\", \"December\"],\n    }\n    if quarter not in quarter_months or not year:\n        return False\n    months = quarter_months[quarter]",
         "detail": "website.views",
         "documentation": {}
     },

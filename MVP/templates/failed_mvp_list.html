@@ -39,7 +39,9 @@
 <div class="">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="font mvp-list-text-mvp">Failed <span class="mvp-list-text">List</span></h1>
-
+        {% if employee.mvp_role == 'Team Lead' or employee.mvp_role == 'Growth Manager' %}
+        <a href="{% url 'mvp_form' %}" class="btn font add-mvp">ADD FAILED</a>
+        {% endif %}
     </div>
     <div style="margin-top: -10PX;" >
         <form method="get" class="form-inline mb-3 font" style="margin-top: 20px;">
