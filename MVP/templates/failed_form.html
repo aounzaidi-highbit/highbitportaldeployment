@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}MVP Form |{% endblock title %}
+{% block title %}Product Form |{% endblock title %}
 {% block content %}
 <link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <div class="circle"></div>
-<h1 class="font mvp-edit">Add <span class="mvp">MVP</span></h1>
+<h1 class="font mvp-edit">Add <span class="mvp">Failed</span></h1>
 <h4 class="field_error font">{{ form.development_starting_date.errors }}</h4>
 <h4 class="field_error font">{{ form.developers.errors }}</h4>
 <h4 class="field_error font">{{ form.planners.errors }}</h4>
 <div class="form-edit">
-    <form method="POST" action="{% url 'mvp_form' phase=phase %}">
+    <form method="POST" action="{% url 'failed_form' phase=phase %}">
         {% csrf_token %}
        
         <div class="form-group">
@@ -32,14 +32,14 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="font text">* MVP Name:</h3>
+                <h3 class="font text">* Failed MVP Name:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
                         
                         <div class="font text field-text"> {{ form.name }}</div>
                     </div>
                 </div>
-                <h3 class="font text">* MVP Plan:</h3>
+                <h3 class="font text">* Failed  Plan:</h3>
                 <div class="form-group">
                     <div class="form-group-box">
                         
@@ -60,8 +60,8 @@
                         <div class="font text field-text">{{ form.end_date }}</div>
                     </div>
                 </div>
+                
             </div>
-
             <div class="column">
                 <h3 class="font text">Current Phase:</h3>
                 <div class="form-group">

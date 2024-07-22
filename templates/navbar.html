@@ -57,6 +57,7 @@
           <li class="nav-item ">
             <a class="nav-link font button {% if request.path == '/dashboard/' %}active{% endif %}" href="{% url 'super_dashboard' %}">Dashboard</a>
             <a class="nav-link font button {% if request.path == '/evaluations' %}active{% endif %}" href="{% url 'evaluations' %}">Evaluations</a>
+            <a class="nav-link font button {% if request.path == '/short-update-list/' %}active{% endif %}" href="{% url "short_update_list" %}">Short Update</a>
             <a class="nav-link font button {% if request.path == '/mvp-list/' %}active{% endif %}" href="{% url "mvp_list" %}">MVP</a>
             <a class="nav-link font button {% if request.path == '/product-list/' %}active{% endif %}" href="{% url "product_list" %}">Product</a>
             <a class="nav-link font button {% if request.path == '/failed-list/' %}active{% endif %}" href="{% url "failed_mvp_list" %}">Failed</a>
@@ -69,6 +70,7 @@
         {% elif logged_in_user_role.mvp_role == 'Growth Manager' or logged_in_user_role.mvp_role == 'Team Lead' %}
           <li class="nav-item ">
             <a class="nav-link font button {% if request.path == '/evaluations' %}active{% endif %}" href="{% url 'evaluations' %}">Evaluations</a>
+            <a class="nav-link font button {% if request.path == '/short-update-list/' %}active{% endif %}" href="{% url "short_update_list" %}">Short Update</a>
             <a class="nav-link font button {% if request.path == '/mvp-list/' %}active{% endif %}" href="{% url "mvp_list" %}">MVP</a>
             <a class="nav-link font button {% if request.path == '/product-list/' %}active{% endif %}" href="{% url "product_list" %}">Product</a>
             <a class="nav-link font button {% if request.path == '/failed-list/' %}active{% endif %}" href="{% url "failed_mvp_list" %}">Failed</a>
@@ -78,6 +80,7 @@
           </li>
         {% elif logged_in_user_role.mvp_role == 'Planner' %}
         <li class="nav-item">
+        <a class="nav-link font button {% if request.path == '/short-update-list/' %}active{% endif %}" href="{% url "short_update_list" %}">Short Update</a>
         <a class="nav-link font button {% if request.path == '/mvp-list/' %}active{% endif %}" href="{% url "mvp_list" %}">  MVP</a>
         <a class="nav-link font button {% if request.path == '/product-list/' %}active{% endif %}" href="{% url "product_list" %}">Product</a>
         <a class="nav-link font button {% if request.path == '/failed-list/' %}active{% endif %}" href="{% url "failed_mvp_list" %}">Failed</a>

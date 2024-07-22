@@ -5,8 +5,9 @@ from website.models import Teams, Employee
 class MVP(models.Model):
     name = models.CharField(max_length=100)
     plan=models.TextField(null=True, blank=True)
-    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)        
-    updated_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)
+    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='created_mvps',null=True)
+    updated_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='updated_mvps',null=True)
     start_date = models.DateField()
     status = models.CharField(max_length=100,choices=[('Pause', 'Pause'), ('Completed', 'Completed'), ('Active','Active')],default='Active')
     end_date = models.DateField(null=True, blank=True)
@@ -21,32 +22,6 @@ class MVP(models.Model):
     def __str__(self):
         return self.name
     
-    def save(self, *args, **kwargs):
-        if self.pk:
-            previous = MVP.objects.get(pk=self.pk)
-            changes = []
-            for field in self._meta.fields:
-                field_name = field.name
-                old_value = getattr(previous, field_name)
-                new_value = getattr(self, field_name)
-
-                if old_value is None:
-                    if old_value != new_value:
-                        changes.append(f'{field.verbose_name}: set to "{new_value}" updated by "{self.updated_by.employee_name}"')
-                else:
-                    if old_value != new_value:
-                        changes.append(f'{field.verbose_name}: changed from "{old_value}" to "{new_value}" updated by "{self.updated_by.employee_name}"')
-            if changes:
-                changes = "\n".join(changes)
-                activity = Activity(
-                    mvp=self,
-                    activity_type=ActivityType.objects.get_or_create(name="Update")[0],
-                    team_name=self.team_name,
-                    changes=changes,
-                )
-                activity.save()
-
-        super().save(*args, **kwargs)
     class Meta:
         verbose_name = "MVP"
         verbose_name_plural = "MVPs"
@@ -77,3 +52,19 @@ class Activity(models.Model):
     class Meta:
         verbose_name = "Activity"
         verbose_name_plural = "Activities"
+
+class ShortUpdate(models.Model):
+    team=models.ForeignKey(Teams,on_delete=models.CASCADE)
+    status=models.CharField(max_length=100, choices=[('Success','Success'),('Fail','Fail'),('Pending','Pending')])
+    title=models.CharField(max_length=255)
+    description=models.TextField()
+    start_date=models.DateField()
+    end_date=models.DateField(null=True, blank=True)
+    created_at=models.DateField(auto_now_add=True)
+    created_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)
+    
+    class Meta:
+        verbose_name = "Short Update"
+        verbose_name_plural = "Short Updates"
+    def __str__(self) -> str:
+        return self.title

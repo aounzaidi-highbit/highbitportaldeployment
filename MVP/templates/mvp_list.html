@@ -41,7 +41,7 @@
         <h1 class="font mvp-list-text-mvp">MVP <span class="mvp-list-text">List</span></h1>
         {% if employee.mvp_role == 'Super' %}
         {% elif employee.mvp_role == 'Team Lead' or employee.mvp_role == 'Growth Manager' %}
-        <a href="{% url 'mvp_form' %}" class="btn font add-mvp">ADD MVP</a>
+        <a href="{% url 'mvp_form' 'MVP' %}" class="btn font add-mvp">ADD MVP</a>
         {% endif %}
     </div>
     <div style="margin-top: -10PX;" >

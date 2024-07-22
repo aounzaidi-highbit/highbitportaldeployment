@@ -39,7 +39,9 @@
 <div class="">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="font mvp-list-text-mvp">Failed <span class="mvp-list-text">List</span></h1>
-
+        {% if employee.mvp_role == 'Team Lead' or employee.mvp_role == 'Growth Manager' %}
+        <a href="{% url 'failed_form' 'Failed' %}" class="btn font add-mvp">ADD FAILED</a>
+        {% endif %}
     </div>
     <div style="margin-top: -10PX;" >
         <form method="get" class="form-inline mb-3 font" style="margin-top: 20px;">
@@ -90,60 +92,75 @@
                 </tr>
             </thead>
             <tbody>
-                {% for mvp in mvps %}
+                {% for mvp_detail in mvp_details %}
                 <tr>
                     <td class="font">
-                        {{ mvp.name|truncatewords:3 }}
-                        {% if mvp.status == 'Pause' %}
+                        {{ mvp_detail.mvp.name|truncatewords:3 }}
+                        {% if mvp_detail.sixty_days_passed %}
+                            <span class="font" style="font-size: 13px;">(Decision Pending)</span>
+                        {% endif %}
+                        {% if mvp_detail.mvp.status == 'Pause' %}
                             <span class="pause-icon">
                                 <span class="pause-bar"></span>
                                 <span class="pause-bar"></span>
                             </span>
                         {% endif %}
-                       
-                        {% if mvp.status == 'Active' %}
-                            <span class="green-dot"></span>
-                        {% elif mvp.status == 'Completed' %}
-                        <span class="tick-mark">✓</span>
                         
+                        {% if mvp_detail.mvp.status == 'Active' %}
+                            <span class="green-dot"></span>
+                        {% elif mvp_detail.mvp.status == 'Completed' %}
+                            <span class="tick-mark">✓</span>
                         {% endif %}
                     </td>
-                    <td class="font">{{ mvp.team_name|truncatewords:3 }}</td>
-                    <td class="font">{{ mvp.start_date }}</td>
-                    <td class="font">{{ mvp.end_date }}</td>
-                    <td class="font">{{ mvp.status }}</td>
+                    <td class="font">{{ mvp_detail.mvp.team_name|truncatewords:3 }}</td>
+                    <td class="font">{{ mvp_detail.mvp.start_date }}</td>
+                    <td class="font">{{ mvp_detail.mvp.end_date }}</td>
+                    <td class="font">{{ mvp_detail.mvp.status }}</td>
                     <td>
-                        {% if employee.mvp_role == 'Super' %}
-                        <button type="button" class="btn add-mvp font view-mvp" data-toggle="modal" data-target="#viewModal{{ mvp.pk }}">View</button>
-                        {% else %}
-                        <button type="button" class="btn add-mvp font" data-toggle="modal" data-target="#viewModal{{ mvp.pk }}" style="font-size: 14px;"> View</button>
+                        {% if employee.mvp_role == 'Super' or employee.mvp_role == "Planner" %}
+                        <button type="button" class="btn add-mvp font view-mvp" data-toggle="modal" data-target="#viewModal{{ mvp_detail.mvp.pk }}">View</button>
+                        {% elif employee.mvp_role == 'Team Lead' or employee.mvp_role == 'Growth Manager' %}
+                        <button type="button" class="btn add-mvp font" data-toggle="modal" data-target="#viewModal{{ mvp_detail.mvp.pk }}" style="font-size: 14px;">Edit / View</button>
                         {% endif %}
                     </td>
                 </tr>
     
-                <div class="modal fade" id="viewModal{{ mvp.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{ mvp.pk }}" aria-hidden="true">
+                <div class="modal fade" id="viewModal{{ mvp_detail.mvp.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{ mvp_detail.mvp.pk }}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="viewModalLabel{{ mvp.pk }}">Failed MVP Details</h5>
+                                <h5 class="modal-title" id="viewModalLabel{{ mvp_detail.mvp.pk }}">MVP Details</h5>
                                 
                             </div>
                             <div class="modal-body">
-                                <p><strong>Name:</strong> {{ mvp.name }}</p>
-                                <p><strong>Plan:</strong> {{ mvp.plan }}</p>
-                                <p><strong>Current Phase:</strong> {{mvp.current_phase}}</p>
-                                <p><strong>Team Name:</strong> {{ mvp.team_name }}</p>
-                                <p><strong>Start Date:</strong> {{ mvp.start_date }}</p>
-                                <p><strong>End Date:</strong> {{ mvp.end_date }}</p>
-                                <p><strong>Status:</strong> {{ mvp.status }}</p>
-                                
+                                <p><strong>Name:</strong> {{ mvp_detail.mvp.name }}</p>
+                                <p><strong>Plan:</strong> {{ mvp_detail.mvp.plan }}</p>
+                                <p><strong>Team Name:</strong> {{ mvp_detail.mvp.team_name }}</p>
+                                <p><strong>Start Date:</strong> {{ mvp_detail.mvp.start_date }}</p>
+                                <p><strong>End Date:</strong> {{ mvp_detail.mvp.end_date }}</p>
+                                <p><strong>Status:</strong> {{ mvp_detail.mvp.status }}</p>
+                                <p><strong>Planners:</strong>
+                                    {% for planner in mvp_detail.planners %}
+                                        {{ planner.employee_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </p>
+                                <p><strong>Developers:</strong>
+                                    {% for developer in mvp_detail.developers %}
+                                        {{ developer.employee_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </p>
+                                <p><strong>Associates:</strong>
+                                    {% for associate in mvp_detail.associates %}
+                                        {{ associate.employee_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </p>
                             </div>
                             <div class="modal-footer">
                                 {% if employee.mvp_role == 'Super' or employee.mvp_role == "Planner" %}
                                     <button type="button" class="btn btn-secondary font" data-dismiss="modal">Close</button>
                                 {% else %}
-                                    <a href="{% url 'edit_mvp' mvp.pk %}" class="btn add-mvp font">Edit</a>
-                                    <a href="{% url 'archive_mvp' mvp.pk %}" class="btn archive-mvp font">Archive</a>
+                                    <a href="{% url 'edit_mvp' mvp_detail.mvp.pk %}" class="btn add-mvp font">Edit</a>
+                                    <a href="{% url 'archive_mvp' mvp_detail.mvp.pk %}" class="btn archive-mvp font">Archive</a>
                                     <button type="button" class="btn btn-secondary font" data-dismiss="modal">Close</button>
                                 {% endif %}
                             </div>
@@ -176,41 +193,4 @@
     </ul>
     {% endif %}
 </div>
-{% for mvp_detail in mvp_details %}
-<div class="modal fade" id="viewModal{{ mvp_detail.mvp.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModal{{ mvp_detail.mvp.pk }}Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font" id="viewModal{{ mvp_detail.mvp.pk }}Label">Archive Details</h5>
-                
-            </div>
-            <div class="modal-body">
-                <p class="font"><b>Name:</b> {{ mvp_detail.mvp.name }}</p>
-                <p class="font"><b>Team Name:</b> {{ mvp_detail.mvp.team_name }}</p>
-                <p class="font"><b>Start Date:</b> {{ mvp_detail.mvp.start_date }}</p>
-                <p class="font"><b>End Date:</b> {{ mvp_detail.mvp.end_date }}</p>
-                <p class="font"><b>Is Active:</b> {{ mvp_detail.mvp.is_active }}</p>
-                <p><strong>Planners:</strong>
-                    {% for planner in mvp.planners.all %}
-                        {{ planner.employee_name }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-                <p><strong>Developers:</strong>
-                    {% for developer in mvp.developers.all %}
-                        {{ developer.employee_name }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-                <p><strong>Assoicates:</strong>
-                    {% for associate in mvp.associates.all %}
-                        {{ associate.employee_name }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-{% endfor %}
 {% endblock content %}

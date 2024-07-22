@@ -522,6 +522,38 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -2046,6 +2078,24 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0027_shortupdate",
+        "description": "MVP.migrations.0027_shortupdate",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0026_activity_created_by\"),\n        (\"website\", \"0028_alter_employee_confirmation_date\"),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name=\"ShortUpdate\",\n            fields=[\n                (",
+        "detail": "MVP.migrations.0027_shortupdate",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0028_shortupdate_created_at_shortupdate_created_by",
+        "description": "MVP.migrations.0028_shortupdate_created_at_shortupdate_created_by",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0027_shortupdate\"),\n        (\"website\", \"0028_alter_employee_confirmation_date\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"shortupdate\",\n            name=\"created_at\",\n            field=models.DateField(auto_now_add=True, default=None),",
+        "detail": "MVP.migrations.0028_shortupdate_created_at_shortupdate_created_by",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -2082,6 +2132,15 @@
         "documentation": {}
     },
     {
+        "label": "ShortUpdateFilterForm",
+        "kind": 6,
+        "importPath": "MVP.forms",
+        "description": "MVP.forms",
+        "peekOfCode": "class ShortUpdateFilterForm(forms.Form):\n    teams = Teams.objects.all()\n    title = forms.CharField(\n        widget=forms.TextInput(attrs={\"class\": \"filter-box\"}),\n        required=False,\n        label=\"Title\",\n    )\n    team_name = forms.ChoiceField(\n        widget=forms.Select(attrs={\"class\": \"team-filter-box\"}),\n        choices=[(\"\", \"Any\")] + [(team.id, team.team_name) for team in teams],",
+        "detail": "MVP.forms",
+        "documentation": {}
+    },
+    {
         "label": "ActivityTypeForm",
         "kind": 6,
         "importPath": "MVP.forms",
@@ -2096,6 +2155,15 @@
         "importPath": "MVP.forms",
         "description": "MVP.forms",
         "peekOfCode": "class ActivityForm(forms.ModelForm):\n    mvp = forms.ModelChoiceField(\n        queryset=MVP.objects.all(),\n        widget=forms.Select(attrs={\"class\": \"custom-act-field\"}),\n    )\n    activity_type = forms.ModelChoiceField(\n        queryset=ActivityType.objects.all(),\n        widget=forms.Select(attrs={\"class\": \"custom-act-field\"}),\n    )\n    changes = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-notes-text-field\"}),required=False)",
+        "detail": "MVP.forms",
+        "documentation": {}
+    },
+    {
+        "label": "ShortUpdateForm",
+        "kind": 6,
+        "importPath": "MVP.forms",
+        "description": "MVP.forms",
+        "peekOfCode": "class ShortUpdateForm(forms.ModelForm):\n    status = forms.ChoiceField(\n        choices=[(\"\",\"Select Status\"),(\"Success\", \"Success\"), (\"Fail\", \"Fail\"), (\"Pending\", \"Pending\")],\n        widget=forms.Select(attrs={\"class\": \"custom-status-field\"}),\n    )\n    title = forms.CharField(\n        widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"})\n    )\n    description = forms.CharField(\n        widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"})",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -2127,11 +2195,56 @@
         "documentation": {}
     },
     {
+        "label": "ShortUpdate",
+        "kind": 6,
+        "importPath": "MVP.models",
+        "description": "MVP.models",
+        "peekOfCode": "class ShortUpdate(models.Model):\n    team=models.ForeignKey(Teams,on_delete=models.CASCADE)\n    status=models.CharField(max_length=100, choices=[('Success','Success'),('Fail','Fail'),('Pending','Pending')])\n    title=models.CharField(max_length=255)\n    description=models.TextField()\n    start_date=models.DateField()\n    end_date=models.DateField(null=True, blank=True)\n    created_at=models.DateField(auto_now_add=True)\n    created_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)\n    class Meta:",
+        "detail": "MVP.models",
+        "documentation": {}
+    },
+    {
+        "label": "short_update_form",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def short_update_form(request):\n    if request.method == \"POST\":\n        form = ShortUpdateForm(request.POST)\n        if form.is_valid():\n            short_update = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            short_update.team = employee.team\n            short_update.save()\n            return redirect(\"short_update_list\")\n    else:",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
         "label": "mvp_form",
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def mvp_form(request):\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, request=request)\n        if form.is_valid():\n            mvp = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            mvp.team_name = employee.team\n            mvp.save()\n            form.save_m2m()\n            return redirect(\"mvp_list\")",
+        "peekOfCode": "def mvp_form(request, phase):\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, request=request)\n        if form.is_valid():\n            mvp = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            mvp.team_name = employee.team\n            mvp.created_by = employee\n            mvp.save()\n            form.save_m2m()",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "product_form",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def product_form(request, phase):\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, request=request)\n        if form.is_valid():\n            product = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            product.team_name = employee.team\n            product.updated_by = employee\n            product.save()\n            form.save_m2m()",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "failed_form",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def failed_form(request, phase):\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, request=request)\n        if form.is_valid():\n            failed = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            failed.team_name = employee.team\n            failed.updated_by = employee\n            failed.save()\n            form.save_m2m()",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "short_update_list",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def short_update_list(request):\n    form=ShortUpdateFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        short_updates = ShortUpdate.objects.all().order_by(\"-id\")\n    else:\n        short_updates = ShortUpdate.objects.filter(team=user_team).order_by(\"-id\")\n    if form.is_valid():",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2177,6 +2290,15 @@
         "importPath": "MVP.views",
         "description": "MVP.views",
         "peekOfCode": "def archive_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Archive\").order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
+        "detail": "MVP.views",
+        "documentation": {}
+    },
+    {
+        "label": "edit_short_update",
+        "kind": 2,
+        "importPath": "MVP.views",
+        "description": "MVP.views",
+        "peekOfCode": "def edit_short_update(request, pk):\n    short_update = get_object_or_404(ShortUpdate, pk=pk)\n    employee=Employee.objects.get(employee_email=request.user.username)\n    if request.method == \"POST\":\n        form = ShortUpdateForm(request.POST, instance=short_update)\n        if form.is_valid():\n            short_update =form.save(commit=False)\n            form.save()\n            return redirect(\"short_update_list\")\n    else:",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2752,7 +2874,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def super_dashboard(request):\n    emp = Employee.objects.get(employee_email=request.user)\n    mvp= MVP.objects.filter(current_phase=\"MVP\").all()\n    products = MVP.objects.filter(current_phase=\"Product\").all()\n    failed= MVP.objects.filter(current_phase=\"Failed\").all()\n    mvp_count = mvp.count()\n    product_count = products.count()\n    failed_count = failed.count()\n    employee_count = Employee.objects.filter(is_active=True).exclude(mvp_role='Super').count()\n    permenant_employee_count = Employee.objects.filter(is_active=True, is_permanent=True).count()",
+        "peekOfCode": "def super_dashboard(request):\n    emp = Employee.objects.get(employee_email=request.user)\n    mvp= MVP.objects.filter(current_phase=\"MVP\").all()\n    products = MVP.objects.filter(current_phase=\"Product\").all()\n    failed= MVP.objects.filter(current_phase=\"Failed\").all()\n    mvp_count = mvp.count()\n    product_count = products.count()\n    failed_count = failed.count()\n    employee_count = Employee.objects.filter(is_active=True).exclude(mvp_role='Super').count()\n    permenant_employee_count = Employee.objects.filter(is_active=True, is_permanent=True).exclude(mvp_role='Super').count()",
         "detail": "website.views",
         "documentation": {}
     },

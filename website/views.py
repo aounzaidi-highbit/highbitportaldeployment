@@ -84,8 +84,8 @@ def super_dashboard(request):
     failed_count = failed.count()
     
     employee_count = Employee.objects.filter(is_active=True).exclude(mvp_role='Super').count()
-    permenant_employee_count = Employee.objects.filter(is_active=True, is_permanent=True).count()
-    probation_employee_count = Employee.objects.filter(is_active=True, is_permanent=False).count()
+    permenant_employee_count = Employee.objects.filter(is_active=True, is_permanent=True).exclude(mvp_role='Super').count()
+    probation_employee_count = Employee.objects.filter(is_active=True, is_permanent=False).exclude(mvp_role='Super').count()
     
     grade_a_count= Employee.objects.filter(grade='A').count()
     grade_b_count= Employee.objects.filter(grade='B').count()

@@ -65,10 +65,13 @@ class Employee(models.Model):
     def save(self, *args, **kwargs):
         if self.is_team_lead or self.mvp_role == "Planner":
             user, created = User.objects.get_or_create(
-                username=self.employee_email, email=self.employee_email
+                username=self.employee_email, defaults={'email': self.employee_email}
             )
             if created:
                 user.set_password(self.password)
+                user.save()
+            else:
+                user.email = self.employee_email
                 user.save()
 
         if self.joining_date:
@@ -77,8 +80,9 @@ class Employee(models.Model):
                 today.month - self.joining_date.month
             )
             self.previous_experience = f"{months_of_experience} months"
-        if self.confirmation_date is not None:
-            self.is_permanent = True
+        
+       
+        self.is_permanent = self.confirmation_date is not None
         super(Employee, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):

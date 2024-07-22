@@ -49,14 +49,12 @@
   <button type="submit" class="btn font bkg" style="display: inline-block;">Filter</button>
 </form>
 
-
 {% if evaluation_data %}
   <h1 class="font my-4" style="font-weight: 200;">Evaluations for <span class="evaluation_quarter_text">Quarter {{ quarter }}</span> of <span class="evaluation_quarter_text">{{ year }}</span></h1>
   <div class="table-responsive font">
     <table class="table table-bordered font">
       <thead class="thead-light font">
         <tr class="font">
-
           <th class="font">#</th>
           <th class="font">Employee ID</th>
           <th class="font">Employee Name</th>
@@ -96,7 +94,6 @@
             {% if show_button %}
             <td class="font">{{data.grade}}</td>
             {% endif %}
-
           </tr>
         {% endfor %}
       </tbody>
@@ -111,22 +108,15 @@
   </form>
   <button type="button" class="btn bkg font" data-toggle="modal" data-target="#bonusModal">Enter Bonuses</button>
   {% if show_button %}
-    <form action="{% url 'update_grades' %}" method="POST" class="d-inline font">
-      {% csrf_token %}
-      <input type="hidden" name="quarter" value="{{ quarter }}" class="font">
-      <input type="hidden" name="year" value="{{ year }}" class="font">
-      <input type="hidden" name="team" value="{{ team }}" class="font">
-      <button type="submit" class="btn btn-primary font">Update Grades</button>
-    </form>
+    <button type="button" class="btn btn-primary font" id="saveChangesBtn">Update Grades</button>
   {% endif %}
-    
+
   <!-- Bonus Modal -->
   <div class="modal fade" id="bonusModal" tabindex="-1" role="dialog" aria-labelledby="bonusModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="bonusModalLabel">Enter Quarterly Bonuses</h5>
-
         </div>
         <div class="modal-body">
           <form id="bonusForm">
@@ -151,7 +141,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="summaryModalLabel">Bonus Summary</h5>
-
         </div>
         <div class="modal-body">
           <div id="summaryContent"></div>
@@ -171,12 +160,43 @@
     </div>
   </div>
 
+  <!-- Update Grades Confirmation Modal -->
+  <div class="modal fade" id="updateGradesModal" tabindex="-1" role="dialog" aria-labelledby="updateGradesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="font modal-title" id="updateGradesModalLabel">Update Grades Confirmation</h5>
+        </div>
+        <div class="modal-body">
+          <p class="font">Employee grades will be updated based on the last quarter, you want to update?</p>
+        </div>
+        <div class="modal-footer">
+      
+          <form action="{% url 'update_grades' %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <input type="hidden" name="quarter" value="{{ quarter }}">
+            <input type="hidden" name="year" value="{{ year }}">
+            <input type="hidden" name="team" value="{{ team }}">
+            <button type="submit" class="font btn btn-primary">Confirm</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% else %}
   <div class="alert alert-warning font" role="alert">
     {{ message }}
   </div>
 {% endif %}
+
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('saveChangesBtn').addEventListener('click', function() {
+      $('#updateGradesModal').modal('show');
+    });
+  });
+
   document.getElementById('selectAll').addEventListener('change', function() {
     const checkboxes = document.querySelectorAll('.selectEmployee');
     checkboxes.forEach(checkbox => checkbox.checked = this.checked);
