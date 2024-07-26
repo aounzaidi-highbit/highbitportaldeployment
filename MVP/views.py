@@ -6,12 +6,20 @@ from django.utils.timezone import now
 import re
 from website.models import Employee
 from website.decorators import roles_required
-from .forms import (ActivityForm, ActivityType, ActivityTypeForm, MVPFilterForm, MVPForm,
-    ShortUpdateFilterForm, ShortUpdateForm)
+from .forms import (
+    ActivityForm,
+    ActivityType,
+    ActivityTypeForm,
+    MVPFilterForm,
+    MVPForm,
+    ShortUpdateFilterForm,
+    ShortUpdateForm,
+)
 from .models import MVP, Activity, ShortUpdate
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Q
+
 
 @login_required
 def short_update_form(request):
@@ -41,8 +49,9 @@ def mvp_form(request, phase):
             form.save_m2m()
             return redirect("mvp_list")
     else:
-        form = MVPForm(initial={'current_phase': phase.capitalize()}, request=request)
+        form = MVPForm(initial={"current_phase": phase.capitalize()}, request=request)
     return render(request, "mvp_form.html", {"form": form, "phase": phase})
+
 
 @login_required
 def product_form(request, phase):
@@ -57,8 +66,8 @@ def product_form(request, phase):
             form.save_m2m()
             return redirect("product_list")
     else:
-        form = MVPForm(initial={'current_phase': phase.capitalize()}, request=request)
-    return render(request, "product_form.html", {"form": form,"phase":phase})
+        form = MVPForm(initial={"current_phase": phase.capitalize()}, request=request)
+    return render(request, "product_form.html", {"form": form, "phase": phase})
 
 
 @login_required
@@ -74,13 +83,13 @@ def failed_form(request, phase):
             form.save_m2m()
             return redirect("failed_mvp_list")
     else:
-        form = MVPForm(initial={'current_phase': phase.capitalize()}, request=request)
-    return render(request, "failed_form.html", {"form": form,"phase":phase})
+        form = MVPForm(initial={"current_phase": phase.capitalize()}, request=request)
+    return render(request, "failed_form.html", {"form": form, "phase": phase})
 
 
 @login_required
 def short_update_list(request):
-    form=ShortUpdateFilterForm(request.GET)
+    form = ShortUpdateFilterForm(request.GET)
     user = request.user
     employee = Employee.objects.get(employee_email=user.username)
     user_team = employee.team
@@ -88,7 +97,7 @@ def short_update_list(request):
         short_updates = ShortUpdate.objects.all().order_by("-id")
     else:
         short_updates = ShortUpdate.objects.filter(team=user_team).order_by("-id")
-        
+
     if form.is_valid():
         title = form.cleaned_data.get("title")
         status = form.cleaned_data.get("status")
@@ -102,7 +111,9 @@ def short_update_list(request):
         if status:
             short_updates = short_updates.filter(status=status)
         if start_date and end_date:
-            short_updates = short_updates.filter(start_date__gte=start_date, end_date__lte=end_date)
+            short_updates = short_updates.filter(
+                start_date__gte=start_date, end_date__lte=end_date
+            )
         elif start_date:
             short_updates = short_updates.filter(start_date__gte=start_date)
         elif end_date:
@@ -111,7 +122,12 @@ def short_update_list(request):
     paginator = Paginator(short_updates, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request, "short_update_list.html", {"short_updates": page_obj, "employee": employee,"form":form})
+    return render(
+        request,
+        "short_update_list.html",
+        {"short_updates": page_obj, "employee": employee, "form": form},
+    )
+
 
 @login_required
 def mvp_list(request):
@@ -119,7 +135,7 @@ def mvp_list(request):
     user = request.user
     employee = Employee.objects.get(employee_email=user.username)
     user_team = employee.team
-    
+
     if employee.mvp_role == "Super":
         mvps = (
             MVP.objects.filter(current_phase="MVP", is_archived=False).order_by("-id")
@@ -128,13 +144,17 @@ def mvp_list(request):
         )
     elif employee.mvp_role == "Growth Manager" or employee.mvp_role == "Team Lead":
         mvps = (
-            MVP.objects.filter(team_name=user_team, current_phase="MVP" ,is_archived=False).order_by("-id")
+            MVP.objects.filter(
+                team_name=user_team, current_phase="MVP", is_archived=False
+            ).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
     elif employee.mvp_role == "Planner":
-        mvps = MVP.objects.filter(planners=employee, current_phase="MVP", is_archived=False).order_by("-id")
-    
+        mvps = MVP.objects.filter(
+            planners=employee, current_phase="MVP", is_archived=False
+        ).order_by("-id")
+
     if form.is_valid():
         name = form.cleaned_data.get("name")
         start_date = form.cleaned_data.get("start_date")
@@ -153,39 +173,43 @@ def mvp_list(request):
             mvps = mvps.filter(end_date__lte=end_date)
         if status:
             mvps = mvps.filter(status=status)
-    
+
     sort = request.GET.get("sort", "-id")
     mvps = mvps.order_by(sort)
 
     paginator = Paginator(mvps, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    
+
     mvp_details = []
     for mvp in page_obj:
         developers = mvp.developers.all()
         planners = mvp.planners.all()
+        associates = mvp.associates.all()
         sixty_days_passed = False
         if mvp.first_completion_date:
             if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
                 sixty_days_passed = True
-        
-        mvp_details.append({
-            "mvp": mvp,
-            "developers": developers,
-            "planners": planners,
-            "sixty_days_passed": sixty_days_passed,
-        })
- 
+
+        mvp_details.append(
+            {
+                "mvp": mvp,
+                "developers": developers,
+                "associates": associates,
+                "planners": planners,
+                "sixty_days_passed": sixty_days_passed,
+            }
+        )
+
     return render(
-        request, 
-        "mvp_list.html", 
+        request,
+        "mvp_list.html",
         {
-            "mvps": page_obj, 
-            "form": form, 
+            "mvps": page_obj,
+            "form": form,
             "employee": employee,
             "mvp_details": mvp_details,
-        }
+        },
     )
 
 
@@ -199,19 +223,25 @@ def product_list(request):
 
     if employee.mvp_role == "Super":
         mvps = (
-            MVP.objects.filter(current_phase="Product", is_archived=False).order_by("-id")
+            MVP.objects.filter(current_phase="Product", is_archived=False).order_by(
+                "-id"
+            )
             if user_team
             else MVP.objects.none()
         )
     elif employee.mvp_role == "Growth Manager" or employee.mvp_role == "Team Lead":
         mvps = (
-            MVP.objects.filter(team_name=user_team, current_phase="Product" ,is_archived=False).order_by("-id")
+            MVP.objects.filter(
+                team_name=user_team, current_phase="Product", is_archived=False
+            ).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
     elif employee.mvp_role == "Planner":
-        mvps = MVP.objects.filter(planners=employee, current_phase="Product", is_archived=False).order_by("-id")
-        
+        mvps = MVP.objects.filter(
+            planners=employee, current_phase="Product", is_archived=False
+        ).order_by("-id")
+
     if form.is_valid():
         name = form.cleaned_data.get("name")
         start_date = form.cleaned_data.get("start_date")
@@ -230,7 +260,7 @@ def product_list(request):
             mvps = mvps.filter(end_date__lte=end_date)
         if status:
             mvps = mvps.filter(status=status)
-    
+
     sort = request.GET.get("sort", "-id")
     mvps = mvps.order_by(sort)
 
@@ -245,43 +275,47 @@ def product_list(request):
         if mvp.first_completion_date:
             if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
                 sixty_days_passed = True
-                
-        mvp_details.append({
-            "mvp": mvp,
-            "developers": developers,
-            "planners": planners,
-            "sixty_days_passed": sixty_days_passed,
-        })
+
+        mvp_details.append(
+            {
+                "mvp": mvp,
+                "developers": developers,
+                "planners": planners,
+                "sixty_days_passed": sixty_days_passed,
+            }
+        )
 
     return render(
-        request, 
-        "product_list.html", 
+        request,
+        "product_list.html",
         {
-            "mvps": page_obj, 
-            "form": form, 
+            "mvps": page_obj,
+            "form": form,
             "employee": employee,
             "mvp_details": mvp_details,
-        }
+        },
     )
 
 
 @login_required
 def archive_mvp(request, pk):
-    user=request.user
+    user = request.user
     employee = Employee.objects.get(employee_email=user.username)
     mvp = get_object_or_404(MVP, pk=pk)
-    mvp.updated_by=employee
+    mvp.updated_by = employee
     mvp.is_archived = True
     mvp.save()
-    return redirect('mvp_list')
+    return redirect("mvp_list")
+
 
 @login_required
 def unarchive_mvp(request, pk):
     mvp = get_object_or_404(MVP, pk=pk)
     mvp.is_archived = False
-   
+
     mvp.save()
-    return redirect('archive_list')
+    return redirect("archive_list")
+
 
 @login_required
 def archive_list(request):
@@ -322,7 +356,6 @@ def archive_list(request):
         if status:
             mvps = mvps.filter(status=status)
 
-
     sort = request.GET.get("sort", "-id")
     mvps = mvps.order_by(sort)
 
@@ -337,24 +370,28 @@ def archive_list(request):
         if mvp.first_completion_date:
             if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
                 sixty_days_passed = True
-                
-        mvp_details.append({
-            "mvp": mvp,
-            "developers": developers,
-            "planners": planners,
-            "sixty_days_passed": sixty_days_passed,
-        })
+
+        mvp_details.append(
+            {
+                "mvp": mvp,
+                "developers": developers,
+                "planners": planners,
+                "sixty_days_passed": sixty_days_passed,
+            }
+        )
 
     return render(
-        request, 
-        "archive_list.html", 
+        request,
+        "archive_list.html",
         {
-            "mvps": page_obj, 
-            "form": form, 
+            "mvps": page_obj,
+            "form": form,
             "employee": employee,
             "mvp_details": mvp_details,
-        }
+        },
     )
+
+
 # @login_required
 # def edit_mvp(request, pk):
 #     mvp = get_object_or_404(MVP, pk=pk)
@@ -368,20 +405,22 @@ def archive_list(request):
 #         form = MVPForm(instance=mvp, request=request)
 #     return render(request, "edit_mvp.html", {"form": form, "mvp": mvp})
 
+
 @login_required
 def edit_short_update(request, pk):
     short_update = get_object_or_404(ShortUpdate, pk=pk)
-    
+
     if request.method == "POST":
         form = ShortUpdateForm(request.POST, instance=short_update)
         if form.is_valid():
-            short_update =form.save(commit=False)
-            
+            short_update = form.save(commit=False)
+
             form.save()
             return redirect("short_update_list")
     else:
         form = ShortUpdateForm(instance=short_update)
     return render(request, "short_update_edit.html", {"form": form})
+
 
 @login_required
 def edit_mvp(request, pk):
@@ -393,14 +432,19 @@ def edit_mvp(request, pk):
         form = MVPForm(request.POST, instance=mvp, request=request)
         if form.is_valid():
             mvp_instance = form.save(commit=False)
-            mvp_instance.updated_by = employee  
+            mvp_instance.updated_by = employee
             mvp_instance.save()
             form.save_m2m()
             return redirect("mvp_list")
     else:
         form = MVPForm(instance=mvp, request=request)
 
-    return render(request, "edit_mvp.html", {"form": form, "mvp": mvp, "first_completion_date": first_completion_date})
+    return render(
+        request,
+        "edit_mvp.html",
+        {"form": form, "mvp": mvp, "first_completion_date": first_completion_date},
+    )
+
 
 @login_required
 def activity_form(request):
@@ -419,6 +463,7 @@ def activity_form(request):
 
     return render(request, "activity_form.html", {"form": form})
 
+
 @login_required
 def activity_list(request):
     form = MVPFilterForm(request.GET)
@@ -434,8 +479,8 @@ def activity_list(request):
     elif employee.mvp_role == "Planner":
         mvp_ids = MVP.objects.filter(
             Q(planners=employee) | Q(developers=employee)
-        ).values_list('id', flat=True)
-        
+        ).values_list("id", flat=True)
+
         activities = Activity.objects.filter(mvp_id__in=mvp_ids).order_by("-id")
     else:
         activities = (
@@ -461,13 +506,18 @@ def activity_list(request):
     paginator = Paginator(activities, 30)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    
-    return render(request, "activity_list.html", {
-        "activities": activities,
-        "form": form,
-        "employee": employee,
-        "page_obj": page_obj
-    })
+
+    return render(
+        request,
+        "activity_list.html",
+        {
+            "activities": activities,
+            "form": form,
+            "employee": employee,
+            "page_obj": page_obj,
+        },
+    )
+
 
 @login_required
 def failed_mvp_list(request):
@@ -479,19 +529,25 @@ def failed_mvp_list(request):
 
     if employee.mvp_role == "Super":
         mvps = (
-            MVP.objects.filter(current_phase="Failed", is_archived=False).order_by("-id")
+            MVP.objects.filter(current_phase="Failed", is_archived=False).order_by(
+                "-id"
+            )
             if user_team
             else MVP.objects.none()
         )
     elif employee.mvp_role == "Growth Manager" or employee.mvp_role == "Team Lead":
         mvps = (
-            MVP.objects.filter(team_name=user_team, current_phase="Failed" ,is_archived=False).order_by("-id")
+            MVP.objects.filter(
+                team_name=user_team, current_phase="Failed", is_archived=False
+            ).order_by("-id")
             if user_team
             else MVP.objects.none()
         )
     elif employee.mvp_role == "Planner":
-        mvps = MVP.objects.filter(planners=employee, current_phase="Failed", is_archived=False).order_by("-id")
-        
+        mvps = MVP.objects.filter(
+            planners=employee, current_phase="Failed", is_archived=False
+        ).order_by("-id")
+
     if form.is_valid():
         name = form.cleaned_data.get("name")
         start_date = form.cleaned_data.get("start_date")
@@ -510,8 +566,7 @@ def failed_mvp_list(request):
             mvps = mvps.filter(end_date__lte=end_date)
         if status:
             mvps = mvps.filter(status=status)
-    
-            
+
     sort = request.GET.get("sort", "-id")
     mvps = mvps.order_by(sort)
 
@@ -526,29 +581,32 @@ def failed_mvp_list(request):
         if mvp.first_completion_date:
             if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
                 sixty_days_passed = True
-                
-        mvp_details.append({
-            "mvp": mvp,
-            "developers": developers,
-            "planners": planners,
-            "sixty_days_passed": sixty_days_passed,
-        })
+
+        mvp_details.append(
+            {
+                "mvp": mvp,
+                "developers": developers,
+                "planners": planners,
+                "sixty_days_passed": sixty_days_passed,
+            }
+        )
     return render(
-        request, 
-        "failed_mvp_list.html", 
+        request,
+        "failed_mvp_list.html",
         {
-            "mvps": page_obj, 
-            "form": form, 
+            "mvps": page_obj,
+            "form": form,
             "employee": employee,
             "mvp_details": mvp_details,
-        }
+        },
     )
 
-    
+
 @login_required
 def activity_types_list(request):
     activities = ActivityType.objects.all()
     return render(request, "activity_type_list.html", {"activities": activities})
+
 
 @login_required
 def edit_activity_type(request, pk):
@@ -565,6 +623,7 @@ def edit_activity_type(request, pk):
     else:
         form = ActivityTypeForm(instance=activity)
     return render(request, "activity_type_edit.html", {"form": form})
+
 
 @login_required
 def add_activity_type(request):

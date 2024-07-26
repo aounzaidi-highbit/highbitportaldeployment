@@ -18,21 +18,21 @@
     .pause-icon {
         display: inline-flex;
         align-items: center;
-        margin-right: 5px; 
+        margin-right: 5px;
     }
-    
+
     .pause-bar {
-        height: 13px; 
-        width: 4px; 
-        background-color: black; 
-        margin: 0 1px; 
+        height: 13px;
+        width: 4px;
+        background-color: black;
+        margin: 0 1px;
         display: inline-block;
         background-color: grey;
     }
     .tick-mark {
-        color: green; 
-        font-weight: bold; 
-        margin-left: 5px; 
+        color: green;
+        font-weight: bold;
+        margin-left: 5px;
     }
 </style>
 <div class="circle"></div>
@@ -50,34 +50,34 @@
                 <label for="team" class="mr-2 font">Name:</label>
                 <div class="form-control font">{{ form.name }}</div>
             </div>
-            
+
             {% if employee.mvp_role == "Super" or employee.mvp_role == "Planner" %}
             <div class="form-group mr-3 font" style="display: inline-block;">
                 <label for="team" class="mr-2 font">Select Team:</label>
                 <div class="form-control font">{{ form.team_name }}</div>
             </div>
-            
+
             {% endif %}
-            
+
             <div class="form-group mr-3 font" style="display: inline-block;">
                 <label for="team" class="mr-2 font">Start Date:</label>
-                <div class="form-control font" >{{ form.start_date }}</div> 
+                <div class="form-control font" >{{ form.start_date }}</div>
             </div>
             <div class="form-group mr-3 font" style="display: inline-block;">
                 <label for="team" class="mr-2 font">End Date:</label>
-                <div class="form-control font" >{{ form.end_date }}</div> 
+                <div class="form-control font" >{{ form.end_date }}</div>
             </div>
-            
-            
+
+
             <div class="form-group mr-3 font" style="display: inline-block;">
                 <label for="team" class="mr-2 font">Status:</label>
                 <div class="form-control font">{{ form.status }}</div>
             </div>
-            
+
             <button type="submit" class="btn font bkg" style="display: inline-block;">Apply</button>
         </form>
     </div>
-    
+
     <div style="margin-top: 30px;" class="table-scroll">
         <table class="table table-bordered table-hover">
             <thead class="thread-style">
@@ -106,7 +106,7 @@
                                 <span class="pause-bar"></span>
                             </span>
                         {% endif %}
-                        
+
                         {% if mvp_detail.mvp.status == 'Active' %}
                             <span class="green-dot"></span>
                         {% elif mvp_detail.mvp.status == 'Completed' %}
@@ -125,13 +125,13 @@
                         {% endif %}
                     </td>
                 </tr>
-    
+
                 <div class="modal fade" id="viewModal{{ mvp_detail.mvp.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{ mvp_detail.mvp.pk }}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="viewModalLabel{{ mvp_detail.mvp.pk }}">MVP Details</h5>
-                                
+                                <h5 class="modal-title font" id="viewModalLabel{{ mvp_detail.mvp.pk }}">MVP Details</h5>
+
                             </div>
                             <div class="modal-body">
                                 <p><strong>Name:</strong> {{ mvp_detail.mvp.name }}</p>
@@ -173,7 +173,7 @@
         </table>
     </div>
 
-    
+
     {% if mvps.has_other_pages %}
     <ul class="pagination">
         {% if mvps.has_previous %}
