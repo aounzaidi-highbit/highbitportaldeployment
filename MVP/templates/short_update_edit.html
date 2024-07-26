@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}MVP Form |{% endblock title %}
+{% block content %}
+<link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="circle"></div>
+<h1 class="font mvp-edit">Short Update<span class="mvp"> Edit</span></h1>
+<h4 class="field_error font">{{ form.development_starting_date.errors }}</h4>
+<h4 class="field_error font">{{ form.developers.errors }}</h4>
+<h4 class="field_error font">{{ form.planners.errors }}</h4>
+<div class="form-edit">
+    <form method="POST">
+        {% csrf_token %}
+       
+        <div class="form-group">
+            <div class="flex-container">
+                <h3 class="font text">Status:</h3>
+                <span class="font">{{ form.status }}</span>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px;"> 
+        <div class="form-columns">
+            <div class="column">
+                <h3 class="font text">* Title:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text"> {{ form.title }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">* Description:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font  field-text">{{ form.description }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <h3 class="font text">* Start Date:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.start_date }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">End Date:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.end_date }}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>   
+        <button type="submit" class="btn font save_changes_button">Submit</button>
+    </form>
+</div>
+
+{% endblock content %}

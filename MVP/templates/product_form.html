@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Product Form |{% endblock title %}
+{% block content %}
+<link rel="stylesheet" href={% static 'css/mvp-edit.css' %}>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="circle"></div>
+<h1 class="font mvp-edit">Add <span class="mvp">Product</span></h1>
+<h4 class="field_error font">{{ form.development_starting_date.errors }}</h4>
+<h4 class="field_error font">{{ form.developers.errors }}</h4>
+<h4 class="field_error font">{{ form.planners.errors }}</h4>
+<div class="form-edit">
+    <form method="POST" action="{% url 'product_form' phase=phase %}">
+        {% csrf_token %}
+       
+        <div class="form-group">
+            <div class="flex-container">
+                <h3 class="font text">Status:</h3>
+                <span class="font">{{ form.status }}</span>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px;"> 
+        <div class="form-columns">
+            <div class="column">
+                <div id="first_completion_date_field" style="display: none;">
+                    <h3 class="font text" style="color: red ;">First Completion Date:</h3>
+                    <div class="form-group">
+                        <div class="form-group-box">
+                            <div class="font text field-text">{{ form.first_completion_date }}</div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="font text">* Product Name:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text"> {{ form.name }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">* Product Plan:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font  field-text">{{ form.plan }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">* Start Date:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.start_date }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">End Date:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.end_date }}</div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="column">
+                <h3 class="font text">Current Phase:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <div class="font text field-text">{{ form.current_phase }}</div>
+                    </div>
+                    <div id="phase-definition" class="phase-definition font" style="font-weight: 400; margin-top: 10px;"></div>
+                </div>
+                <h3 class="font text">Developers: </h3>
+
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <div class="font text field-text">{{ form.developers }} </div>
+                    </div>
+                </div>
+                <h3 class="font text">Development Starting Date: <span style="margin-left: 220px;"></span></h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        <div class="font text field-text">{{ form.development_starting_date }}</div>
+                        
+                    </div>
+                </div>
+                <h3 class="font text">Planners: <span style="margin-left: 220px;"></span></h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.planners }}</div>
+                    </div>
+                </div>
+                <h3 class="font text">Associates:</h3>
+                <div class="form-group">
+                    <div class="form-group-box">
+                        
+                        <div class="font text field-text">{{ form.associates }}</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>   
+        <button type="submit" class="btn font save_changes_button">Submit</button>
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const phaseSelect = document.querySelector('select[name="current_phase"]');
+        const phaseDefinition = document.getElementById('phase-definition');
+        const statusSelect = document.querySelector('select[name="status"]');
+        const firstCompletionDateField = document.getElementById('first_completion_date_field');
+
+        const phaseMessages = {
+            "MVP": "MVP: A newly developing game that hasn't been tested in the market yet.",
+            "Product": "Product: When MVP successfully tested in the market for at least 3-4 weeks with positive ROI.",
+            "Failed": "Failed Product: When MVP with negative ROI 60 days after completion."
+        };
+
+        function updatePhaseMessage() {
+            const selectedPhase = phaseSelect.value;
+            phaseDefinition.textContent = phaseMessages[selectedPhase] || "";
+        }
+
+        function toggleFirstCompletionDateField() {
+            const selectedStatus = statusSelect.value;
+            if (selectedStatus === "Completed") {
+                firstCompletionDateField.style.display = "block";
+            } else {
+                firstCompletionDateField.style.display = "none";
+            }
+        }
+
+        updatePhaseMessage();
+        phaseSelect.addEventListener("change", updatePhaseMessage);
+
+        toggleFirstCompletionDateField();
+        statusSelect.addEventListener("change", toggleFirstCompletionDateField);
+    });
+</script>
+{% endblock content %}

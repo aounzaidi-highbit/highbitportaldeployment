@@ -1,5 +1,5 @@
 from django import forms
-from .models import MVP, Activity, ActivityType
+from .models import MVP, Activity, ActivityType, ShortUpdate
 from website.models import Employee, Teams
 from django.forms.widgets import CheckboxSelectMultiple
 from django.db.models import Q
@@ -27,7 +27,7 @@ class MVPForm(forms.ModelForm):
         widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"}),
     )
     status = forms.ChoiceField(
-        choices=[("Active", "Active"), ("Pause", "Pause"), ("Completed", "Completed"), ],
+        choices=[("Active", "Active"), ("Pause", "Pause"), ("Completed", "Completed")],
         widget=forms.Select(attrs={"class": "custom-status-field"}),
     )
     current_phase = forms.ChoiceField(
@@ -44,7 +44,7 @@ class MVPForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
-    associates = EmployeeModelMultipleChoiceField(
+    associates = forms.ModelMultipleChoiceField(
         queryset=Employee.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False,
@@ -66,21 +66,50 @@ class MVPForm(forms.ModelForm):
             "developers",
             "planners",
             "associates",
-            
         ]
 
     def save(self, commit=True):
-        mvp = super().save(commit=commit)
+        mvp = super().save(commit=False)
         remarks = self.cleaned_data.get("remarks")
-        if remarks:
-            activity = Activity.objects.create(
-                mvp=mvp,
-                activity_type=ActivityType.objects.get_or_create(name="Update")[0],team_name=mvp.team_name, remarks=remarks)
-            activity.save()
-        return mvp
-                
-                
+        
+        changes = []
+        if mvp.pk:
+            previous = MVP.objects.get(pk=mvp.pk)
+            for field in mvp._meta.fields:
+                field_name = field.name
+                old_value = getattr(previous, field_name)
+                new_value = getattr(mvp, field_name)
+                if old_value != new_value:
+                    if field_name not in ["updated_by", "created_by", "is_archived"]:
+                        if old_value is None:
+                            update_info = f'set to "{new_value}"'
+                        else:
+                            update_info = f'changed from "{old_value}" to "{new_value}"'
+                            
+                        if mvp.updated_by:
+                            updated_by_name = mvp.updated_by.employee_name
+                        else:
+                            updated_by_name = Employee.objects.get(employee_email=self.request.user.username).employee_name
+                            
+                        changes.append(f'{field.verbose_name}: {update_info} updated by "{updated_by_name}"')
 
+                    
+        if changes or remarks:
+            activity_type = ActivityType.objects.get_or_create(name="Update")[0]
+            changes_str = "\n".join(changes)
+            activity = Activity(
+                mvp=mvp,
+                activity_type=activity_type,
+                team_name=mvp.team_name,
+                changes=changes_str,
+                remarks=remarks,  
+            )
+            activity.save()
+
+        if commit:
+            mvp.save()
+            self.save_m2m()
+        return mvp
     
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
@@ -104,6 +133,8 @@ class MVPForm(forms.ModelForm):
                 | Q(employee_email=user_username)
                 | Q(mvp_role="Growth Manager")
             )
+
+    
     def clean_first_completion_date(self):
         if self.instance.pk and self.instance.first_completion_date:
             return self.instance.first_completion_date
@@ -112,19 +143,21 @@ class MVPForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         developers = cleaned_data.get('developers')
-        start_date=cleaned_data.get('start_date')
+        start_date = cleaned_data.get('start_date')
         development_starting_date = cleaned_data.get('development_starting_date')
         planners = cleaned_data.get('planners')
-        status=cleaned_data.get('status')
-        first_completion_date=cleaned_data.get('first_completion_date')
+        status = cleaned_data.get('status')
+        first_completion_date = cleaned_data.get('first_completion_date')
+        
         if developers and not development_starting_date:
             self.add_error('development_starting_date', 'Development starting date is required if developers are selected.')
         if development_starting_date and not developers:
             self.add_error('developers', 'Developers are required if development starting date is selected.')
         if start_date and not planners:
             self.add_error('planners', 'Planners are required if start date is selected.')
-        if status=="Completed" and not first_completion_date:
+        if status == "Completed" and not first_completion_date:
             self.add_error('first_completion_date', 'First completion date is required if status is completed.')
+        
         return cleaned_data
 
 class MVPFilterForm(forms.Form):
@@ -173,6 +206,35 @@ class MVPFilterForm(forms.Form):
         label="Activity Type",
     )
 
+class ShortUpdateFilterForm(forms.Form):
+    teams = Teams.objects.all()
+    title = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "filter-box"}),
+        required=False,
+        label="Title",
+    )
+    team_name = forms.ChoiceField(
+        widget=forms.Select(attrs={"class": "team-filter-box"}),
+        choices=[("", "Any")] + [(team.id, team.team_name) for team in teams],
+        required=False,
+        label="Team Name",
+    )
+    start_date = forms.DateField(
+        required=False,
+        widget=forms.TextInput(attrs={"class": "filter-box", "type": "date"}),
+        label="Start Date",
+    )
+    end_date = forms.DateField(
+        required=False,
+        widget=forms.TextInput(attrs={"class": "filter-box", "type": "date"}),
+        label="End Date",
+    )
+    status = forms.ChoiceField(
+        widget=forms.Select(attrs={"class": "filter-box"}),
+        choices=[("", "All"), ("Success", "Success"), ("Fail", "Fail"), ("Pending", "Pending")],
+        required=False,
+        label="Status",
+    )
 
 class ActivityTypeForm(forms.ModelForm):
     name = forms.CharField(
@@ -215,3 +277,26 @@ class ActivityForm(forms.ModelForm):
                     )
             except Employee.DoesNotExist:
                 self.fields["mvp"].queryset = MVP.objects.none()
+                
+class ShortUpdateForm(forms.ModelForm):
+    status = forms.ChoiceField(
+        choices=[("","Select Status"),("Success", "Success"), ("Fail", "Fail"), ("Pending", "Pending")],
+        widget=forms.Select(attrs={"class": "custom-status-field"}),
+    )
+    title = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "custom-char-field"})
+    )
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={"class": "custom-plan-field"})
+    )
+    start_date = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"})
+    )
+    end_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"}),
+    )
+    
+    class Meta:
+        model = ShortUpdate
+        fields = ["status", "title", "description", "start_date", "end_date"]

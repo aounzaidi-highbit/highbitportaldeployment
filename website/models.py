@@ -58,7 +58,7 @@ class Employee(models.Model):
     role = models.CharField(max_length=255)
     grade=models.CharField(max_length=255,null=True,blank=True)
     is_team_lead = models.BooleanField(default=False)
-
+    
     def __str__(self):
         return self.employee_name
 
@@ -71,7 +71,6 @@ class Employee(models.Model):
                 user.set_password(self.password)
                 user.save()
             else:
-
                 user.email = self.employee_email
                 user.save()
 
@@ -81,9 +80,9 @@ class Employee(models.Model):
                 today.month - self.joining_date.month
             )
             self.previous_experience = f"{months_of_experience} months"
-
+        
+       
         self.is_permanent = self.confirmation_date is not None
-
         super(Employee, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -96,6 +95,7 @@ class Employee(models.Model):
     class Meta:
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
+
 
 class EvaluationFormModel(models.Model):
     tl_marks = models.FloatField()

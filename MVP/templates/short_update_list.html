@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Short Update List | {% endblock title %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/mvp_list.css' %}">
+<style>
+    .table-scroll {
+        overflow-x: auto;
+    }
+</style>
+<div class="circle"></div>
+<div class="">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="font mvp-list-text-mvp">Short Update <span class="mvp-list-text">List</span></h1>
+        {% if user.is_authenticated %}
+        <a href="{% url 'short_update_form' %}" class="btn font add-mvp">ADD Short Update</a>
+        {% endif %}
+    </div>
+    <div style="margin-top: -10PX;">
+        <form method="get" class="form-inline mb-3 font" style="margin-top: 20px;">
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="title" class="mr-2 font">Title:</label>
+                <div class="form-control font">{{ form.title }}</div>
+            </div>
+            {% if employee.mvp_role == "Super" or employee.mvp_role == "Planner" %}
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="team_name" class="mr-2 font">Select Team:</label>
+                <div class="form-control font">{{ form.team_name }}</div>
+            </div>
+            {% endif %}
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="start_date" class="mr-2 font">Start Date:</label>
+                <div class="form-control font">{{ form.start_date }}</div>
+            </div>
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="end_date" class="mr-2 font">End Date:</label>
+                <div class="form-control font">{{ form.end_date }}</div>
+            </div>
+            <div class="form-group mr-3 font" style="display: inline-block;">
+                <label for="status" class="mr-2 font">Status:</label>
+                <div class="form-control font">{{ form.status }}</div>
+            </div>
+            <button type="submit" class="btn font bkg" style="display: inline-block;">Apply</button>
+        </form>
+    </div>
+    <div style="margin-top: 30px;" class="table-scroll">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="font">Title</th>
+                    <th class="font">Description</th>
+                    <th class="font">
+                        <a style="color:#24A9E1;" href="?{% if request.GET.sort == 'start_date' %}sort=-start_date{% else %}sort=start_date{% endif %}" class="font">Start Date</a>
+                    </th>
+                    <th class="font">End Date</th>
+                    {% if employee.mvp_role == 'Super' %}
+                        <th class="font">Team</th>
+                    {% endif %}
+                    <th class="font">Status</th>
+                    <th class="font">Created By</th>
+                    <th class="font">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for update in short_updates %}
+                <tr>
+                    <td class="font">{{ update.title|truncatewords:3 }}</td>
+                    <td class="font">{{ update.description|truncatewords:5 }}</td>
+                    <td class="font">{{ update.start_date }}</td>
+                    <td class="font">{{ update.end_date }}</td>
+                    {% if employee.mvp_role == 'Super' %}
+                        <td class="font">{{ update.team }}</td>
+                    {% endif %}
+                    <td class="font">{{ update.status }}</td>
+                    <td class="font">{{ update.created_by }}</td>
+                    {% if employee.mvp_role != 'Super' %}
+                    <td class="font">
+                        <button type="button" class="btn add-mvp font" data-toggle="modal" data-target="#viewModal{{ update.pk }}" style="font-size: 14px;">Edit / View</button>
+                    </td>
+                    {% else %}
+                    <td class="font">
+                        <button type="button" class="btn add-mvp font" data-toggle="modal" data-target="#viewModal{{ update.pk }}" style="font-size: 14px;"> View</button>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if short_updates.has_other_pages %}
+    <ul class="pagination">
+        {% if short_updates.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ short_updates.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        {% for num in short_updates.paginator.page_range %}
+        {% if num == short_updates.number %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if short_updates.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ short_updates.next_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ short_updates.paginator.num_pages }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
+
+{% for update in short_updates %}
+<div class="modal fade" id="viewModal{{ update.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{ update.pk }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font" id="viewModalLabel{{ update.pk }}">Short Update Details</h5>
+
+            </div>
+            <div class="modal-body">
+                <p><strong>Title:</strong> {{ update.title }}</p>
+                <p><strong>Description:</strong> {{ update.description }}</p>
+                <p><strong>Start Date:</strong> {{ update.start_date }}</p>
+                <p><strong>End Date:</strong> {{ update.end_date }}</p>
+                <p><strong>Status:</strong> {{ update.status }}</p>
+            </div>
+            <div class="modal-footer">
+                {% if employee.mvp_role != 'Super' %}
+                <a href="{% url 'edit_short_update' update.pk %}" class="btn add-mvp font">Edit</a>
+                <button type="button" class="btn btn-secondary font" data-dismiss="modal">Close</button>
+                {% else %}
+                <button type="button" class="btn btn-secondary font" data-dismiss="modal">Close</button>
+                {% endif %}
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
