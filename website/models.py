@@ -164,3 +164,18 @@ class AdminFeautures(models.Model):
     class Meta:
         verbose_name = "Admin Feature"
         verbose_name_plural = "Admin Features"
+
+class BonusEmailsHistory(models.Model):
+    date = models.DateField()
+    grade_A_bonus = models.FloatField()
+    grade_B_bonus = models.FloatField()
+    sent_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    total_bonus = models.FloatField()
+    grade_a_employees_count=models.IntegerField(null=True, blank=True)
+    grade_b_employees_count=models.IntegerField(null=True, blank=True)
+    def __str__(self):
+        return str(self.date)
+
+    class Meta:
+        verbose_name = "Bonus Email History"
+        verbose_name_plural = "Bonus Emails History"

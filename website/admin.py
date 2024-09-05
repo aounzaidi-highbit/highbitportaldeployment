@@ -1,5 +1,5 @@
 from django.contrib import admin,messages
-from .models import Employee, EvaluationFormModel, Teams, AdminFeautures
+from .models import AdminFeautures, BonusEmailsHistory, Employee, EvaluationFormModel, Teams
 from django import forms
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -308,3 +308,4 @@ admin.site.register(Teams, TeamsAdmin)
 admin.site.register(Employee, EmployeeInformation)
 admin.site.register(EvaluationFormModel, EvaluationFormModelAdmin)
 admin.site.register(AdminFeautures)
+admin.site.register(BonusEmailsHistory)

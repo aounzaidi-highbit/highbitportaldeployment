@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from website.decorators import roles_required
-from website.models import Employee, EvaluationFormModel, AdminFeautures, Teams
+from website.models import Employee, EvaluationFormModel, AdminFeautures, Teams, BonusEmailsHistory
 
 from .forms import EvaluationForm, FileUploadForm
 from django.shortcuts import get_object_or_404
@@ -500,7 +500,7 @@ def export_csv(request):
     )
 
     writer = csv.writer(response)
-    writer.writerow(["Employee Name"] + months + ["Quarterly Weighted Average"])
+    writer.writerow(["Employee Name"] + months + ["Quarterly Weighted Average", "Grade"])
 
     for employee_name, months_data in employee_data.items():
         monthly_averages = [months_data.get(month, "N/A") for month in months]
@@ -513,49 +513,54 @@ def export_csv(request):
             if numeric_averages
             else "N/A"
         )
-
+        grade = (
+            "X" if monthly_averages.count("N/A") >= 1 else
+            "A" if quarterly_weighted_average != "N/A" and quarterly_weighted_average >= 85.0 else
+            "B" if quarterly_weighted_average != "N/A" and 75.0 <= quarterly_weighted_average < 85.0 else
+            "C" if quarterly_weighted_average != "N/A" else
+            "N/A"
+        )
         writer.writerow(
-            [employee_name] + monthly_averages + [quarterly_weighted_average]
+            [employee_name] + monthly_averages + [quarterly_weighted_average] + [grade]
         )
 
     return response
 
-
+@login_required
+@roles_required("HR", "Super")
 def send_emails(request):
+    logged_in_user = Employee.objects.get(employee_email=request.user.username)
     email_count = 0
+    a_grade_count=0
+    b_grade_count=0
     if request.method == "POST":
         quarter = request.POST.get("quarter")
         year = request.POST.get("year")
         bonus_a = request.POST.get("bonusA")
         bonus_b = request.POST.get("bonusB")
-
-        if (
-            not (bonus_a.isdigit() and bonus_b.isdigit())
-            or int(bonus_a) <= 0
-            or int(bonus_b) <= 0
-        ):
+        total_bonus = request.POST.get("totalBonus")
+        
+        if not (bonus_a.isdigit() and bonus_b.isdigit()) or int(bonus_a) <= 0 or int(bonus_b) <= 0:
             messages.error(request, "Invalid bonus amounts")
             return redirect("quarterly_evaluations")
-
+        
         quarter_months = {
             "1": ["January", "February", "March"],
             "2": ["April", "May", "June"],
             "3": ["July", "August", "September"],
             "4": ["October", "November", "December"],
         }
-
+        
         if quarter not in quarter_months or not year:
             return HttpResponse("Invalid quarter or year", status=400)
-
+        
         months = quarter_months[quarter]
         q_objects = Q()
         for month in months:
             q_objects |= Q(evaluation_for=f"{month} {year}")
-
-        evaluations = EvaluationFormModel.objects.filter(
-            q_objects, employee__is_active=True
-        )
-
+        
+        evaluations = EvaluationFormModel.objects.filter(q_objects, employee__is_active=True)
+        
         employee_data = {}
         for evaluation in evaluations:
             employee = evaluation.employee
@@ -563,11 +568,9 @@ def send_emails(request):
             employee_email = employee.employee_email
             month = evaluation.evaluation_for.split(" ")[0]
             weighted_average = evaluation._weighted_average
-            team_lead_name = (
-                employee.team_lead.employee_name if employee.team_lead else "N/A"
-            )
+            team_lead_name = employee.team_lead.employee_name if employee.team_lead else "N/A"
             team_name = employee.team.team_name if employee.team else "N/A"
-
+            
             if employee_name not in employee_data:
                 employee_data[employee_name] = {
                     "email": employee_email,
@@ -577,33 +580,42 @@ def send_emails(request):
                 }
             else:
                 employee_data[employee_name]["months"][month] = weighted_average
+        
 
+        
         for employee_name, data in employee_data.items():
             month_averages = data["months"]
-            valid_months = [
-                score for score in month_averages.values() if score != "N/A"
-            ]
-
+            valid_months = [score for score in month_averages.values() if score != "N/A"]
+            
             if len(valid_months) != 3:
                 grade = "X"
                 bonus = None
                 average_weighted_score = 0
             else:
                 monthly_averages = [month_averages.get(month, 0) for month in months]
-                average_weighted_score = (
-                    (sum(monthly_averages) / len(monthly_averages)) * 10
-                    if monthly_averages
-                    else 0
-                )
-                grade = (
-                    "A"
-                    if average_weighted_score >= 85.0
-                    else "B" if 75.0 <= average_weighted_score < 85.0 else "C"
-                )
-                bonus = bonus_a if grade == "A" else bonus_b if grade == "B" else None
+               # Calculate the average weighted score
+                average_weighted_score = (sum(monthly_averages) / len(monthly_averages)) * 10 if monthly_averages else 0
 
+                # Determine the grade and increment the respective grade count
+                if average_weighted_score >= 85.0:
+                    grade = "A"
+                    a_grade_count += 1
+                elif 75.0 <= average_weighted_score < 85.0:
+                    grade = "B"
+                    b_grade_count += 1
+                else:
+                    grade = "C"
+
+                # Determine the bonus based on the grade
+                if grade == "A":
+                    bonus = bonus_a
+                elif grade == "B":
+                    bonus = bonus_b
+                else:
+                    bonus = None
+            
             average_weighted_score = round(average_weighted_score, 2)
-
+            
             context = {
                 "employee_name": employee_name,
                 "month_averages": month_averages,
@@ -613,25 +625,33 @@ def send_emails(request):
                 "team_name": data["team_name"],
                 "bonus": bonus,
             }
-
+            
+            
             subject = f"Quarterly Performance Review - Q{quarter} {year}"
             html_message = render_to_string("quarterly_evaluation_email.html", context)
             plain_message = strip_tags(html_message)
             from_email = "noreply@example.com"
             to = data["email"]
             email_count += 1
-            send_mail(
-                subject, plain_message, from_email, [to], html_message=html_message
-            )
-
-        messages.success(
-            request, f"Quarterly Emails sent successfully to {email_count} employees."
+            send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+        
+        bonus_email_history = BonusEmailsHistory(
+            date=date.today(),
+            sent_by=logged_in_user,
+            grade_A_bonus=bonus_a,
+            grade_B_bonus=bonus_b,
+            total_bonus=total_bonus,
+            grade_a_employees_count=a_grade_count,
+            grade_b_employees_count=b_grade_count,
         )
+        bonus_email_history.save()
+   
+        
+        messages.success(request, f"Quarterly Emails sent successfully to {email_count} employees.")
         return redirect("quarterly_evaluations")
-
+    
     messages.error(request, "Invalid request")
     return redirect("quarterly_evaluations")
-
 
 def upload_file(request):
     if request.method == "POST":

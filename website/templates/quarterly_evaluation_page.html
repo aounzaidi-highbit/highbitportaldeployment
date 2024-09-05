@@ -153,6 +153,7 @@
             <input type="hidden" name="year" value="{{ year }}">
             <input type="hidden" id="bonusAHidden" name="bonusA">
             <input type="hidden" id="bonusBHidden" name="bonusB">
+            <input type="hidden" id="totalBonusHidden" name="totalBonus">
             <input type="hidden" id="selectedEmployees" name="selectedEmployees">
             <button type="submit" class="btn btn-success font">Send Emails</button>
             <button type="button" class="btn btn-secondary font" data-dismiss="modal" >Close</button>
@@ -247,9 +248,11 @@
     document.getElementById('summaryContent').innerHTML = summaryContent;
     document.getElementById('bonusAHidden').value = bonusA;
     document.getElementById('bonusBHidden').value = bonusB;
+    document.getElementById('totalBonusHidden').value = totalBonus;
 
     $('#bonusModal').modal('hide');
     $('#summaryModal').modal('show');
+    $('#summaryModal').modal('hide');
   }
 </script>
 {% endblock content %}

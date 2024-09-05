@@ -554,6 +554,38 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -819,6 +851,22 @@
     },
     {
         "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
@@ -1099,6 +1147,14 @@
     },
     {
         "label": "Teams",
+        "importPath": "website.models",
+        "description": "website.models",
+        "isExtraImport": true,
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "BonusEmailsHistory",
         "importPath": "website.models",
         "description": "website.models",
         "isExtraImport": true,
@@ -2096,6 +2152,24 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0029_alter_shortupdate_options_mvp_created_by_and_more",
+        "description": "MVP.migrations.0029_alter_shortupdate_options_mvp_created_by_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0028_shortupdate_created_at_shortupdate_created_by\"),\n        (\"website\", \"0028_alter_employee_confirmation_date\"),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name=\"shortupdate\",\n            options={\n                \"verbose_name\": \"Short Update\",",
+        "detail": "MVP.migrations.0029_alter_shortupdate_options_mvp_created_by_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0030_alter_mvp_updated_by",
+        "description": "MVP.migrations.0030_alter_mvp_updated_by",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0029_alter_shortupdate_options_mvp_created_by_and_more\"),\n        (\"website\", \"0028_alter_employee_confirmation_date\"),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name=\"mvp\",\n            name=\"updated_by\",\n            field=models.ForeignKey(",
+        "detail": "MVP.migrations.0030_alter_mvp_updated_by",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -2172,7 +2246,7 @@
         "kind": 6,
         "importPath": "MVP.models",
         "description": "MVP.models",
-        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)        \n    updated_by=models.ForeignKey(Employee,on_delete=models.CASCADE,null=True)\n    start_date = models.DateField()\n    status = models.CharField(max_length=100,choices=[('Pause', 'Pause'), ('Completed', 'Completed'), ('Active','Active')],default='Active')\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product'),('Failed','Failed')],default='MVP')\n    developers = models.ManyToManyField(Employee, related_name='developers')",
+        "peekOfCode": "class MVP(models.Model):\n    name = models.CharField(max_length=100)\n    plan=models.TextField(null=True, blank=True)\n    team_name=models.ForeignKey(Teams,on_delete=models.CASCADE)\n    created_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='created_mvps',null=True)\n    updated_by = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='updated_mvps',null=True)\n    start_date = models.DateField()\n    status = models.CharField(max_length=100,choices=[('Pause', 'Pause'), ('Completed', 'Completed'), ('Active','Active')],default='Active')\n    end_date = models.DateField(null=True, blank=True)\n    current_phase = models.CharField(max_length=100,choices=[('MVP', 'MVP'), ('Product', 'Product'),('Failed','Failed')],default='MVP')",
         "detail": "MVP.models",
         "documentation": {}
     },
@@ -2244,7 +2318,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def short_update_list(request):\n    form=ShortUpdateFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        short_updates = ShortUpdate.objects.all().order_by(\"-id\")\n    else:\n        short_updates = ShortUpdate.objects.filter(team=user_team).order_by(\"-id\")\n    if form.is_valid():",
+        "peekOfCode": "def short_update_list(request):\n    form = ShortUpdateFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        short_updates = ShortUpdate.objects.all().order_by(\"-id\")\n    else:\n        short_updates = ShortUpdate.objects.filter(team=user_team).order_by(\"-id\")\n    if form.is_valid():",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2262,7 +2336,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def product_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Product\", is_archived=False).order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
+        "peekOfCode": "def product_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Product\", is_archived=False).order_by(\n                \"-id\"\n            )",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2271,7 +2345,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def archive_mvp(request, pk):\n    user=request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.updated_by=employee\n    mvp.is_archived = True\n    mvp.save()\n    return redirect('mvp_list')\n@login_required\ndef unarchive_mvp(request, pk):",
+        "peekOfCode": "def archive_mvp(request, pk):\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.updated_by = employee\n    mvp.is_archived = True\n    mvp.save()\n    return redirect(\"mvp_list\")\n@login_required\ndef unarchive_mvp(request, pk):",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2280,7 +2354,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def unarchive_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.is_archived = False\n    mvp.save()\n    return redirect('archive_list')\n@login_required\ndef archive_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)",
+        "peekOfCode": "def unarchive_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    mvp.is_archived = False\n    mvp.save()\n    return redirect(\"archive_list\")\n@login_required\ndef archive_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2298,7 +2372,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def edit_short_update(request, pk):\n    short_update = get_object_or_404(ShortUpdate, pk=pk)\n    employee=Employee.objects.get(employee_email=request.user.username)\n    if request.method == \"POST\":\n        form = ShortUpdateForm(request.POST, instance=short_update)\n        if form.is_valid():\n            short_update =form.save(commit=False)\n            form.save()\n            return redirect(\"short_update_list\")\n    else:",
+        "peekOfCode": "def edit_short_update(request, pk):\n    short_update = get_object_or_404(ShortUpdate, pk=pk)\n    if request.method == \"POST\":\n        form = ShortUpdateForm(request.POST, instance=short_update)\n        if form.is_valid():\n            short_update = form.save(commit=False)\n            form.save()\n            return redirect(\"short_update_list\")\n    else:\n        form = ShortUpdateForm(instance=short_update)",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2307,7 +2381,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def edit_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    first_completion_date = mvp.first_completion_date\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, instance=mvp, request=request)\n        if form.is_valid():\n            mvp_instance = form.save(commit=False)\n            mvp_instance.updated_by = employee  ",
+        "peekOfCode": "def edit_mvp(request, pk):\n    mvp = get_object_or_404(MVP, pk=pk)\n    first_completion_date = mvp.first_completion_date\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, instance=mvp, request=request)\n        if form.is_valid():\n            mvp_instance = form.save(commit=False)\n            mvp_instance.updated_by = employee",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2334,7 +2408,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def failed_mvp_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Failed\", is_archived=False).order_by(\"-id\")\n            if user_team\n            else MVP.objects.none()",
+        "peekOfCode": "def failed_mvp_list(request):\n    form = MVPFilterForm(request.GET)\n    user = request.user\n    employee = Employee.objects.get(employee_email=user.username)\n    user_team = employee.team\n    if employee.mvp_role == \"Super\":\n        mvps = (\n            MVP.objects.filter(current_phase=\"Failed\", is_archived=False).order_by(\n                \"-id\"\n            )",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2618,6 +2692,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0029_bonusemailshistory",
+        "description": "website.migrations.0029_bonusemailshistory",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0028_alter_employee_confirmation_date\"),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name=\"BonusEmailsHistory\",\n            fields=[\n                (\n                    \"id\",",
+        "detail": "website.migrations.0029_bonusemailshistory",
+        "documentation": {}
+    },
+    {
         "label": "TeamFilter",
         "kind": 6,
         "importPath": "website.admin",
@@ -2829,7 +2912,16 @@
         "kind": 6,
         "importPath": "website.models",
         "description": "website.models",
-        "peekOfCode": "class AdminFeautures(models.Model):\n    form_disabling_date = models.IntegerField()\n    def __str__(self):\n        return \"Admin Features\"\n    class Meta:\n        verbose_name = \"Admin Feature\"\n        verbose_name_plural = \"Admin Features\"",
+        "peekOfCode": "class AdminFeautures(models.Model):\n    form_disabling_date = models.IntegerField()\n    def __str__(self):\n        return \"Admin Features\"\n    class Meta:\n        verbose_name = \"Admin Feature\"\n        verbose_name_plural = \"Admin Features\"\nclass BonusEmailsHistory(models.Model):\n    date = models.DateField()\n    grade_A_bonus = models.FloatField()",
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "BonusEmailsHistory",
+        "kind": 6,
+        "importPath": "website.models",
+        "description": "website.models",
+        "peekOfCode": "class BonusEmailsHistory(models.Model):\n    date = models.DateField()\n    grade_A_bonus = models.FloatField()\n    grade_B_bonus = models.FloatField()\n    sent_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)\n    total_bonus = models.FloatField()\n    grade_a_employees_count=models.IntegerField(null=True, blank=True)\n    grade_b_employees_count=models.IntegerField(null=True, blank=True)\n    def __str__(self):\n        return str(self.date)",
         "detail": "website.models",
         "documentation": {}
     },
@@ -2919,7 +3011,7 @@
         "kind": 2,
         "importPath": "website.views",
         "description": "website.views",
-        "peekOfCode": "def send_emails(request):\n    email_count = 0\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        bonus_a = request.POST.get(\"bonusA\")\n        bonus_b = request.POST.get(\"bonusB\")\n        if (\n            not (bonus_a.isdigit() and bonus_b.isdigit())\n            or int(bonus_a) <= 0",
+        "peekOfCode": "def send_emails(request):\n    logged_in_user = Employee.objects.get(employee_email=request.user.username)\n    email_count = 0\n    a_grade_count=0\n    b_grade_count=0\n    if request.method == \"POST\":\n        quarter = request.POST.get(\"quarter\")\n        year = request.POST.get(\"year\")\n        bonus_a = request.POST.get(\"bonusA\")\n        bonus_b = request.POST.get(\"bonusB\")",
         "detail": "website.views",
         "documentation": {}
     },
