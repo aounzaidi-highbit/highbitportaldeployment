@@ -1,10 +1,11 @@
 import collections
 import datetime
+from datetime import date
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 import re
-from website.models import Employee
+from website.models import Employee, Teams
 from website.decorators import roles_required
 from .forms import (
     ActivityForm,
@@ -28,6 +29,7 @@ def short_update_form(request):
         if form.is_valid():
             short_update = form.save(commit=False)
             employee = Employee.objects.get(employee_email=request.user.username)
+            short_update.created_by = employee
             short_update.team = employee.team
             short_update.save()
             return redirect("short_update_list")
@@ -61,7 +63,7 @@ def product_form(request, phase):
             product = form.save(commit=False)
             employee = Employee.objects.get(employee_email=request.user.username)
             product.team_name = employee.team
-            product.updated_by = employee
+            product.created_by = employee
             product.save()
             form.save_m2m()
             return redirect("product_list")
@@ -78,7 +80,7 @@ def failed_form(request, phase):
             failed = form.save(commit=False)
             employee = Employee.objects.get(employee_email=request.user.username)
             failed.team_name = employee.team
-            failed.updated_by = employee
+            failed.created_by = employee
             failed.save()
             form.save_m2m()
             return redirect("failed_mvp_list")
@@ -131,6 +133,8 @@ def short_update_list(request):
 
 @login_required
 def mvp_list(request):
+
+    
     form = MVPFilterForm(request.GET)
     user = request.user
     employee = Employee.objects.get(employee_email=user.username)
@@ -161,10 +165,12 @@ def mvp_list(request):
         end_date = form.cleaned_data.get("end_date")
         status = form.cleaned_data.get("status")
         team_name = form.cleaned_data.get("team_name")
+        team_lead_name=form.cleaned_data.get("team_lead_name")
         if name:
             mvps = mvps.filter(name__icontains=name)
         if team_name:
             mvps = mvps.filter(team_name=team_name)
+
         if start_date and end_date:
             mvps = mvps.filter(start_date__gte=start_date, end_date__lte=end_date)
         elif start_date:
@@ -180,16 +186,25 @@ def mvp_list(request):
     paginator = Paginator(mvps, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-
+    age = None
     mvp_details = []
     for mvp in page_obj:
         developers = mvp.developers.all()
         planners = mvp.planners.all()
         associates = mvp.associates.all()
+        team = Teams.objects.get(team_name=mvp.team_name) 
+        team_lead = team.members.filter(is_team_lead=True, is_active=True, mvp_role="Growth Manager").first()
+
         sixty_days_passed = False
+        activities_count=Activity.objects.filter(mvp=mvp).count()
+        
         if mvp.first_completion_date:
             if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
                 sixty_days_passed = True
+                
+        if mvp.start_date is not None:
+            age = date.today()- mvp.start_date
+            
 
         mvp_details.append(
             {
@@ -198,6 +213,9 @@ def mvp_list(request):
                 "associates": associates,
                 "planners": planners,
                 "sixty_days_passed": sixty_days_passed,
+                "age": age,
+                "activities_count": activities_count,
+                "team_lead": team_lead,
             }
         )
 
@@ -248,10 +266,12 @@ def product_list(request):
         end_date = form.cleaned_data.get("end_date")
         status = form.cleaned_data.get("status")
         team_name = form.cleaned_data.get("team_name")
+        team_lead_name=form.cleaned_data.get("team_lead_name")
         if name:
             mvps = mvps.filter(name__icontains=name)
         if team_name:
             mvps = mvps.filter(team_name=team_name)
+
         if start_date and end_date:
             mvps = mvps.filter(start_date__gte=start_date, end_date__lte=end_date)
         elif start_date:
@@ -267,24 +287,38 @@ def product_list(request):
     paginator = Paginator(mvps, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    age = None
     mvp_details = []
     for mvp in page_obj:
         developers = mvp.developers.all()
         planners = mvp.planners.all()
+        associates = mvp.associates.all()
+        team = Teams.objects.get(team_name=mvp.team_name) 
+        team_lead = team.members.filter(is_team_lead=True, is_active=True, mvp_role="Growth Manager").first()
+
         sixty_days_passed = False
+        activities_count=Activity.objects.filter(mvp=mvp).count()
+        
         if mvp.first_completion_date:
             if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
                 sixty_days_passed = True
+                
+        if mvp.start_date is not None:
+            age = date.today()- mvp.start_date
+            
 
         mvp_details.append(
             {
                 "mvp": mvp,
                 "developers": developers,
+                "associates": associates,
                 "planners": planners,
                 "sixty_days_passed": sixty_days_passed,
+                "age": age,
+                "activities_count": activities_count,
+                "team_lead": team_lead,
             }
         )
-
     return render(
         request,
         "product_list.html",
@@ -366,6 +400,7 @@ def archive_list(request):
     for mvp in page_obj:
         developers = mvp.developers.all()
         planners = mvp.planners.all()
+        associates = mvp.associates.all()
         sixty_days_passed = False
         if mvp.first_completion_date:
             if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
@@ -375,11 +410,11 @@ def archive_list(request):
             {
                 "mvp": mvp,
                 "developers": developers,
+                "associates": associates,
                 "planners": planners,
                 "sixty_days_passed": sixty_days_passed,
             }
         )
-
     return render(
         request,
         "archive_list.html",
@@ -441,7 +476,7 @@ def edit_mvp(request, pk):
 
     return render(
         request,
-        "edit_mvp.html",
+        "edit_mvp.html",    
         {"form": form, "mvp": mvp, "first_completion_date": first_completion_date},
     )
 
@@ -554,10 +589,12 @@ def failed_mvp_list(request):
         end_date = form.cleaned_data.get("end_date")
         status = form.cleaned_data.get("status")
         team_name = form.cleaned_data.get("team_name")
+        team_lead_name=form.cleaned_data.get("team_lead_name")
         if name:
             mvps = mvps.filter(name__icontains=name)
         if team_name:
             mvps = mvps.filter(team_name=team_name)
+
         if start_date and end_date:
             mvps = mvps.filter(start_date__gte=start_date, end_date__lte=end_date)
         elif start_date:
@@ -573,21 +610,36 @@ def failed_mvp_list(request):
     paginator = Paginator(mvps, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    age = None
     mvp_details = []
     for mvp in page_obj:
         developers = mvp.developers.all()
         planners = mvp.planners.all()
+        associates = mvp.associates.all()
+        team = Teams.objects.get(team_name=mvp.team_name) 
+        team_lead = team.members.filter(is_team_lead=True, is_active=True, mvp_role="Growth Manager").first()
+
         sixty_days_passed = False
+        activities_count=Activity.objects.filter(mvp=mvp).count()
+        
         if mvp.first_completion_date:
             if now().date() >= mvp.first_completion_date + datetime.timedelta(days=60):
                 sixty_days_passed = True
+                
+        if mvp.start_date is not None:
+            age = date.today()- mvp.start_date
+            
 
         mvp_details.append(
             {
                 "mvp": mvp,
                 "developers": developers,
+                "associates": associates,
                 "planners": planners,
                 "sixty_days_passed": sixty_days_passed,
+                "age": age,
+                "activities_count": activities_count,
+                "team_lead": team_lead,
             }
         )
     return render(

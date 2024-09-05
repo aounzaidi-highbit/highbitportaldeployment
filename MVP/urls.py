@@ -22,5 +22,6 @@ urlpatterns=[
     path('short-update-form/', views.short_update_form, name='short_update_form'),
     path('short-update-list/', views.short_update_list, name='short_update_list'),
     path('edit-short-update/<int:pk>/', views.edit_short_update, name='edit_short_update'),
+    
 ]
 

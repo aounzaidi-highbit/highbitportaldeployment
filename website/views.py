@@ -593,10 +593,8 @@ def send_emails(request):
                 average_weighted_score = 0
             else:
                 monthly_averages = [month_averages.get(month, 0) for month in months]
-               # Calculate the average weighted score
                 average_weighted_score = (sum(monthly_averages) / len(monthly_averages)) * 10 if monthly_averages else 0
 
-                # Determine the grade and increment the respective grade count
                 if average_weighted_score >= 85.0:
                     grade = "A"
                     a_grade_count += 1
@@ -606,7 +604,6 @@ def send_emails(request):
                 else:
                     grade = "C"
 
-                # Determine the bonus based on the grade
                 if grade == "A":
                     bonus = bonus_a
                 elif grade == "B":

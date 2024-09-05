@@ -82,12 +82,14 @@
             <thead class="thread-style">
                 <tr>
                     <th class="font">Name</th>
-                    <th class="font">Team Name</th>
+                    <th class="font">GM Name</th>
                     <th class="font">
                         <a style="color:#24A9E1;" href="?{% if request.GET.sort == 'start_date' %}sort=-start_date{% else %}sort=start_date{% endif %}" class="font">Start Date</a>
                     </th>
                     <th class="font">End Date</th>
+                    
                     <th class="font">Status</th>
+                    
                     <th class="font">Actions</th>
                 </tr>
             </thead>
@@ -97,6 +99,9 @@
                     <td class="font">
                         {{ mvp_detail.mvp.name|truncatewords:3 }}
 
+                        {% if mvp_detail.sixty_days_passed %}
+                            <span class="font" style="font-size: 13px;">(Decision Pending)</span>
+                        {% endif %}
                         {% if mvp_detail.mvp.status == 'Pause' %}
                             <span class="pause-icon">
                                 <span class="pause-bar"></span>
@@ -109,19 +114,35 @@
                         {% elif mvp_detail.mvp.status == 'Completed' %}
                             <span class="tick-mark">✓</span>
                         {% endif %}
+                        {% if mvp_detail.mvp.link %}  
+                                <a href="{{mvp_detail.mvp.link}}">
+                                    <img style="width: 4%;" src="{% static 'images/link-icon.png' %}" alt="" >
+                                </a>
+                        {% endif %}  
+                        <br>
+                        <span class="font" style="font-size: 13px;">Age: {{ mvp_detail.age.days }} days</span>
+                        <br>
+                        <span class="font" style="font-size: 13px;">Activities Count: {{mvp_detail.activities_count}}</span>
                     </td>
-                    <td class="font">{{ mvp_detail.mvp.team_name|truncatewords:3 }}</td>
+                    <td class="font">{{ mvp_detail.team_lead }}</td>
                     <td class="font">{{ mvp_detail.mvp.start_date }}</td>
                     <td class="font">{{ mvp_detail.mvp.end_date }}</td>
+         
                     <td class="font">{{ mvp_detail.mvp.status }}</td>
+                    
                     <td>
                         {% if employee.mvp_role == 'Super' or employee.mvp_role == "Planner" %}
-                        <button type="button" class="btn add-mvp font view-mvp" data-toggle="modal" data-target="#viewModal{{ mvp_detail.mvp.pk }}">View</button>
+                            <button type="button" class="btn add-mvp font view-mvp" data-toggle="modal" data-target="#viewModal{{ mvp_detail.mvp.pk }}">View</button>
                         {% elif employee.mvp_role == 'Team Lead' or employee.mvp_role == 'Growth Manager' %}
-                        <button type="button" class="btn add-mvp font" data-toggle="modal" data-target="#viewModal{{ mvp_detail.mvp.pk }}" style="font-size: 14px;">Edit / View</button>
+                            <button type="button" class="btn add-mvp font" data-toggle="modal" data-target="#viewModal{{ mvp_detail.mvp.pk }}" style="font-size: 14px;">Edit / View</button>
                         {% endif %}
+                        <br>
+                        <button style="border: none;margin-top:5px; border-radius: 5px; cursor: pointer;" class="btn add-mvp font">
+                            <a href="{% url 'activity_list' %}?name={{ mvp_detail.mvp.name }}&activity_type=" style="text-decoration: none; color: white; ">Activities</a>
+                        </button>
                     </td>
                 </tr>
+
 
                 <div class="modal fade" id="viewModal{{ mvp_detail.mvp.pk }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{ mvp_detail.mvp.pk }}" aria-hidden="true">
                     <div class="modal-dialog" role="document">

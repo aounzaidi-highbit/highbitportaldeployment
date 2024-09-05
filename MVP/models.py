@@ -18,7 +18,7 @@ class MVP(models.Model):
     development_starting_date = models.DateField(null=True, blank=True)
     is_archived = models.BooleanField(default=False)
     first_completion_date=models.DateField(null=True, blank=True)
-    
+    link=models.URLField(null=True, blank=True)
     def __str__(self):
         return self.name
     

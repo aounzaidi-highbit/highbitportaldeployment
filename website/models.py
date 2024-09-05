@@ -79,8 +79,6 @@ class Employee(models.Model):
             months_of_experience = (today.year - self.joining_date.year) * 12 + (
                 today.month - self.joining_date.month
             )
-            self.previous_experience = f"{months_of_experience} months"
-        
        
         self.is_permanent = self.confirmation_date is not None
         super(Employee, self).save(*args, **kwargs)
