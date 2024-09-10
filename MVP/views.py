@@ -216,6 +216,7 @@ def mvp_list(request):
                 "age": age,
                 "activities_count": activities_count,
                 "team_lead": team_lead,
+                "team": team,
             }
         )
 
