@@ -3,16 +3,22 @@ from .models import MVP, Activity, ActivityType, ShortUpdate
 from website.models import Employee, Teams
 from django.forms.widgets import CheckboxSelectMultiple
 from django.db.models import Q
-
+from django.core.validators import URLValidator
+import re
 
 class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return f"{obj.employee_name} ({obj.role})"
 
 
+        
 class MVPForm(forms.ModelForm):
     remarks = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-plan-field"}), required=False)
     name = forms.CharField(widget=forms.TextInput(attrs={"class": "custom-char-field"}))
+    link = forms.CharField(  
+        widget=forms.TextInput(attrs={"class": "custom-char-field"}),
+        required=False,
+    )
     plan = forms.CharField(widget=forms.Textarea(attrs={"class": "custom-plan-field"}))
     start_date = forms.DateField(
         widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"})
@@ -56,6 +62,7 @@ class MVPForm(forms.ModelForm):
         model = MVP
         fields = [
             "name",
+            "link",
             "plan",
             "start_date",
             "status",
@@ -67,7 +74,19 @@ class MVPForm(forms.ModelForm):
             "planners",
             "associates",
         ]
+        
+    def clean_link(self):
+        link = self.cleaned_data.get('link')
+        if link and not (link.startswith('http://') or link.startswith('https://')):
+            link = 'http://' + link 
+        validator = URLValidator()
+        try:
+            validator(link)
+        except forms.ValidationError:
+            raise forms.ValidationError("Invalid URL")
 
+        return link
+    
     def save(self, commit=True):
         mvp = super().save(commit=False)
         remarks = self.cleaned_data.get("remarks")
@@ -162,6 +181,7 @@ class MVPForm(forms.ModelForm):
 
 class MVPFilterForm(forms.Form):
     teams = Teams.objects.all()
+
     name = forms.CharField(
         widget=forms.TextInput(attrs={"class": "filter-box"}),
         required=False,
@@ -173,7 +193,6 @@ class MVPFilterForm(forms.Form):
         required=False,
         label="Team Name",
     )
-
     start_date = forms.DateField(
         required=False,
         widget=forms.TextInput(attrs={"class": "filter-box", "type": "date"}),

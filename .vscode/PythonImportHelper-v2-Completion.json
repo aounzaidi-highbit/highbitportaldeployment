@@ -586,6 +586,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -1027,6 +1043,14 @@
     },
     {
         "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
@@ -1115,6 +1139,14 @@
     },
     {
         "label": "Employee",
+        "importPath": "website.models",
+        "description": "website.models",
+        "isExtraImport": true,
+        "detail": "website.models",
+        "documentation": {}
+    },
+    {
+        "label": "Teams",
         "importPath": "website.models",
         "description": "website.models",
         "isExtraImport": true,
@@ -1202,11 +1234,36 @@
         "documentation": {}
     },
     {
+        "label": "URLValidator",
+        "importPath": "django.core.validators",
+        "description": "django.core.validators",
+        "isExtraImport": true,
+        "detail": "django.core.validators",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "datetime",
         "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
         "detail": "datetime",
         "documentation": {}
     },
@@ -1425,15 +1482,6 @@
         "description": "django.utils.timezone",
         "isExtraImport": true,
         "detail": "django.utils.timezone",
-        "documentation": {}
-    },
-    {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
         "documentation": {}
     },
     {
@@ -2170,6 +2218,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "MVP.migrations.0031_mvp_link",
+        "description": "MVP.migrations.0031_mvp_link",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"MVP\", \"0030_alter_mvp_updated_by\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"mvp\",\n            name=\"link\",\n            field=models.URLField(blank=True, null=True),\n        ),",
+        "detail": "MVP.migrations.0031_mvp_link",
+        "documentation": {}
+    },
+    {
         "label": "MvpConfig",
         "kind": 6,
         "importPath": "MVP.apps",
@@ -2183,7 +2240,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):\n    def label_from_instance(self, obj):\n        return f\"{obj.employee_name} ({obj.role})\"\nclass MVPForm(forms.ModelForm):\n    remarks = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}), required=False)\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    plan = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})\n    )",
+        "peekOfCode": "class EmployeeModelMultipleChoiceField(forms.ModelMultipleChoiceField):\n    def label_from_instance(self, obj):\n        return f\"{obj.employee_name} ({obj.role})\"\nclass MVPForm(forms.ModelForm):\n    remarks = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}), required=False)\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    link = forms.CharField(  \n        widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}),\n        required=False,\n    )",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -2192,7 +2249,7 @@
         "kind": 6,
         "importPath": "MVP.forms",
         "description": "MVP.forms",
-        "peekOfCode": "class MVPForm(forms.ModelForm):\n    remarks = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}), required=False)\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    plan = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})\n    )\n    end_date = forms.DateField(\n        required=False,\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"}),",
+        "peekOfCode": "class MVPForm(forms.ModelForm):\n    remarks = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}), required=False)\n    name = forms.CharField(widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}))\n    link = forms.CharField(  \n        widget=forms.TextInput(attrs={\"class\": \"custom-char-field\"}),\n        required=False,\n    )\n    plan = forms.CharField(widget=forms.Textarea(attrs={\"class\": \"custom-plan-field\"}))\n    start_date = forms.DateField(\n        widget=forms.DateInput(attrs={\"type\": \"date\", \"class\": \"custom-char-field\"})",
         "detail": "MVP.forms",
         "documentation": {}
     },
@@ -2282,7 +2339,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def short_update_form(request):\n    if request.method == \"POST\":\n        form = ShortUpdateForm(request.POST)\n        if form.is_valid():\n            short_update = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            short_update.team = employee.team\n            short_update.save()\n            return redirect(\"short_update_list\")\n    else:",
+        "peekOfCode": "def short_update_form(request):\n    if request.method == \"POST\":\n        form = ShortUpdateForm(request.POST)\n        if form.is_valid():\n            short_update = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            short_update.created_by = employee\n            short_update.team = employee.team\n            short_update.save()\n            return redirect(\"short_update_list\")",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2300,7 +2357,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def product_form(request, phase):\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, request=request)\n        if form.is_valid():\n            product = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            product.team_name = employee.team\n            product.updated_by = employee\n            product.save()\n            form.save_m2m()",
+        "peekOfCode": "def product_form(request, phase):\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, request=request)\n        if form.is_valid():\n            product = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            product.team_name = employee.team\n            product.created_by = employee\n            product.save()\n            form.save_m2m()",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2309,7 +2366,7 @@
         "kind": 2,
         "importPath": "MVP.views",
         "description": "MVP.views",
-        "peekOfCode": "def failed_form(request, phase):\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, request=request)\n        if form.is_valid():\n            failed = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            failed.team_name = employee.team\n            failed.updated_by = employee\n            failed.save()\n            form.save_m2m()",
+        "peekOfCode": "def failed_form(request, phase):\n    if request.method == \"POST\":\n        form = MVPForm(request.POST, request=request)\n        if form.is_valid():\n            failed = form.save(commit=False)\n            employee = Employee.objects.get(employee_email=request.user.username)\n            failed.team_name = employee.team\n            failed.created_by = employee\n            failed.save()\n            form.save_m2m()",
         "detail": "MVP.views",
         "documentation": {}
     },
@@ -2698,6 +2755,15 @@
         "description": "website.migrations.0029_bonusemailshistory",
         "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0028_alter_employee_confirmation_date\"),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name=\"BonusEmailsHistory\",\n            fields=[\n                (\n                    \"id\",",
         "detail": "website.migrations.0029_bonusemailshistory",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "website.migrations.0030_alter_bonusemailshistory_options_and_more",
+        "description": "website.migrations.0030_alter_bonusemailshistory_options_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"website\", \"0029_bonusemailshistory\"),\n    ]\n    operations = [\n        migrations.AlterModelOptions(\n            name=\"bonusemailshistory\",\n            options={\n                \"verbose_name\": \"Bonus Email History\",\n                \"verbose_name_plural\": \"Bonus Emails History\",",
+        "detail": "website.migrations.0030_alter_bonusemailshistory_options_and_more",
         "documentation": {}
     },
     {
