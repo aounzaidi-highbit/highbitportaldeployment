@@ -1,3 +1,6 @@
+
+
+
 """
 Django settings for core project.
 
@@ -23,7 +26,7 @@ import os
 SECRET_KEY = "django-insecure-&fq5c$jrr466qq)r7xg@*s3%mabq4%q%_0e*$wrdxd-fw852t#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG =  True
 
 ALLOWED_HOSTS = ['highbitportal.pythonanywhere.com']
 

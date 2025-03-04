@@ -77,6 +77,9 @@ class MVPForm(forms.ModelForm):
         
     def clean_link(self):
         link = self.cleaned_data.get('link')
+        if not link:
+            return link
+
         if link and not (link.startswith('http://') or link.startswith('https://')):
             link = 'http://' + link 
         validator = URLValidator()
@@ -90,7 +93,7 @@ class MVPForm(forms.ModelForm):
     def save(self, commit=True):
         mvp = super().save(commit=False)
         remarks = self.cleaned_data.get("remarks")
-
+        
         changes = []
         if mvp.pk:
             previous = MVP.objects.get(pk=mvp.pk)
@@ -104,15 +107,15 @@ class MVPForm(forms.ModelForm):
                             update_info = f'set to "{new_value}"'
                         else:
                             update_info = f'changed from "{old_value}" to "{new_value}"'
-
+                            
                         if mvp.updated_by:
                             updated_by_name = mvp.updated_by.employee_name
                         else:
                             updated_by_name = Employee.objects.get(employee_email=self.request.user.username).employee_name
-
+                            
                         changes.append(f'{field.verbose_name}: {update_info} updated by "{updated_by_name}"')
 
-
+                    
         if changes or remarks:
             activity_type = ActivityType.objects.get_or_create(name="Update")[0]
             changes_str = "\n".join(changes)
@@ -121,7 +124,7 @@ class MVPForm(forms.ModelForm):
                 activity_type=activity_type,
                 team_name=mvp.team_name,
                 changes=changes_str,
-                remarks=remarks,
+                remarks=remarks,  
             )
             activity.save()
 
@@ -129,7 +132,7 @@ class MVPForm(forms.ModelForm):
             mvp.save()
             self.save_m2m()
         return mvp
-
+    
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
         super(MVPForm, self).__init__(*args, **kwargs)
@@ -153,12 +156,12 @@ class MVPForm(forms.ModelForm):
                 | Q(mvp_role="Growth Manager")
             )
 
-
+    
     def clean_first_completion_date(self):
         if self.instance.pk and self.instance.first_completion_date:
             return self.instance.first_completion_date
         return self.cleaned_data['first_completion_date']
-
+    
     def clean(self):
         cleaned_data = super().clean()
         developers = cleaned_data.get('developers')
@@ -167,7 +170,7 @@ class MVPForm(forms.ModelForm):
         planners = cleaned_data.get('planners')
         status = cleaned_data.get('status')
         first_completion_date = cleaned_data.get('first_completion_date')
-
+        
         if developers and not development_starting_date:
             self.add_error('development_starting_date', 'Development starting date is required if developers are selected.')
         if development_starting_date and not developers:
@@ -176,7 +179,7 @@ class MVPForm(forms.ModelForm):
             self.add_error('planners', 'Planners are required if start date is selected.')
         if status == "Completed" and not first_completion_date:
             self.add_error('first_completion_date', 'First completion date is required if status is completed.')
-
+        
         return cleaned_data
 
 class MVPFilterForm(forms.Form):
@@ -296,7 +299,7 @@ class ActivityForm(forms.ModelForm):
                     )
             except Employee.DoesNotExist:
                 self.fields["mvp"].queryset = MVP.objects.none()
-
+                
 class ShortUpdateForm(forms.ModelForm):
     status = forms.ChoiceField(
         choices=[("","Select Status"),("Success", "Success"), ("Fail", "Fail"), ("Pending", "Pending")],
@@ -315,7 +318,7 @@ class ShortUpdateForm(forms.ModelForm):
         required=False,
         widget=forms.DateInput(attrs={"type": "date", "class": "custom-char-field"}),
     )
-
+    
     class Meta:
         model = ShortUpdate
         fields = ["status", "title", "description", "start_date", "end_date"]

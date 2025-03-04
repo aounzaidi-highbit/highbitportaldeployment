@@ -82,7 +82,7 @@
             <thead class="thread-style">
                 <tr>
                     <th class="font">Name</th>
-                    <th class="font">GM Name</th>
+                    <th class="font">Team</th>
                     <th class="font">
                         <a style="color:#24A9E1;" href="?{% if request.GET.sort == 'start_date' %}sort=-start_date{% else %}sort=start_date{% endif %}" class="font">Start Date</a>
                     </th>
@@ -118,11 +118,17 @@
                                 </a>
                         {% endif %}
                         <br>
-                        <span class="font" style="font-size: 13px;">Age: {{ mvp_detail.age.days }} days</span>
+                        <span class="font" style="font-size: 13px; color: #7f7f7f;">Age: {{ mvp_detail.age.days }} days</span>
                         <br>
-                        <span class="font" style="font-size: 13px;">Activities Count: {{mvp_detail.activities_count}}</span>
+                        <span class="font" style="font-size: 13px; color: #7f7f7f; ">Activities: {{mvp_detail.activities_count}}  </span>
                     </td>
-                    <td class="font">{{ mvp_detail.team_lead }}</td>
+                    <td class="font">
+
+                        <span class="font" >{{ mvp_detail.mvp.team_name }}</span>
+                        <br>
+                        <span style="font-size: 13px; color: #7f7f7;">GM: {{ mvp_detail.team_lead }}</span>
+
+                    </td>
                     <td class="font">{{ mvp_detail.mvp.start_date }}</td>
                     <td class="font">{{ mvp_detail.mvp.end_date }}</td>
 
@@ -149,7 +155,7 @@
                                 <h5 class="modal-title font" id="viewModalLabel{{ mvp_detail.mvp.pk }}">Product Details</h5>
 
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body text-break">
                                 <p><strong>Name:</strong> {{ mvp_detail.mvp.name }}</p>
                                 <p><strong>Plan:</strong> {{ mvp_detail.mvp.plan }}</p>
                                 <p><strong>Team Name:</strong> {{ mvp_detail.mvp.team_name }}</p>

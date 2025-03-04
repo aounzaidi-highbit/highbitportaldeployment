@@ -58,7 +58,7 @@ class Employee(models.Model):
     role = models.CharField(max_length=255)
     grade=models.CharField(max_length=255,null=True,blank=True)
     is_team_lead = models.BooleanField(default=False)
-
+    
     def __str__(self):
         return self.employee_name
 
@@ -79,8 +79,12 @@ class Employee(models.Model):
             months_of_experience = (today.year - self.joining_date.year) * 12 + (
                 today.month - self.joining_date.month
             )
-
-        self.is_permanent = self.confirmation_date is not None
+       
+        if self.confirmation_date:
+            self.is_permanent = True
+        elif not self.confirmation_date:
+            self.is_permanent = False
+            
         super(Employee, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
