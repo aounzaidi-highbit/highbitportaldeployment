@@ -337,7 +337,7 @@ def view_quarterly_valuations(request):
         for evaluation in evaluations:
             employee_id = evaluation.employee.employee_id
             employee_name = evaluation.employee.employee_name
-            team_name = evaluation.employee.team.team_name
+            team_name = getattr(evaluation.employee.team, "team_name", "No Team")
             role = evaluation.employee.role
             employee_grade = evaluation.employee.grade
             month = evaluation.evaluation_for.split(" ")[0]
