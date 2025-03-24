@@ -105,7 +105,7 @@ class EvaluationFormModel(models.Model):
         null=True,
     )
     feedback = models.TextField()
-    evaluation_date = models.DateField(default=date.today, editable=False)
+    evaluation_date = models.DateField(default=date.today)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     evaluated_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True
