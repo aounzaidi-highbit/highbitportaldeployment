@@ -113,8 +113,8 @@ class EvaluationFormModel(models.Model):
     _weighted_average = models.FloatField(null=True, blank=True)
     evaluation_for = models.CharField(max_length=30, null=True)
     time_stamp = models.TimeField(auto_now=True)
-    previous_month = models.CharField(max_length=20, editable=False, blank=True)
-    previous_year = models.CharField(max_length=4, editable=False, blank=True)
+    previous_month = models.CharField(max_length=20, blank=True)
+    previous_year = models.CharField(max_length=4, blank=True)
 
     class Meta:
         verbose_name = "Evaluation Form"
