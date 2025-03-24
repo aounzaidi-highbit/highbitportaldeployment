@@ -272,6 +272,7 @@ class EvaluationFormModelAdmin(admin.ModelAdmin):
     ]
     list_filter = ["evaluation_for", TeamFilter, WeightedAverageFilter]
     search_fields = ["employee__employee_name", "employee__employee_id"]
+    readonly_fields = ("evaluation_date", "previous_month", "previous_year")
     actions = [send_evaluation_email, export_to_excel]
 
     def get_weighted_average(self, obj):
