@@ -169,33 +169,42 @@ def evaluation_view(request):
     )
     disabling_date = make_aware(disabling_date_naive)
 
+    # Calculate current evaluation period
+    previous_month_date = today - timedelta(days=today.day)
+    previous_month = previous_month_date.strftime("%B")
+    previous_year = previous_month_date.strftime("%Y")
+    evaluation_for = f"{previous_month} {previous_year}"
+
     if request.method == "POST" and employee_id:
         employee = get_object_or_404(Employee, employee_id=employee_id)
 
-        evaluation_instances = EvaluationFormModel.objects.filter(
-            employee=employee
-        ).order_by("-id")
+        # Check if an evaluation already exists for the current evaluation period
+        form_instance = EvaluationFormModel.objects.filter(
+            employee=employee,
+            previous_month=previous_month,
+            previous_year=previous_year
+        ).first()
 
-        form_instance = evaluation_instances.first()
-
-        if (
-            form_instance
-            and form_instance.evaluation_date.month != datetime.today().month
-        ):
-            form_instance = None
-
+        # If form_instance exists, we're editing, otherwise creating new
+        is_editing = form_instance is not None
         form = EvaluationForm(request.POST, instance=form_instance)
 
         if form.is_valid():
             evaluation = form.save(commit=False)
             evaluation.employee = employee
             evaluation.evaluated_by = request.user
+
+            # Ensure we set these values even when editing
+            if not is_editing:
+                evaluation.previous_month = previous_month
+                evaluation.previous_year = previous_year
+                evaluation.evaluation_for = evaluation_for
+
             evaluation.save()
             messages.success(
                 request, f"Form submitted successfully for employee {employee}!"
             )
             form_submitted = True
-            is_editing = True
             return redirect(reverse("evaluations"))
         else:
             if now() >= disabling_date:
@@ -212,7 +221,7 @@ def evaluation_view(request):
         employee = get_object_or_404(Employee, employee_id=employee_id)
 
         hb_exp_months = (today.year - employee.joining_date.year) * 12 + (
-            today.month - employee.joining_date.month
+                today.month - employee.joining_date.month
         )
 
         if hb_exp_months < 12:
@@ -260,11 +269,6 @@ def evaluation_view(request):
             previous_month=selected_month,
         ).order_by("-id")
 
-    previous_month_date = today - timedelta(days=today.day)
-    previous_month = previous_month_date.strftime("%B")
-    previous_year = previous_month_date.strftime("%Y")
-    evaluation_for = f"{previous_month} {previous_year}"
-
     return render(
         request,
         "evaluation_form.html",
@@ -283,7 +287,6 @@ def evaluation_view(request):
             "evaluation_for": evaluation_for,
         },
     )
-
 
 @login_required
 @roles_required("HR", "Super")
